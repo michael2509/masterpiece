@@ -1,8 +1,8 @@
 # masterpiece
 
-Application d'aide conférencier, destiner à faciliter la communication entre le conférencier et les spectateurs.
-Permet aux personnes qui n'ose pas poser de questions en public de les poser via l'application.
-Les questions sont classés par appréciation pour permettre au conférencié de sélectionner les questions les plus pertinentes.
+Application d'aide conférencier, destinée à faciliter la communication entre le conférencier et les spectateurs.
+Permet aux personnes qui n'osent pas poser de questions en public de les poser via l'application.
+Les questions sont classées par appréciation pour permettre au conférenciers de sélectionner les questions les plus pertinentes.
 Fonctionnalité de sondage en temps réel.
 
 
