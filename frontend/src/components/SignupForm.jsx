@@ -104,11 +104,11 @@ const ValidatedSignupForm = withFormik({
 
     validationSchema: Yup.object().shape({
         username: Yup.string()
-            .max(45, "Votre identifiant ne doit pas dépasser 50 characters")
+            .max(255, "Votre identifiant ne doit pas dépasser 255 characters")
             .required("Entrez votre identifiant"),
         password: Yup.string()
             .min(8, "Votre mot de passe doit contenir au moins 8 characters")
-            .max(45, "Votre mot de passe ne doit pas dépasser 50 characters")
+            .max(255, "Votre mot de passe ne doit pas dépasser 255 characters")
             .required("Entrez votre mot de passe"),
         confirmPassword: Yup.string()
             .required("Confirmez votre mot de passe")
