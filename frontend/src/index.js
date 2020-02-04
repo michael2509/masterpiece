@@ -7,6 +7,7 @@ import Navbar from './components/Navbar/Navbar';
 import SignupForm from './components/SignupForm/SignupForm';
 import LoginForm from './components/LoginForm/LoginForm';
 import './App.css';
+import { Footer } from './components/Footer/Footer';
 
 const Root = () => {
     return (
@@ -20,6 +21,7 @@ const Root = () => {
                         <Route exact path="/connexion" component={LoginForm} />
                     </Switch>
                 </main>
+                <Footer/>
             </div>
         </Router>
     )
