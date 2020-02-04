@@ -1,0 +1,22 @@
+.drawerLink {
+    text-decoration: none;
+    color: black;
+}
+
+.drawerLogo {
+    display: flex;
+}
+
+.drawerLogoTitle {
+    margin: auto !important;
+}
+
+.navbarLink {
+    text-decoration: none;
+    color: white;
+}
+
+.iconsColor {
+    fill: white;
+}
+
