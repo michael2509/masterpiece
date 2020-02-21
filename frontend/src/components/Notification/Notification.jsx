@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Notification = ({ message }) => {
+const Notification = ({ message, severity }) => {
   
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
@@ -36,7 +36,7 @@ const Notification = ({ message }) => {
   return (
     <div className={classes.root}>
       <Snackbar open={open} autoHideDuration={10000} onClose={handleClose}>
-        <Alert severity="error" onClose={handleClose}>
+        <Alert severity={severity} onClose={handleClose}>
           {message}
         </Alert>
       </Snackbar>

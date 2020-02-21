@@ -10,82 +10,89 @@ import Notification from '../Notification/Notification';
 import label from '../../configs/label';
 import errorType from '../../error-type/errorType';
 
-class signupForm extends React.Component {
+const signupForm = props => {
+    const {
+        values,
+        touched,
+        errors,
+        status,
+        handleChange,
+        handleBlur,
+        handleSubmit
+    } = props;
 
-    render() {
-        return (
-            <Grid
-                container
-                spacing={0}
-                direction="column"
-                alignItems="center"
-                justify="center"
-                style={{ minHeight: '100vh' }}
-            >
+    return (
+        <Grid
+            container
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            justify="center"
+            style={{ minHeight: '100vh' }}
+        >
 
-                <Grid item xs={10} md={5}>
-                    <div>
-                        <Typography variant="h3" component="h2">Créer votre compte</Typography>
-                        <form onSubmit={this.props.handleSubmit}>
-                            <TextField
-                                id="username"
-                                label={label.identifiant}
-                                value={this.props.values.username}
-                                onChange={this.props.handleChange}
-                                onBlur={this.props.handleBlur}
-                                helperText={this.props.touched.username ? this.props.errors.username : ""}
-                                error={this.props.touched.username && Boolean(this.props.errors.username)}
-                                margin="dense"
-                                fullWidth
-                            />
-                            <TextField
-                                id="email"
-                                label={label.email}
-                                value={this.props.values.email}
-                                onChange={this.props.handleChange}
-                                onBlur={this.props.handleBlur}
-                                helperText={this.props.touched.email ? this.props.errors.email : ""}
-                                error={this.props.touched.email && Boolean(this.props.errors.email)}
-                                margin="dense"
-                                fullWidth
-                            />
-                            <TextField
-                                id="password"
-                                label={label.mdp}
-                                type="password"
-                                value={this.props.values.password}
-                                onChange={this.props.handleChange}
-                                onBlur={this.props.handleBlur}
-                                helperText={this.props.touched.password ? this.props.errors.password : ""}
-                                error={this.props.touched.password && Boolean(this.props.errors.password)}
-                                margin="dense"
-                                fullWidth
-                            />
-                            <TextField
-                                id="confirmPassword"
-                                label={label.confirmationMdp}
-                                type="password"
-                                value={this.props.values.confirmPassword}
-                                onChange={this.props.handleChange}
-                                onBlur={this.props.handleBlur}
-                                helperText={this.props.touched.confirmPassword ? this.props.errors.confirmPassword : ""}
-                                error={this.props.touched.confirmPassword && Boolean(this.props.errors.confirmPassword)}
-                                margin="dense"
-                                fullWidth
-                            />
-                            <Button type="submit" variant="contained" color="primary" style={{ marginTop: 60 }} fullWidth>Créer</Button>
-                            {/* <CardActions>
-                                <Button type="submit" color="primary" disabled={isSubmitting}>Créer</Button>
-                                <Button color="secondary" onClick={handleReset}>Réinitialiser</Button>
-                            </CardActions> */}
-                        </form>
-                    </div>
-                </Grid>
-                {this.props.status ? <Notification message={this.props.status} /> : null}
+            <Grid item xs={10} md={5}>
+                <div>
+                    <Typography variant="h3" component="h2">Créer votre compte</Typography>
+                    <form onSubmit={handleSubmit}>
+                        <TextField
+                            id="username"
+                            label={label.identifiant}
+                            value={values.username}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            helperText={touched.username ? errors.username : ""}
+                            error={touched.username && Boolean(errors.username)}
+                            margin="dense"
+                            fullWidth
+                        />
+                        <TextField
+                            id="email"
+                            label={label.email}
+                            value={values.email}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            helperText={touched.email ? errors.email : ""}
+                            error={touched.email && Boolean(errors.email)}
+                            margin="dense"
+                            fullWidth
+                        />
+                        <TextField
+                            id="password"
+                            label={label.mdp}
+                            type="password"
+                            value={values.password}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            helperText={touched.password ? errors.password : ""}
+                            error={touched.password && Boolean(errors.password)}
+                            margin="dense"
+                            fullWidth
+                        />
+                        <TextField
+                            id="confirmPassword"
+                            label={label.confirmationMdp}
+                            type="password"
+                            value={values.confirmPassword}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            helperText={touched.confirmPassword ? errors.confirmPassword : ""}
+                            error={touched.confirmPassword && Boolean(errors.confirmPassword)}
+                            margin="dense"
+                            fullWidth
+                        />
+                        <Button type="submit" variant="contained" color="primary" style={{ marginTop: 60 }} fullWidth>Créer</Button>
+                        {/* <CardActions>
+                            <Button type="submit" color="primary" disabled={isSubmitting}>Créer</Button>
+                            <Button color="secondary" onClick={handleReset}>Réinitialiser</Button>
+                        </CardActions> */}
+                    </form>
+                </div>
             </Grid>
-        );
-    }
-};
+            {status ? <Notification message={status.message} severity={status.severity} /> : null}
+        </Grid>
+    );
+}
 
 const SignupForm = withFormik({
     mapPropsToValues: ({
@@ -116,17 +123,20 @@ const SignupForm = withFormik({
             .oneOf([Yup.ref("password")], "Le mot de passe ne correspond pas")
     }),
 
-    handleSubmit: (values, { resetForm, setStatus}) => {
+    handleSubmit: (values, { resetForm, setStatus }) => {
         delete values.confirmPassword;
         const user = JSON.stringify(values);
         console.log(user);
 
         axios.post('http://localhost:8081/users', user, { headers: { 'Content-Type': 'application/json' } })
-            .then(response => console.log(response))
+            .then(response => {
+                console.log(response);
+                setStatus({ message: "Compte crée avec succès !", severity: "success" });
+            })
             .catch(error => {
                 console.log(error.response);
                 const snackerr = errorType(error.response);
-                setStatus(snackerr);
+                setStatus({ message: snackerr, severity: "error" });
             });
         resetForm();
     }

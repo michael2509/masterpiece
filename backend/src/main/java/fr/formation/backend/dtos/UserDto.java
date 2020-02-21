@@ -1,11 +1,11 @@
 package fr.formation.backend.dtos;
 
+import fr.formation.backend.constraints.UniqueEmail;
 import fr.formation.backend.constraints.UniqueUsername;
 import fr.formation.backend.constraints.ValidPassword;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 public class UserDto {
 
@@ -14,6 +14,7 @@ public class UserDto {
     private String username;
 
     @Email
+    @UniqueEmail
     private String email;
 
     @ValidPassword

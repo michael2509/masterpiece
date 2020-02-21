@@ -1,6 +1,7 @@
 package fr.formation.backend.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -16,6 +17,12 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+    @ManyToMany
+    private Set<Role> roles;
+
+    @Column(nullable = false)
+    private boolean enabled;
 
     public User() {
     }
@@ -50,6 +57,22 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
 

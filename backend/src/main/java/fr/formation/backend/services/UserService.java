@@ -4,5 +4,5 @@ import fr.formation.backend.dtos.UserDto;
 
 public interface UserService {
 
-    String createAccount(UserDto userDto);
+    void createAccount(UserDto userDto);
 }
