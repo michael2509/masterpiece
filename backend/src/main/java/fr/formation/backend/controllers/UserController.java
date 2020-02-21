@@ -18,8 +18,7 @@ public class UserController {
     }
 
     @PostMapping
-    protected String createAccount(@Valid @RequestBody UserDto userDto) {
-        String msg = userService.createAccount(userDto);
-        return msg;
+    protected void createAccount(@Valid @RequestBody UserDto userDto) {
+        userService.createAccount(userDto);
     }
 }
