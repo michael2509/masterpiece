@@ -23,7 +23,7 @@ const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
     root: {
-        display: 'flex',
+        display: 'flex'
     },
     drawer: {
         [theme.breakpoints.up('md')]: {
@@ -73,8 +73,8 @@ function Navbar(props) {
             <Divider />
             <List>
                 {[
-                    { text: 'Inscription', icon: <PersonAddIcon /> },
-                    { text: 'Connexion', icon: <AccountCircleIcon /> }
+                    { text: 'inscription', icon: <PersonAddIcon /> },
+                    { text: 'connexion', icon: <AccountCircleIcon /> }
                 ].map(({ text, icon }) => (
                     <ListItem button key={text}>
                         <ListItemIcon>{icon}</ListItemIcon>
@@ -104,8 +104,8 @@ function Navbar(props) {
                         <div style={{ flexGrow: 1 }} />
                         <List style={{display: "flex"}}>
                             {[
-                                { text: 'Inscription', icon: <PersonAddIcon className="iconsColor" /> },
-                                { text: 'Connexion', icon: <AccountCircleIcon className="iconsColor" /> }
+                                { text: 'inscription', icon: <PersonAddIcon className="iconsColor" /> },
+                                { text: 'connexion', icon: <AccountCircleIcon className="iconsColor" /> }
                             ].map(({ text, icon }) => (
                                 <ListItem button key={text}>
                                     {/* <ListItemIcon>{icon}</ListItemIcon> */}

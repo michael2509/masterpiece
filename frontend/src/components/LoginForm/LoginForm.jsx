@@ -1,109 +1,100 @@
-import React from "react";
-import { withFormik } from "formik";
-import * as Yup from "yup";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import { Typography } from '@material-ui/core';
-import { Grid } from '@material-ui/core';
-import axios from 'axios';
+import React from 'react';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 
-const loginForm = props => {
-    const {
-        values,
-        touched,
-        errors,
-        handleChange,
-        handleBlur,
-        handleSubmit
-    } = props;
+const useStyles = makeStyles(theme => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
-    return (
-        <Grid
-            container
-            spacing={0}
-            direction="column"
-            alignItems="center"
-            justify="center"
-            style={{ minHeight: '100vh' }}
-        >
+export default function LoginForm() {
+  const classes = useStyles();
 
-            <Grid item xs={10} md={5}>
-                <div>
-                    <Typography variant="h3" component="h2">Connexion</Typography>
-                    <form onSubmit={handleSubmit}>
-                        <TextField style={{ marginTop: 30 }}
-                            id="username"
-                            label="Identifiant"
-                            value={values.username}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            helperText={touched.username ? errors.username : ""}
-                            error={touched.username && Boolean(errors.username)}
-                            margin="dense"
-                            fullWidth
-                        />
-                        <TextField style={{ marginTop: 30 }}
-                            id="password"
-                            label="Mot de Passe"
-                            type="password"
-                            value={values.password}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            helperText={touched.password ? errors.password : ""}
-                            error={touched.password && Boolean(errors.password)}
-                            margin="dense"
-                            fullWidth
-                        />
-                        <Button variant="contained" color="primary" style={{ marginTop: 80 }} fullWidth>Créer</Button>
-                        {/* <CardActions>
-                                <Button type="submit" color="primary" disabled={isSubmitting}>Créer</Button>
-                                <Button color="secondary" onClick={handleReset}>Réinitialiser</Button>
-                            </CardActions> */}
-                    </form>
-                </div>
+  return (
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Se Connecter
+        </Typography>
+        <form className={classes.form} noValidate>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+          />
+          <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}
+            label="Remember me"
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Connexion
+          </Button>
+          <Grid container>
+            <Grid item xs>
+              <Link href="#" variant="body2">
+                Forgot password?
+              </Link>
             </Grid>
-        </Grid>
-    );
-};
-
-const LoginForm = withFormik({
-    mapPropsToValues: ({
-        username,
-        password
-    }) => {
-        return {
-            username: username || "",
-            password: password || "",
-        };
-    },
-
-    validationSchema: Yup.object().shape({
-        username: Yup.string()
-            .required("Entrez votre identifiant"),
-        password: Yup.string()
-            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
-                <div>
-                    <p>Votre mot de passe doit contenir :</p>
-                    <ul>
-                        <li>8 caractères minimum</li>
-                        <li>1 lettre minuscule</li>
-                        <li>1 lettre majuscule</li>
-                        <li>1 chiffre minimum</li>
-                        <li>1 caractère spécial minimum</li>
-                    </ul>
-                </div>)
-            .required("Entrez votre mot de passe"),
-    }),
-
-    handleSubmit: (values, { resetForm }) => {
-        const user = JSON.stringify(values);
-        console.log(user);
-
-        axios.post('http://localhost:8081/users', user, { headers: { 'Content-Type': 'application/json' } })
-            .then(response => console.log(response))
-            .catch(error => console.log(error));
-        resetForm();
-    }
-})(loginForm);
-
-export default LoginForm;
+            <Grid item>
+              <Link href="/inscription" variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
+        </form>
+      </div>
+    </Container>
+  );
+}
