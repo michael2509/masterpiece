@@ -4,10 +4,16 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "users", uniqueConstraints = @UniqueConstraint(
-        name = "users_username_email_UQ",
-        columnNames = {"username", "email"}
-))
+@Table(name = "users", uniqueConstraints = {
+        @UniqueConstraint(
+                name = "users_username_UQ",
+                columnNames = {"username"}
+        ),
+        @UniqueConstraint(
+                name = "users_email_UQ",
+                columnNames = {"email"}
+        )
+})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

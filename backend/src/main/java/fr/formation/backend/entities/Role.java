@@ -3,10 +3,12 @@ package fr.formation.backend.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "roles", uniqueConstraints = @UniqueConstraint(
-        name = "roles_code_UQ",
-        columnNames = "code"
-))
+@Table(name = "roles", uniqueConstraints = {
+        @UniqueConstraint(
+                name = "roles_code_UQ",
+                columnNames = "code"
+        )
+})
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
