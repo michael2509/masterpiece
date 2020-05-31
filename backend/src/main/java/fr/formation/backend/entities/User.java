@@ -4,25 +4,39 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Table(name = "users", uniqueConstraints = @UniqueConstraint(
+        name = "users_username_email_UQ",
+        columnNames = {"username", "email"}
+))
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String username;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String email;
 
     @Column(nullable = false)
     private String password;
 
     @ManyToMany
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id", nullable = false),
+            foreignKey = @ForeignKey(name = "users_roles_user_id_FK"),
+            inverseJoinColumns = @JoinColumn(name = "roles_id", nullable = false),
+            inverseForeignKey = @ForeignKey(name = "users_roles_roles_id_FK"),
+            indexes = {
+                    @Index(name = "users_roles_user_id_IDX", columnList = "user_id"),
+                    @Index(name = "users_roles_roles_id_IDX", columnList = "roles_id")
+            }
+    )
     private Set<Role> roles;
 
     @Column(nullable = false)
-    private boolean enabled;
+    private boolean enabled = true;
 
     public User() {
     }
