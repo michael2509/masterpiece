@@ -5,6 +5,8 @@ import fr.formation.backend.entities.Role;
 import fr.formation.backend.entities.User;
 import fr.formation.backend.repositories.RoleRepository;
 import fr.formation.backend.repositories.UserRepository;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -13,18 +15,16 @@ import java.util.Set;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-    }
+    @Override
+    public void createAccount(UserDto userDto) {
 
-    private void populateAndSave(UserDto userDto, User user) {
-        user.setUsername(userDto.getUsername());
-        user.setEmail(userDto.getEmail());
-        user.setPassword(userDto.getPassword());
+        ModelMapper modelMapper = new ModelMapper();
+        User user = modelMapper.map(userDto, User.class);
 
         Role defaultRole = roleRepository.findByDefaultRole(true);
         Set<Role> roles = new HashSet();
@@ -32,11 +32,5 @@ public class UserServiceImpl implements UserService {
         user.setRoles(roles);
 
         userRepository.save(user);
-    }
-
-    @Override
-    public void createAccount(UserDto userDto) {
-        User user = new User();
-        populateAndSave(userDto, user);
     }
 }
