@@ -5,36 +5,36 @@ import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 
 function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+    return (
+        <Typography variant="body2" color="textSecondary">
+            {'Copyright © '}
+            <Link color="inherit" href="https://material-ui.com/">
+                Your Website
       </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
+            {new Date().getFullYear()}
+            {'.'}
+        </Typography>
+    );
 }
 
 const useStyles = makeStyles(theme => ({
-  footer: {
-    padding: theme.spacing(3, 2),
-    marginTop: 100,
-    backgroundColor:
-      theme.palette.type === 'dark' ? theme.palette.grey[800] : theme.palette.grey[200],
-  },
+    footer: {
+        textAlign: "center",
+        padding: theme.spacing(3, 2),
+        backgroundColor:
+            theme.palette.type === 'dark' ? theme.palette.grey[800] : theme.palette.grey[200],
+    },
 }));
 
 export default function StickyFooter() {
-  const classes = useStyles();
+    const classes = useStyles();
 
-  return (
-      <footer className={classes.footer}>
-        <Container maxWidth="sm">
-          <Typography variant="body1">My sticky footer can be found here.</Typography>
-          <Copyright />
-        </Container>
-      </footer>
-  );
+    return (
+        <footer className={classes.footer}>
+            <Container maxWidth="sm">
+                <Typography variant="body1">My sticky footer can be found here.</Typography>
+                <Copyright />
+            </Container>
+        </footer>
+    );
 }

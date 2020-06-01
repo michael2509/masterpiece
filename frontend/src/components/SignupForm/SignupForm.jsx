@@ -17,6 +17,7 @@ import { withTheme } from '@material-ui/core/styles';
 import Notification from '../Notification/Notification';
 import { Card, CardContent } from '@material-ui/core';
 import zenasklogo from '../../assets/img/zenask-logo.png';
+import { Link as RouterLink } from 'react-router-dom';
 
 const signupFormChild = props => {
     const {
@@ -73,14 +74,18 @@ const signupFormChild = props => {
             <Container component="main" maxWidth="xs" className="auth-container">
                 <CssBaseline />
                 <div style={classes.paper}>
-                    <img style={classes.zenaskLogo} src={zenasklogo} alt="Zenask logo" />
+                    <RouterLink to={"/"}>
+                        <Link component="span">
+                            <img style={classes.zenaskLogo} src={zenasklogo} alt="Zenask logo" />
+                        </Link>
+                    </RouterLink>
                     <Card style={classes.card}>
                         <CardContent style={classes.cardContent}>
-                        <Avatar style={classes.avatar}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography style={classes.title} component="h1" variant="h5">
-                        Inscription
+                            <Avatar style={classes.avatar}>
+                                <LockOutlinedIcon />
+                            </Avatar>
+                            <Typography style={classes.title} component="h1" variant="h5">
+                                Inscription
                     </Typography>
                             <form style={classes.form} onSubmit={handleSubmit} noValidate>
                                 <TextField
@@ -151,20 +156,12 @@ const signupFormChild = props => {
                                 >
                                     S'inscrire
                                 </Button>
-                                <Grid container>
-                                    {/* <Grid item xs>
-                                        <Link href="#" variant="body2">
-                                            Forgot password?
-                                        </Link>
-                                    </Grid> */}
-                                    <Grid item>
-                                        <Link href="/connexion" variant="body2">
-                                            Vous avez déjà un compte? Connectez-vous
-                                        </Link>
-                                    </Grid>
-                                    {status ? <Notification message={status.message} severity={status.severity} /> : null}
-                                </Grid>
+
+                                {status ? <Notification message={status.message} severity={status.severity} /> : null}
                             </form>
+                            <RouterLink to={"/connexion"}>
+                                <Link component="span" variant="body2">Vous avez déjà un compte? Connectez-vous</Link>
+                            </RouterLink>
                         </CardContent>
                     </Card>
                 </div>

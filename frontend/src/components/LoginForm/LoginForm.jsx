@@ -3,7 +3,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
@@ -11,6 +10,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Card, CardContent } from '@material-ui/core';
 import zenasklogo from '../../assets/img/zenask-logo.png';
+import Link from '@material-ui/core/Link';
+import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -57,7 +58,11 @@ export default function LoginForm() {
             <Container component="main" maxWidth="xs" className="auth-container">
                 <CssBaseline />
                 <div className={classes.paper}>
-                    <img className={classes.zenaskLogo} src={zenasklogo} alt="Zenask logo" />
+                    <RouterLink to={"/"}>
+                        <Link component="span">
+                            <img className={classes.zenaskLogo} src={zenasklogo} alt="Zenask logo" />
+                        </Link>
+                    </RouterLink>
                     <Card className={classes.card}>
                         <CardContent className={classes.cardContent}>
                             <Avatar className={classes.avatar}>
@@ -104,19 +109,10 @@ export default function LoginForm() {
                                 >
                                     Connexion
           </Button>
-                                <Grid container>
-                                    {/* <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid> */}
-                                    <Grid item>
-                                        <Link href="/inscription" variant="body2">
-                                            {"Pas de compte ? Inscrivez vous"}
-                                        </Link>
-                                    </Grid>
-                                </Grid>
                             </form>
+                            <RouterLink to={"/inscription"}>
+                                <Link component="span" variant="body2">Pas de compte ? Inscrivez vous</Link>
+                            </RouterLink>
                         </CardContent>
                     </Card>
                 </div>

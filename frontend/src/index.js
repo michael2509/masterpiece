@@ -11,12 +11,13 @@ import Footer from './components/Footer/Footer';
 const DefaultRoot = () => (
     <div>
         <Navbar />
-        <Route exact path="/" component={Footer} />
+        <h1 style={{ marginTop: 150, textAlign: "center" }}>Page d'accueil</h1>
     </div>
 )
 
 
 const Root = () => (
+    <div>
     <Router>
         <Switch>
             <Route exact path="/inscription" component={SignupForm} />
@@ -24,6 +25,8 @@ const Root = () => (
             <Route path="/" component={DefaultRoot} />
         </Switch>
     </Router>
+    <Footer />
+    </div>
 )
 
 ReactDOM.render(<Root />, document.getElementById('root'));
