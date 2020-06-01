@@ -6,26 +6,25 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import SignupForm from './components/SignupForm/SignupForm';
 import LoginForm from './components/LoginForm/LoginForm';
-import './App.css';
 import Footer from './components/Footer/Footer';
 
-const Root = () => {
-    return (
-        <Router>
-            <div className="App">
-                <Navbar />
-                <main style={{ paddingTop: 100, minHeight: "100vh" }} >
-                    <Switch>
-                        <Route exact path="/" component={SignupForm} />
-                        <Route exact path="/inscription" component={SignupForm} />
-                        <Route exact path="/connexion" component={LoginForm} />
-                    </Switch>
-                </main>
-                <Footer />
-            </div>
-        </Router>
-    )
-}
+const DefaultRoot = () => (
+    <div>
+        <Navbar />
+        <Route exact path="/" component={Footer} />
+    </div>
+)
+
+
+const Root = () => (
+    <Router>
+        <Switch>
+            <Route exact path="/inscription" component={SignupForm} />
+            <Route exact path="/connexion" component={LoginForm} />
+            <Route path="/" component={DefaultRoot} />
+        </Switch>
+    </Router>
+)
 
 ReactDOM.render(<Root />, document.getElementById('root'));
 
