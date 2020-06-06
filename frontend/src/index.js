@@ -7,11 +7,13 @@ import Navbar from './components/Navbar/Navbar';
 import SignupForm from './components/SignupForm/SignupForm';
 import LoginForm from './components/LoginForm/LoginForm';
 import Footer from './components/Footer/Footer';
+import Home from './components/Home/Home';
 
-const DefaultRoot = () => (
+const RoutesWithNavbar = () => (
     <div>
         <Navbar />
-        <h1 style={{ marginTop: 150, textAlign: "center" }}>Page d'accueil</h1>
+        <div style={{ marginTop: 150 }}></div>
+        <Route path="/" component={Home} />
     </div>
 )
 
@@ -22,7 +24,7 @@ const Root = () => (
         <Switch>
             <Route exact path="/inscription" component={SignupForm} />
             <Route exact path="/connexion" component={LoginForm} />
-            <Route path="/" component={DefaultRoot} />
+            <Route path="/" component={RoutesWithNavbar} />
         </Switch>
     </Router>
     <Footer />
