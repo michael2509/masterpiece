@@ -16,26 +16,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Notification = ({ message, severity }) => {
+const Notification = ({ open, handleClose, message, severity }) => {
   
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
-
-  // const handleClick = () => {
-  //   setOpen(true);
-  // };
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };
 
   return (
     <div className={classes.root}>
-      <Snackbar open={open} autoHideDuration={10000} onClose={handleClose}>
+      <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
         <Alert severity={severity} onClose={handleClose}>
           {message}
         </Alert>

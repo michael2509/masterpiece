@@ -10,20 +10,16 @@ import Container from '@material-ui/core/Container';
 import label from '../../configs/label';
 import { withFormik } from "formik";
 import * as Yup from "yup";
-import axios from 'axios';
-import errorType from '../../error-type/errorType';
 import { withTheme } from '@material-ui/core/styles';
-import Notification from '../Notification/Notification';
 import { Card, CardContent } from '@material-ui/core';
 import zenasklogo from '../../assets/img/zenask-logo.png';
 import { Link as RouterLink } from 'react-router-dom';
 
-const signupFormChild = props => {
+const signUpFormChild = props => {
     const {
         values,
         touched,
         errors,
-        status,
         handleChange,
         handleBlur,
         handleSubmit,
@@ -156,7 +152,6 @@ const signupFormChild = props => {
                                     S'inscrire
                                 </Button>
 
-                                {status ? <Notification message={status.message} severity={status.severity} /> : null}
                             </form>
                             <RouterLink to={"/connexion"}>
                                 <Link component="span" variant="body2">Vous avez déjà un compte? Connectez-vous</Link>
@@ -169,9 +164,9 @@ const signupFormChild = props => {
     );
 }
 
-const signupForm = withTheme(signupFormChild);
+const signUpForm = withTheme(signUpFormChild);
 
-const SignupForm = withFormik({
+const SignUpForm = withFormik({
     mapPropsToValues: ({
         username,
         email,
@@ -200,25 +195,18 @@ const SignupForm = withFormik({
             .oneOf([Yup.ref("password")], "Le mot de passe ne correspond pas")
     }),
 
-    handleSubmit: (values, { resetForm, setStatus }) => {
+    handleSubmit: (values, { props, resetForm }) => {
         
         const user = Object.assign({}, values)
         delete user.confirmPassword
-        const userJson = JSON.stringify(values);
-        console.log(userJson);
+        
+        props.createAccount(user).then(reqStatus => {
+            if (reqStatus === "success") {
+                resetForm()
+            }
+        })
 
-        axios.post('http://localhost:8081/users', userJson, { headers: { 'Content-Type': 'application/json' } })
-            .then(response => {
-                console.log(response);
-                setStatus({ message: "Compte crée avec succès !", severity: "success" });
-                resetForm();
-            })
-            .catch(error => {
-                console.log(error.response);
-                const snackerr = errorType(error.response);
-                setStatus({ message: snackerr, severity: "error" });
-            });
     }
-})(signupForm);
+})(signUpForm);
 
-export default SignupForm;
+export default SignUpForm;
