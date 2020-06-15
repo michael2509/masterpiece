@@ -11,8 +11,7 @@ class SignUpFormContainer extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if(this.props.signUp.date !== prevProps.signUp.date) // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
-        {
+        if(this.props.signUp.date !== prevProps.signUp.date) {
             this.setState({ open: true })
         }
       } 
@@ -27,13 +26,13 @@ class SignUpFormContainer extends Component {
 
     render() {
         const { createAccount } = this.props;
-        const { message, status } =this.props.signUp;
+        const { message, severity } = this.props.signUp;
         const { open } = this.state;
 
         return (
             <div>
                 <SignUpForm createAccount={createAccount} />
-                <Notification open={open} handleClose={() => this.handleClose()} message={message} severity={status} />
+                <Notification open={open} handleClose={() => this.handleClose()} message={message} severity={severity} />
             </div>
         )
     }

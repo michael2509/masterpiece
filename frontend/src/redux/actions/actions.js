@@ -5,7 +5,7 @@ import errorType from "../../error-type/errorType";
 export function accountCreationSuccess() {
     return {
         type: ACCOUNT_CREATION_SUCCESS,
-        status: "success",
+        severity: "success",
         message: "Compte créer avec succès",
         date: Date.now()
     }
@@ -14,7 +14,7 @@ export function accountCreationSuccess() {
 export function accountCreationError(errorMessage) {
     return {
         type: ACCOUNT_CREATION_ERROR,
-        status: "error",
+        severity: "error",
         message: errorMessage,
         date: Date.now()
     }

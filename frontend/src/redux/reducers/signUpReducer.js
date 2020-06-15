@@ -5,13 +5,13 @@ export function signUpReducer(state = {}, action) {
     switch (action.type) {
         case ACCOUNT_CREATION_SUCCESS:
             return Object.assign({}, state, {
-                status: action.status,
+                severity: action.severity,
                 message: action.message,
                 date: action.date
             })
         case ACCOUNT_CREATION_ERROR:
             return Object.assign({}, state, {
-                status: action.status,
+                severity: action.severity,
                 message: action.message,
                 date: action.date
             })
