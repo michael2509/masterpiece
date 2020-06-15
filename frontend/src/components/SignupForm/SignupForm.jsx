@@ -201,21 +201,23 @@ const SignupForm = withFormik({
     }),
 
     handleSubmit: (values, { resetForm, setStatus }) => {
-        delete values.confirmPassword;
-        const user = JSON.stringify(values);
-        console.log(user);
+        
+        const user = Object.assign({}, values)
+        delete user.confirmPassword
+        const userJson = JSON.stringify(values);
+        console.log(userJson);
 
-        axios.post('http://localhost:8081/users', user, { headers: { 'Content-Type': 'application/json' } })
+        axios.post('http://localhost:8081/users', userJson, { headers: { 'Content-Type': 'application/json' } })
             .then(response => {
                 console.log(response);
                 setStatus({ message: "Compte crée avec succès !", severity: "success" });
+                resetForm();
             })
             .catch(error => {
                 console.log(error.response);
                 const snackerr = errorType(error.response);
                 setStatus({ message: snackerr, severity: "error" });
             });
-        resetForm();
     }
 })(signupForm);
 
