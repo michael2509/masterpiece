@@ -16,15 +16,25 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Notification = ({ open, handleClose, message, severity }) => {
+const Notification = ({ open, handleClose, messages, severity }) => {
   
   const classes = useStyles();
 
+  let msghtml = ""
+
+  if (messages.length === 1) {
+      msghtml = messages[0]
+  } else {
+      msghtml = messages.map(message => (
+          <span>- {message}</span>
+      ))
+  }
+
   return (
     <div className={classes.root}>
-      <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+      <Snackbar open={open} autoHideDuration={20000} onClose={handleClose}>
         <Alert severity={severity} onClose={handleClose}>
-          {message}
+            {msghtml}
         </Alert>
       </Snackbar>
     </div>

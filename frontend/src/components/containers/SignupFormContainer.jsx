@@ -26,13 +26,13 @@ class SignUpFormContainer extends Component {
 
     render() {
         const { createAccount } = this.props;
-        const { message, severity } = this.props.signUp;
+        const { messages, severity } = this.props.signUp;
         const { open } = this.state;
 
         return (
             <div>
                 <SignUpForm createAccount={createAccount} />
-                <Notification open={open} handleClose={() => this.handleClose()} message={message} severity={severity} />
+                <Notification open={open} handleClose={() => this.handleClose()} messages={messages} severity={severity} />
             </div>
         )
     }

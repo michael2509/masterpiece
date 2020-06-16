@@ -28,3 +28,7 @@ code {
     padding: 0;
     overflow: hidden;
 }
+
+.MuiAlert-icon {
+    margin: auto
+}

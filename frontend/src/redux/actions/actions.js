@@ -6,16 +6,16 @@ export function accountCreationSuccess() {
     return {
         type: ACCOUNT_CREATION_SUCCESS,
         severity: "success",
-        message: "Compte créer avec succès",
+        messages: ["Compte créé avec succès"],
         date: Date.now()
     }
 }
 
-export function accountCreationError(errorMessage) {
+export function accountCreationError(errorMessages) {
     return {
         type: ACCOUNT_CREATION_ERROR,
         severity: "error",
-        message: errorMessage,
+        messages: errorMessages,
         date: Date.now()
     }
 }
@@ -32,8 +32,8 @@ export function createAccount(user) {
             return "success"
         }
         catch (error) {
-            const errorMessage = errorType(error.response)
-            dispatch(accountCreationError(errorMessage))
+            const errorMessages = errorType(error.response)
+            dispatch(accountCreationError(errorMessages))
             return "error"
         }
     }
