@@ -25,8 +25,8 @@ const Notification = ({ open, handleClose, messages, severity }) => {
   if (messages.length === 1) {
       msghtml = messages[0]
   } else {
-      msghtml = messages.map(message => (
-          <span>- {message}</span>
+      msghtml = messages.map((message, index) => (
+          <span key={index}>- {message}</span>
       ))
   }
 
