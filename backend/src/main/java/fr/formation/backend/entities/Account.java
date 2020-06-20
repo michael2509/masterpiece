@@ -1,20 +1,15 @@
 package fr.formation.backend.entities;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
-@Table(name = "users", uniqueConstraints = {
-        @UniqueConstraint(
-                name = "users_username_UQ",
-                columnNames = {"username"}
-        ),
-        @UniqueConstraint(
-                name = "users_email_UQ",
-                columnNames = {"email"}
-        )
+@Table(name = "accounts", uniqueConstraints = {
+        @UniqueConstraint(name = "accounts_username_UQ", columnNames = {"username"}),
+        @UniqueConstraint(name = "accounts_email_UQ", columnNames = {"email"})
+},indexes = {
+        @Index(name = "accounts_role_id_IDX", columnList = "role_id")
 })
-public class User {
+public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,23 +23,14 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @ManyToMany
-    @JoinTable(name = "users_roles",
-            joinColumns = @JoinColumn(name = "user_id", nullable = false),
-            foreignKey = @ForeignKey(name = "users_roles_user_id_FK"),
-            inverseJoinColumns = @JoinColumn(name = "roles_id", nullable = false),
-            inverseForeignKey = @ForeignKey(name = "users_roles_roles_id_FK"),
-            indexes = {
-                    @Index(name = "users_roles_user_id_IDX", columnList = "user_id"),
-                    @Index(name = "users_roles_roles_id_IDX", columnList = "roles_id")
-            }
-    )
-    private Set<Role> roles;
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false, foreignKey = @ForeignKey(name = "accounts_role_id_FK"))
+    private Role role;
 
     @Column(nullable = false)
     private boolean enabled = true;
 
-    public User() {
+    public Account() {
     }
 
     public Long getId() {
@@ -87,12 +73,12 @@ public class User {
         this.enabled = enabled;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
 

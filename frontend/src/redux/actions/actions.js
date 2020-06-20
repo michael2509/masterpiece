@@ -20,14 +20,14 @@ export function accountCreationError(errorMessages) {
     }
 }
 
-export function createAccount(user) {
+export function createAccount(account) {
     
     return async (dispatch) => {
         
-        const userJson = JSON.stringify(user);
+        const accountJson = JSON.stringify(account);
         
         try {
-            await axios.post('http://localhost:8081/users', userJson, { headers: { 'Content-Type': 'application/json' } })
+            await axios.post('http://localhost:8081/accounts', accountJson, { headers: { 'Content-Type': 'application/json' } })
             dispatch(accountCreationSuccess())
             return "success"
         }

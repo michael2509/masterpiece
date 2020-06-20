@@ -7,7 +7,7 @@ import fr.formation.backend.constraints.ValidPassword;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
-public class UserDto {
+public class AccountDto {
 
     @NotNull
     @UniqueUsername
@@ -20,7 +20,7 @@ public class UserDto {
     @ValidPassword
     private String password;
 
-    public UserDto() {
+    public AccountDto() {
     }
 
     public String getUsername() {

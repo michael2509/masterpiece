@@ -42,6 +42,6 @@ class SignUpFormContainer extends Component {
 
 
 const mapStateToProps = (state) => ({ signUp: state.signUp });
-const mapDispatchToProps = (dispatch) => ({ createAccount: (user) => dispatch(createAccount(user)) });
+const mapDispatchToProps = (dispatch) => ({ createAccount: (account) => dispatch(createAccount(account)) });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpFormContainer)
