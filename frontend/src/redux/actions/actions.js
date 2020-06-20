@@ -32,7 +32,10 @@ export function createAccount(account) {
             return "success"
         }
         catch (error) {
-            const errorMessages = errorType(error.response)
+            let errorMessages;
+
+            error.response ? errorMessages = errorType(error.response) : errorMessages = ["Erreur de connexion au serveur"]
+            
             dispatch(accountCreationError(errorMessages))
             return "error"
         }
