@@ -1,6 +1,6 @@
-import { ACCOUNT_CREATION_SUCCESS, ACCOUNT_CREATION_ERROR } from './actionTypes.js';
+import { ACCOUNT_CREATION_SUCCESS, ACCOUNT_CREATION_ERROR } from './signUpActionTypes.js';
 import axios from 'axios';
-import errorType from "../../error-type/errorType";
+import errorType from "../list-server-errors/listServerErrors";
 
 export function accountCreationSuccess() {
     return {

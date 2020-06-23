@@ -1,4 +1,4 @@
-import { ACCOUNT_CREATION_SUCCESS, ACCOUNT_CREATION_ERROR } from "../actions/actionTypes";
+import { ACCOUNT_CREATION_SUCCESS, ACCOUNT_CREATION_ERROR } from "./signUpActionTypes";
 
 export function signUpReducer(state = {messages: []}, action) {
     

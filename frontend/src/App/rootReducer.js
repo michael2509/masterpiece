@@ -1,4 +1,4 @@
-import { signUpReducer } from "./signUpReducer";
+import { signUpReducer } from "../SignUp/signUpReducer";
 
 export function rootReducer(state = {}, action) {
     return {

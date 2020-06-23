@@ -1,4 +1,4 @@
-const errorType = (error) => {
+const listServerErrors = (error) => {
     const status = error.status;
     const messages = [];
 
@@ -19,4 +19,4 @@ const errorType = (error) => {
     return messages;
 }
 
-export default errorType;
+export default listServerErrors;
