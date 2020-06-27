@@ -1,6 +1,6 @@
 import { ACCOUNT_CREATION_SUCCESS, ACCOUNT_CREATION_ERROR } from './signUpActionTypes.js';
 import axios from 'axios';
-import errorType from "../global/functions/list-server-errors/listServerErrors";
+import listServerErrors from "../global/functions/list-server-errors/listServerErrors";
 
 export function accountCreationSuccess() {
     return {
@@ -34,7 +34,7 @@ export function createAccount(account) {
         catch (error) {
             let errorMessages;
 
-            error.response ? errorMessages = errorType(error.response) : errorMessages = ["Erreur de connexion au serveur"]
+            error.response ? errorMessages = listServerErrors(error.response) : errorMessages = ["Erreur de connexion au serveur"]
             
             dispatch(accountCreationError(errorMessages))
             return "error"

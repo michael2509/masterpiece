@@ -7,6 +7,7 @@ import Home from '../Home/Home';
 import { Provider } from 'react-redux';
 import configureStore from './configure-store';
 import SignupFormContainer from '../SignUp/SignupFormContainer';
+import NotificationContainer from '../Notification/NotificationContainer';
 
 const store = configureStore();
 
@@ -27,6 +28,7 @@ const App = () => (
                 <Route path="/" component={RoutesWithNavbar} />
             </Switch>
         </Router>
+        <NotificationContainer />
         <Footer />
     </Provider>
 )

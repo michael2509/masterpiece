@@ -1,7 +1,7 @@
-import { signUpReducer } from "../SignUp/signUpReducer";
+import { notificationReducer } from "../Notification/notificationReducer";
 
 export function rootReducer(state = {}, action) {
     return {
-        signUp: signUpReducer(state.signUp, action)
+        notification: notificationReducer(state.notification, action)
     }
 }

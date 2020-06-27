@@ -1,6 +1,6 @@
-import { ACCOUNT_CREATION_SUCCESS, ACCOUNT_CREATION_ERROR } from "./signUpActionTypes";
+import { ACCOUNT_CREATION_SUCCESS, ACCOUNT_CREATION_ERROR } from "../SignUp/signUpActionTypes";
 
-export function signUpReducer(state = {messages: []}, action) {
+export function notificationReducer(state = {messages: []}, action) {
     
     switch (action.type) {
         case ACCOUNT_CREATION_SUCCESS:
