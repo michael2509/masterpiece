@@ -19,7 +19,7 @@ code {
 }
 
 .auth-bg {
-    background-image: url("./assets/img/auth-bg.jpg");
+    background-image: url("./global/assets/img/auth-bg.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
