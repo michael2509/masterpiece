@@ -75,11 +75,13 @@ function Navbar(props) {
                 {[
                     { text: 'inscription', icon: <PersonAddIcon /> },
                     { text: 'connexion', icon: <AccountCircleIcon /> }
-                ].map(({ text, icon }) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{icon}</ListItemIcon>
-                        <Link to={`/${text}`} className="drawerLink"><ListItemText primary={text} /></Link>
-                    </ListItem>
+                ].map(({ text, icon }, index) => (
+                    <Link to={`/${text}`} className="drawerLink" key={index}>
+                        <ListItem button>
+                                <ListItemIcon>{icon}</ListItemIcon>
+                                <ListItemText primary={text} />
+                        </ListItem>
+                    </Link>
                 ))}
             </List>
         </div>
