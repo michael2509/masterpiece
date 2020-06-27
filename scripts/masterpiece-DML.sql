@@ -23,8 +23,8 @@ VALUES
 -- insert roles
 INSERT INTO roles (code, default_role)
 VALUES
-("admin", 1),
-("animator", 0);
+("admin", 0),
+("animator", 1);
 
 
 -- get account_id for mike and bill account

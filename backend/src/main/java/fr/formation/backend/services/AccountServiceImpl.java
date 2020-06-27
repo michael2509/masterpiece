@@ -35,7 +35,7 @@ public class AccountServiceImpl implements AccountService {
         account.setPassword(passwordEncoder.encode(password));
 
         // Add default role to user
-        Role defaultRole = roleRepository.findByDefaultRole(true);
+        Role defaultRole = roleRepository.findByDefaultRoleTrue();
         Set<Role> roles = new HashSet<Role>();
         roles.add(defaultRole);
         account.setRoles(roles);
