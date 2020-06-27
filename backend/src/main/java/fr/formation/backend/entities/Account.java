@@ -1,13 +1,12 @@
 package fr.formation.backend.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "accounts", uniqueConstraints = {
         @UniqueConstraint(name = "accounts_username_UQ", columnNames = {"username"}),
         @UniqueConstraint(name = "accounts_email_UQ", columnNames = {"email"})
-},indexes = {
-        @Index(name = "accounts_role_id_IDX", columnList = "role_id")
 })
 public class Account {
     @Id
@@ -23,9 +22,24 @@ public class Account {
     @Column(nullable = false)
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id", nullable = false, foreignKey = @ForeignKey(name = "accounts_role_id_FK"))
-    private Role role;
+    @ManyToMany
+    @JoinTable(name = "accounts_roles",
+            joinColumns = @JoinColumn(name = "account_id", nullable = false),
+            foreignKey = @ForeignKey(name = "accounts_roles_account_id_FK"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false),
+            inverseForeignKey = @ForeignKey(name = "accounts_roles_role_id_FK"),
+            indexes = {
+                @Index(name = "accounts_roles_account_id_IDX", columnList = "account_id"),
+                @Index(name = "accounts_roles_role_id_IDX", columnList = "role_id")
+            },
+            uniqueConstraints = {
+                @UniqueConstraint(
+                    name = "accounts_roles_account_id_role_id_UQ",
+                    columnNames = {"account_id", "role_id"}
+                )
+            }
+    )
+    private Set<Role> roles;
 
     @Column(nullable = false)
     private boolean enabled = true;
@@ -73,12 +87,12 @@ public class Account {
         this.enabled = enabled;
     }
 
-    public Role getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
 
