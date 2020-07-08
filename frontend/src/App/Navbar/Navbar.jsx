@@ -12,6 +12,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import EventIcon from '@material-ui/icons/Event';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -73,13 +74,14 @@ function Navbar(props) {
             <Divider />
             <List>
                 {[
-                    { text: 'inscription', icon: <PersonAddIcon /> },
-                    { text: 'connexion', icon: <AccountCircleIcon /> }
-                ].map(({ text, icon }, index) => (
-                    <Link to={`/${text}`} className="drawerLink" key={index}>
+                    { title: 'inscription', path: '/inscription', icon: <PersonAddIcon /> },
+                    { title: 'connexion', path: '/connexion', icon: <AccountCircleIcon /> },
+                    { title: 'évènements', path: '/evenements', icon: <EventIcon /> },
+                ].map(({ title, path, icon }, index) => (
+                    <Link to={path} className="drawerLink" key={index}>
                         <ListItem button>
                                 <ListItemIcon>{icon}</ListItemIcon>
-                                <ListItemText primary={text} />
+                                <ListItemText primary={title} />
                         </ListItem>
                     </Link>
                 ))}
@@ -104,15 +106,17 @@ function Navbar(props) {
                     <Typography variant="h6" noWrap>AppBar</Typography>
                     <Hidden smDown>
                         <div style={{ flexGrow: 1 }} />
-                        <List style={{display: "flex"}}>
+                        <List style={{ display: "flex" }}>
                             {[
-                                { text: 'inscription', icon: <PersonAddIcon className="iconsColor" /> },
-                                { text: 'connexion', icon: <AccountCircleIcon className="iconsColor" /> }
-                            ].map(({ text, icon }) => (
-                                <ListItem button key={text}>
-                                    {/* <ListItemIcon>{icon}</ListItemIcon> */}
-                                    <Link to={`/${text}`} className="navbarLink"><ListItemText primary={text} /></Link>
-                                </ListItem>
+                                { title: 'inscription', path: '/inscription' },
+                                { title: 'connexion', path: '/connexion' },
+                                { title: 'évènements', path: '/evenements' }
+                            ].map(({ title, path }, index) => (
+                                <Link to={path} className="navbarLink" key={index}>
+                                    <ListItem button>
+                                        <ListItemText primary={title} />
+                                    </ListItem>
+                                </Link>
                             ))}
                         </List>
                     </Hidden>

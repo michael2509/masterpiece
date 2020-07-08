@@ -185,8 +185,8 @@ const SignUpForm = withFormik({
         username: Yup.string()
             .required("Entrez votre identifiant"),
         email: Yup.string()
-            .email()
-            .required(),
+            .email("Votre adresse ne correspond pas au format email")
+            .required("Entrez votre adresse email"),
         password: Yup.string()
             .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[.:;?|/\\{}<>!@#$%^&*()_+-=])(?=.{8,})/, "Votre mot de passe doit contenir au moins 8 caractères, 1 lettre majuscule, 1 lettre minuscule, 1 caractère spécial, et 1 chiffre")
             .required("Entrez votre mot de passe"),
