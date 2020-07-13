@@ -4,11 +4,13 @@ import Navbar from './Navbar/Navbar';
 import LoginForm from '../Login/LoginForm';
 import Footer from './Footer/Footer';
 import Home from '../Home/Home';
-import { Provider } from 'react-redux';
+import { Provider as ReduxStoreProvider } from 'react-redux';
 import configureStore from './configure-store';
 import SignupFormContainer from '../SignUp/SignupFormContainer';
 import NotificationContainer from '../Notification/NotificationContainer';
 import EventContainer from '../Event/EventContainer';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 const store = configureStore();
 
@@ -22,17 +24,19 @@ const RoutesWithNavbar = () => (
 )
 
 const App = () => (
-    <Provider store={store}>
-        <Router>
-            <Switch>
-                <Route exact path="/inscription" component={SignupFormContainer} />
-                <Route exact path="/connexion" component={LoginForm} />
-                <Route path="/" component={RoutesWithNavbar} />
-            </Switch>
-        </Router>
-        <NotificationContainer />
-        <Footer />
-    </Provider>
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <ReduxStoreProvider store={store}>
+            <Router>
+                <Switch>
+                    <Route exact path="/inscription" component={SignupFormContainer} />
+                    <Route exact path="/connexion" component={LoginForm} />
+                    <Route path="/" component={RoutesWithNavbar} />
+                </Switch>
+            </Router>
+            <NotificationContainer />
+            <Footer />
+        </ReduxStoreProvider>
+    </MuiPickersUtilsProvider>
 )
 
 export default App;
