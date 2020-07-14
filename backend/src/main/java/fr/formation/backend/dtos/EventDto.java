@@ -1,8 +1,11 @@
 package fr.formation.backend.dtos;
 
+import fr.formation.backend.constraints.ValidAfterDate;
+
 import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 
+@ValidAfterDate()
 public class EventDto {
 
     @NotNull
@@ -16,6 +19,9 @@ public class EventDto {
     @NotNull
     @Future
     private LocalDateTime endDateTime;
+
+    @NotNull
+    private Long accountId;
 
     public EventDto() {
     }
@@ -42,5 +48,13 @@ public class EventDto {
 
     public void setEndDateTime(LocalDateTime endDateTime) {
         this.endDateTime = endDateTime;
+    }
+
+    public Long getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
     }
 }

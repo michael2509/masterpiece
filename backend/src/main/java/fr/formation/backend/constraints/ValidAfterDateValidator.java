@@ -1,19 +1,24 @@
 package fr.formation.backend.constraints;
 
+import fr.formation.backend.dtos.EventDto;
 import fr.formation.backend.entities.Event;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.time.LocalDateTime;
 
-public class ValidAfterDateValidator implements ConstraintValidator<ValidAfterDate, Event> {
+public class ValidAfterDateValidator implements ConstraintValidator<ValidAfterDate, EventDto> {
 
     @Override
     public void initialize(ValidAfterDate constraintAnnotation) {
     }
 
     @Override
-    public boolean isValid(Event event, ConstraintValidatorContext context) {
+    public boolean isValid(EventDto eventDto, ConstraintValidatorContext context) {
 
-        return event.getStartDateTime().compareTo(event.getEndDateTime()) > 0;
+        LocalDateTime startDateTime = eventDto.getStartDateTime();
+        LocalDateTime endDateTime = eventDto.getEndDateTime();
+
+        return startDateTime.isBefore(endDateTime);
     }
 }

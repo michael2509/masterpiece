@@ -11,8 +11,7 @@ import javax.validation.Payload;
 @Documented
 public @interface ValidAfterDate {
 
-
-    String message() default "The End date should be after the starting date." ;
+    String message() default "Start date time must be before end date time" ;
 
     Class<?>[] groups() default { };
 

@@ -34,7 +34,7 @@ public class EventServiceImpl implements  EventService {
         eventCodeRepository.save(eventCode);
         event.setCode(eventCode);
 
-        Account account = accountRepository.findByUsername("Michael De Madet").get();
+        Account account = accountRepository.findById(eventDto.getAccountId()).get();
         event.setAccount(account);
 
         eventRepository.save(event);
