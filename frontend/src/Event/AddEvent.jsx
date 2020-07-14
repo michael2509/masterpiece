@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
         marginBottom: theme.spacing(4)
     },
     datePicker: {
-        width: 200,
+        width: 250,
         marginBottom: theme.spacing(2)
     },
     fab: {
@@ -89,6 +89,7 @@ const AddEventChild = (props) => {
                         onBlur={handleBlur}
                         helperText={touched.name ? errors.name : ""}
                         error={touched.name && Boolean(errors.name)}
+                        variant="outlined"
                     />
                     <Grid container justify="space-around">
                         <KeyboardDateTimePicker
@@ -104,6 +105,7 @@ const AddEventChild = (props) => {
                             onBlur={handleBlur}
                             helperText={Boolean(errors.startDateTime) ? errors.startDateTime : ""}
                             error={Boolean(errors.startDateTime) ? true : false}
+                            inputVariant="outlined"
                         />
                         <KeyboardDateTimePicker
                             id="endDateTime"
@@ -119,6 +121,7 @@ const AddEventChild = (props) => {
                             onBlur={handleBlur}
                             helperText={Boolean(errors.endDateTime) ? errors.endDateTime : ""}
                             error={Boolean(errors.endDateTime) ? true : false}
+                            inputVariant="outlined"
                         />
                     </Grid>
                 </DialogContent>
