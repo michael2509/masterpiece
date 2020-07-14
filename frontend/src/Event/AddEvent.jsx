@@ -15,6 +15,8 @@ import { withFormik } from "formik";
 import * as Yup from "yup";
 import { addDays, differenceInMinutes } from 'date-fns';
 import { isValid } from 'date-fns/esm';
+import axios from 'axios';
+import convertUTCDateToLocalDate from '../global/functions/convertUTCDateToLocalDate';
 
 const useStyles = makeStyles(theme => ({
     eventNameInput: {
@@ -44,13 +46,16 @@ const AddEventChild = (props) => {
         handleChange,
         handleBlur,
         handleSubmit,
-        setFieldValue
+        setFieldValue,
+        isSubmitting,
+        setSubmitting
     } = props;        
 
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
+        setSubmitting(false);
         setOpen(true);
     };
 
@@ -58,15 +63,14 @@ const AddEventChild = (props) => {
         setOpen(false);
     };
         
-
     return (
         <div>
         <Fab onClick={handleClickOpen} className={classes.fab} color="primary" aria-label="add" variant="extended">
             <AddIcon className={classes.extendedIcon} />
             Créer un événement
         </Fab>
-        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-            <form onSubmit={handleSubmit} noValidate>
+        <Dialog open={isSubmitting ? false : open} onClose={handleClose} aria-labelledby="form-dialog-title" disableBackdropClick>
+            <form onSubmit={handleSubmit}>
                 <DialogTitle id="form-dialog-title">Créer un nouvel événement</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
@@ -88,33 +92,33 @@ const AddEventChild = (props) => {
                     />
                     <Grid container justify="space-around">
                         <KeyboardDateTimePicker
-                            id="startDate"
+                            id="startDateTime"
                             variant="inline"
                             ampm={false}
                             label="Début de l'événement"
-                            value={values.startDate}
-                            onChange={value => setFieldValue("startDate", value)}
+                            value={values.startDateTime}
+                            onChange={value => setFieldValue("startDateTime", value)}
                             disablePast
                             format="dd/MM/yyyy HH:mm"
                             className={classes.datePicker}
                             onBlur={handleBlur}
-                            helperText={Boolean(errors.startDate) ? errors.startDate : ""}
-                            error={Boolean(errors.startDate) ? true : false}
+                            helperText={Boolean(errors.startDateTime) ? errors.startDateTime : ""}
+                            error={Boolean(errors.startDateTime) ? true : false}
                         />
                         <KeyboardDateTimePicker
-                            id="endDate"
+                            id="endDateTime"
                             variant="inline"
                             ampm={false}
                             label="Fin de l'événement"
-                            value={values.endDate}
-                            onChange={value => setFieldValue("endDate", value)}
+                            value={values.endDateTime}
+                            onChange={value => setFieldValue("endDateTime", value)}
                             disablePast
                             format="dd/MM/yyyy HH:mm"
                             className={classes.datePicker}
-                            minDate={values.startDate}
+                            minDate={values.startDateTime}
                             onBlur={handleBlur}
-                            helperText={Boolean(errors.endDate) ? errors.endDate : ""}
-                            error={Boolean(errors.endDate) ? true : false}
+                            helperText={Boolean(errors.endDateTime) ? errors.endDateTime : ""}
+                            error={Boolean(errors.endDateTime) ? true : false}
                         />
                     </Grid>
                 </DialogContent>
@@ -135,54 +139,67 @@ const AddEventChild = (props) => {
 const AddEvent = withFormik({
     mapPropsToValues: ({
         name,
-        startDate,
-        endDate
+        startDateTime,
+        endDateTime
     }) => ({
         name: name || "",
-        startDate: startDate || new Date(),
-        endDate: endDate || addDays(new Date(), 1)
+        startDateTime: startDateTime || new Date(),
+        endDateTime: endDateTime || addDays(new Date(), 1)
     }),
 
     validationSchema: Yup.object().shape({
         name: Yup.string()
                 .max(255, "Le nom de l'événement ne peut pas excéder 255 caractères")
                 .required("Veuillez entrer un nom pour l'événement"),
-        startDate: Yup.mixed()
+        startDateTime: Yup.mixed()
                     .test("null start date", "Veuillez entrez une date",
-                        function (startDate) {
-                            return startDate === null ? false : true
+                        function (startDateTime) {
+                            return startDateTime === null ? false : true
                     })
                     .test("start date not in past", "Ne peut pas être dans le passé",
-                        function (startDate) {                            
-                            return isValid(startDate) && differenceInMinutes(startDate, new Date()) < 0 ? false : true
+                        function (startDateTime) {                            
+                            return isValid(startDateTime) && differenceInMinutes(startDateTime, new Date()) < 0 ? false : true
                     })
                     .test("start date before end date", "Doit être avant la fin de l'événement", 
-                        function(startDate) {
-                            const { endDate } = this.parent                             
+                        function(startDateTime) {
+                            const { endDateTime } = this.parent                             
                             
-                            return (isValid(startDate) && isValid(endDate) && differenceInMinutes(startDate, endDate) >= 0) ? false : true
+                            return (isValid(startDateTime) && isValid(endDateTime) && differenceInMinutes(startDateTime, endDateTime) >= 0) ? false : true
                     })
                     .test("invalid start date format", "Format invalide, le format de la date doit être : dd/MM/yy HH:mm",
-                        function (startDate) {
-                            return isValid(startDate) ? true : false
+                        function (startDateTime) {
+                            return isValid(startDateTime) ? true : false
                     }),
-        endDate: Yup.mixed()
+        endDateTime: Yup.mixed()
                     .test("null end date", "Veuillez entrez une date",
-                        function (endDate) {
-                            return endDate === null ? false : true
+                        function (endDateTime) {
+                            return endDateTime === null ? false : true
                     })
                     .test("start date before end date", "Doit être après le début l'événement", 
-                        function(endDate) {
-                            const { startDate } = this.parent
-                            return (isValid(endDate) && isValid(startDate) && differenceInMinutes(endDate, startDate) <= 0) ? false : true
+                        function(endDateTime) {
+                            const { startDateTime } = this.parent
+                            return (isValid(endDateTime) && isValid(startDateTime) && differenceInMinutes(endDateTime, startDateTime) <= 0) ? false : true
                     })
                     .test("invalid start date format", "Format invalide, le format de la date doit être : dd/MM/yy HH:mm",
-                        function (endDate) {
-                            return isValid(endDate) ? true : false
+                        function (endDateTime) {
+                            return isValid(endDateTime) ? true : false
                     }),
     }),
-    handleSubmit: () => {
-        console.log("form submitted");
+    handleSubmit: (values) => {
+
+        const event = { ...values, accountId: 1 }
+        event.startDateTime = convertUTCDateToLocalDate(event.startDateTime);
+        event.endDateTime = convertUTCDateToLocalDate(event.endDateTime);
+
+        const eventJson = JSON.stringify(event)
+
+        console.log(eventJson);
+
+        axios.post(
+            'http://localhost:8081/events',
+            eventJson,
+            { headers: { 'Content-Type': 'application/json' } }
+        )
     }
 })(AddEventChild)
 
