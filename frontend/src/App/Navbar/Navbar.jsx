@@ -68,7 +68,7 @@ function Navbar(props) {
         <div>
             <div className={`${classes.toolbar} drawerLogo`}>
                 <Typography className="drawerLogoTitle" variant="h6" noWrap>
-                    <Link className="drawerLink" to="/">AppBar</Link>
+                    <Link className="drawerLink" to="/">ZenAsk</Link>
                 </Typography>
             </div>
             <Divider />
@@ -76,7 +76,7 @@ function Navbar(props) {
                 {[
                     { title: 'inscription', path: '/inscription', icon: <PersonAddIcon /> },
                     { title: 'connexion', path: '/connexion', icon: <AccountCircleIcon /> },
-                    { title: 'évènements', path: '/evenements', icon: <EventIcon /> },
+                    { title: 'événements', path: '/evenements', icon: <EventIcon /> },
                 ].map(({ title, path, icon }, index) => (
                     <Link to={path} className="drawerLink" key={index}>
                         <ListItem button>
@@ -103,7 +103,7 @@ function Navbar(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap>AppBar</Typography>
+                    <Typography variant="h6" noWrap>ZenAsk</Typography>
                     <Hidden smDown>
                         <div style={{ flexGrow: 1 }} />
                         <List style={{ display: "flex" }}>
