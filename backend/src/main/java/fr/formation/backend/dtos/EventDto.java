@@ -13,11 +13,11 @@ public class EventDto {
     private String name;
 
     @NotNull
-    @FutureOrPresent
+    @FutureOrPresent(message = "Le date de début de l'événement ne peut pas être dans le passé")
     private LocalDateTime startDateTime;
 
     @NotNull
-    @Future
+    @Future(message = "La date de fin de l'événement doit être dans le futur")
     private LocalDateTime endDateTime;
 
     @NotNull
