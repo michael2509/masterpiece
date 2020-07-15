@@ -13,10 +13,8 @@ import Grid from '@material-ui/core/Grid';
 import { KeyboardDateTimePicker } from '@material-ui/pickers';
 import { withFormik } from "formik";
 import * as Yup from "yup";
-import { addDays, differenceInMinutes } from 'date-fns';
+import { addDays, differenceInMinutes, endOfMinute } from 'date-fns';
 import { isValid } from 'date-fns/esm';
-import axios from 'axios';
-import convertUTCDateToLocalDate from '../global/functions/convertUTCDateToLocalDate';
 
 const useStyles = makeStyles(theme => ({
     eventNameInput: {
@@ -106,6 +104,7 @@ const AddEventChild = (props) => {
                             helperText={Boolean(errors.startDateTime) ? errors.startDateTime : ""}
                             error={Boolean(errors.startDateTime) ? true : false}
                             inputVariant="outlined"
+                            minDate={endOfMinute(new Date())}
                         />
                         <KeyboardDateTimePicker
                             id="endDateTime"
@@ -146,8 +145,8 @@ const AddEvent = withFormik({
         endDateTime
     }) => ({
         name: name || "",
-        startDateTime: startDateTime || new Date(),
-        endDateTime: endDateTime || addDays(new Date(), 1)
+        startDateTime: startDateTime || endOfMinute(new Date()),
+        endDateTime: endDateTime || endOfMinute(addDays(new Date(), 1))
     }),
 
     validationSchema: Yup.object().shape({
@@ -160,7 +159,7 @@ const AddEvent = withFormik({
                             return startDateTime === null ? false : true
                     })
                     .test("start date not in past", "Ne peut pas être dans le passé",
-                        function (startDateTime) {                            
+                        function (startDateTime) {
                             return isValid(startDateTime) && differenceInMinutes(startDateTime, new Date()) < 0 ? false : true
                     })
                     .test("start date before end date", "Doit être avant la fin de l'événement", 
@@ -188,21 +187,18 @@ const AddEvent = withFormik({
                             return isValid(endDateTime) ? true : false
                     }),
     }),
-    handleSubmit: (values) => {
-
+    handleSubmit: (values, { props, resetForm, setSubmitting }) => {
+        
         const event = { ...values, accountId: 1 }
-        event.startDateTime = convertUTCDateToLocalDate(event.startDateTime);
-        event.endDateTime = convertUTCDateToLocalDate(event.endDateTime);
 
-        const eventJson = JSON.stringify(event)
-
-        console.log(eventJson);
-
-        axios.post(
-            'http://localhost:8081/events',
-            eventJson,
-            { headers: { 'Content-Type': 'application/json' } }
-        )
+        props.createEvent(event).then(reqStatus => {
+            if (reqStatus === "success") {
+                resetForm();
+                setSubmitting(true);
+            } else {
+                setSubmitting(false);
+            }
+        })
     }
 })(AddEventChild)
 
