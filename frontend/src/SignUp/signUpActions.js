@@ -6,7 +6,7 @@ export function accountCreationSuccess() {
     return {
         type: ACCOUNT_CREATION_SUCCESS,
         severity: "success",
-        messages: ["Compte créé avec succès"],
+        messages: ["Compte crée avec succès"],
         date: Date.now()
     }
 }
