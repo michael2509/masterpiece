@@ -20,9 +20,8 @@ public class Event {
     @Column(name = "end_date_time", nullable = false)
     private LocalDateTime endDateTime;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "code_id", nullable = false, referencedColumnName = "id")
-    private EventCode code;
+    @Column(name = "code", nullable = false)
+    private String code;
 
     @ManyToOne
     @JoinColumn(name = "account_id", nullable = false)
@@ -63,11 +62,11 @@ public class Event {
         this.endDateTime = endDateTime;
     }
 
-    public EventCode getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(EventCode code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
