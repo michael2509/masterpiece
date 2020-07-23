@@ -1,11 +1,11 @@
 package fr.formation.backend.dtos;
 
-import fr.formation.backend.constraints.ValidAfterDate;
+import fr.formation.backend.constraints.AfterDate;
 
 import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 
-@ValidAfterDate()
+@AfterDate()
 public class EventDto {
 
     @NotNull
