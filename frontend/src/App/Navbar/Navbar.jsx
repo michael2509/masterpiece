@@ -110,7 +110,7 @@ function Navbar(props) {
                             {[
                                 { title: 'inscription', path: '/inscription' },
                                 { title: 'connexion', path: '/connexion' },
-                                { title: 'évènements', path: '/evenements' }
+                                { title: 'événements', path: '/evenements' }
                             ].map(({ title, path }, index) => (
                                 <Link to={path} className="navbarLink" key={index}>
                                     <ListItem button>
