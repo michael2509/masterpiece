@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import EventList from './EventList';
 import AddEvent from './AddEvent';
-import { createEvent } from "./eventActions";
+import { createEvent, getEventListPageByAccount } from "./eventActions";
 import { connect } from "react-redux";
 
 class EventContainer extends Component {
 
     render() {
-        const { createEvent } = this.props;
+        const { createEvent, getEventListPageByAccount } = this.props;
+        getEventListPageByAccount(1);
 
         return (
             <div>
@@ -19,7 +20,8 @@ class EventContainer extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    createEvent: (event) => dispatch(createEvent(event))
+    createEvent: (event) => dispatch(createEvent(event)),
+    getEventListPageByAccount: (accountId) => dispatch(getEventListPageByAccount(accountId))
 })
 
 export default connect(null, mapDispatchToProps)(EventContainer);
