@@ -43,4 +43,14 @@ public class AccountServiceImpl implements AccountService {
         // Save user to database
         accountRepository.save(account);
     }
+
+    @Override
+    public boolean uniqueUsername(String username) {
+        return username != null && !accountRepository.existsByUsername(username);
+    }
+
+    @Override
+    public boolean uniqueEmail(String email) {
+        return email != null && !accountRepository.existsByEmail(email);
+    }
 }
