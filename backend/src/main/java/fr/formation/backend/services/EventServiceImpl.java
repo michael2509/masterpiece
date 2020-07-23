@@ -7,6 +7,7 @@ import fr.formation.backend.repositories.AccountRepository;
 import fr.formation.backend.repositories.EventRepository;
 import fr.formation.backend.viewdtos.EventViewDto;
 import org.hashids.Hashids;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,14 +21,12 @@ public class EventServiceImpl implements  EventService {
     private EventRepository eventRepository;
     @Autowired
     private AccountRepository accountRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public void createEvent(EventDto eventDto) {
-        // Convert DTO to entity
-        Event event = new Event();
-        event.setName(eventDto.getName());
-        event.setStartDateTime(eventDto.getStartDateTime());
-        event.setEndDateTime(eventDto.getEndDateTime());
+        Event event = modelMapper.map(eventDto, Event.class);
 
         // Add account and code
         Account account = accountRepository.findById(eventDto.getAccountId()).get();
