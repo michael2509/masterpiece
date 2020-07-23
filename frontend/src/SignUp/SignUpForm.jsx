@@ -133,10 +133,6 @@ const signUpFormChild = props => {
                             fullWidth
                             size="small"
                         />
-                        {/* <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
-                        /> */}
                         <Button
                             type="submit"
                             fullWidth
@@ -181,7 +177,7 @@ const SignUpForm = withFormik({
             .email("Votre adresse ne correspond pas au format email")
             .required("Entrez votre adresse email"),
         password: Yup.string()
-            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[.:;?|/\\{}<>!@#$%^&*()_+-=])(?=.{8,})/, "Votre mot de passe doit contenir au moins 8 caractères, 1 lettre majuscule, 1 lettre minuscule, 1 caractère spécial, et 1 chiffre")
+            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[.:;?|/\\{}<>!@#$%^&*()_+-=])(?=.{8,})/, <ul><li>test</li></ul>)
             .required("Entrez votre mot de passe"),
         confirmPassword: Yup.string()
             .required("Confirmez votre mot de passe")
