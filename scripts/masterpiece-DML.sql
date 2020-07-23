@@ -23,8 +23,8 @@ VALUES
 -- insert roles
 INSERT INTO roles (code, default_role)
 VALUES
-("admin", 0),
-("animator", 1);
+("ROLE_ADMIN", 0),
+("ROLE_ANIMATOR", 1);
 
 
 -- get account_id for mike and bill account
@@ -33,8 +33,8 @@ SET @bill_account_id = (SELECT id FROM accounts WHERE username = "Bill Gates");
 
 
 -- get admin and animator role id
-SET @admin_role_id = (SELECT id FROM roles WHERE code = "admin");
-SET @animator_role_id = (SELECT id FROM roles WHERE code = "animator");
+SET @admin_role_id = (SELECT id FROM roles WHERE code = "ROLE_ADMIN");
+SET @animator_role_id = (SELECT id FROM roles WHERE code = "ROLE_ANIMATOR");
 
 -- insert accounts_role
 INSERT INTO accounts_roles (account_id, role_id)
