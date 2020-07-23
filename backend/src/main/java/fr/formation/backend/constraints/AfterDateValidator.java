@@ -1,16 +1,15 @@
 package fr.formation.backend.constraints;
 
 import fr.formation.backend.dtos.EventDto;
-import fr.formation.backend.entities.Event;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.time.LocalDateTime;
 
-public class ValidAfterDateValidator implements ConstraintValidator<ValidAfterDate, EventDto> {
+public class AfterDateValidator implements ConstraintValidator<AfterDate, EventDto> {
 
     @Override
-    public void initialize(ValidAfterDate constraintAnnotation) {
+    public void initialize(AfterDate constraintAnnotation) {
     }
 
     @Override

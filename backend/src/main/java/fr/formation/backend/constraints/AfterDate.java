@@ -7,9 +7,9 @@ import javax.validation.Payload;
 
 @Target({ElementType.ANNOTATION_TYPE, ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = { ValidAfterDateValidator.class })
+@Constraint(validatedBy = { AfterDateValidator.class })
 @Documented
-public @interface ValidAfterDate {
+public @interface AfterDate {
 
     String message() default "La date de début de l'événement doit être avant la date de fin de l'événement" ;
 
