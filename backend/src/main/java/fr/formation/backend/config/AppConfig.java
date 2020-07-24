@@ -1,4 +1,4 @@
-package fr.formation.backend;
+package fr.formation.backend.config;
 
 import fr.formation.backend.dtos.EventDto;
 import fr.formation.backend.entities.Event;
@@ -19,15 +19,6 @@ public class AppConfig {
 
     @Bean
     public ModelMapper modelMapper() {
-        ModelMapper modelMapper = new ModelMapper();
-        PropertyMap<EventDto, Event> eventPropertyMap = new PropertyMap<EventDto, Event>() {
-            @Override
-            protected void configure() {
-                skip(destination.getId());
-            }
-        };
-
-        modelMapper.addMappings(eventPropertyMap);
-        return modelMapper;
+        return new ModelMapper();
     }
 }

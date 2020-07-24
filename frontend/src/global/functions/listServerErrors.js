@@ -1,19 +1,24 @@
-const listServerErrors = (error) => {
-    const status = error.status;
+import buildErrorMsg from "./buildErrorMsg";
+
+const listServerErrors = (response) => {
     const messages = [];
 
-    if (status === 400) {
-        error.data.errors.forEach(serverError => {
-            messages.push(serverError.defaultMessage)
+    if (response === undefined) {
+        messages.push("Une erreur est survenue");
+        return messages;
+    } else if (response.status === 400) {
+        response.data.forEach(serverError => {
+            const msg = buildErrorMsg(serverError.code, serverError.attribute)
+            messages.push(msg)
         });
-    } else if (status === 401) {
+    } else if (response.status === 401) {
         messages.push("Une identification est nécessaire pour obtenir la réponse demandée.");
-    } else if (status === 404) {
+    } else if (response.status === 404) {
         messages.push("Le serveur n'a pas trouvé la ressource demandée");
-    } else if (status === 500) {
+    } else if (response.status === 500) {
         messages.push("Erreur interne du serveur");
     } else {
-        messages.push(error.data.error);
+        messages.push("Une erreur est survenue");
     }
 
     return messages;

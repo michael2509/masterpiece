@@ -8,7 +8,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent } from '@material-ui/core';
 import zenasklogo from '../global/assets/img/zenask-logo.png';
 import Link from '@material-ui/core/Link';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, withRouter } from 'react-router-dom';
+import { withFormik } from "formik";
+import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -47,9 +49,17 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function LoginForm() {
+function LoginFormChild(props) {
     const classes = useStyles();
 
+    const {
+        values,
+        touched,
+        errors,
+        handleChange,
+        handleBlur,
+        handleSubmit
+    } = props;
     return (
         <div className={classes.paper}>
             <RouterLink to={"/"}>
@@ -65,18 +75,23 @@ export default function LoginForm() {
                     <Typography component="h1" variant="h5" className={classes.title}>
                         Se Connecter
                     </Typography>
-                    <form className={classes.form} noValidate>
+                    <form onSubmit={handleSubmit} className={classes.form} noValidate>
                         <TextField
                             variant="outlined"
                             margin="normal"
                             required
                             fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
+                            id="username"
+                            label="Identifiant"
+                            name="username"
+                            autoComplete="username"
                             autoFocus
                             size="small"
+                            value={values.username}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            helperText={touched.username ? errors.username : ""}
+                            error={touched.username && Boolean(errors.username)}
                         />
                         <TextField
                             variant="outlined"
@@ -89,11 +104,12 @@ export default function LoginForm() {
                             id="password"
                             autoComplete="current-password"
                             size="small"
+                            value={values.password}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            helperText={touched.password ? errors.password : ""}
+                            error={touched.password && Boolean(errors.password)}
                         />
-                        {/* <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
-                        /> */}
                         <Button
                             type="submit"
                             fullWidth
@@ -112,3 +128,39 @@ export default function LoginForm() {
         </div>
     );
 }
+
+const LoginForm = withFormik({
+    mapPropsToValues: ({
+      username,
+      password
+    }) => {
+      return {
+        username: username || "",
+        password: password || "",
+      };
+    },
+  
+    handleSubmit: (values, { props, resetForm }) => {
+        const { history } = props
+
+        const clientId = process.env.REACT_APP_CLIENT_ID
+        console.log(clientId);
+        const grantType = "password"
+        const username = values.username
+        const password = values.password
+      
+        axios.post(`http://localhost:8081/oauth/token?grant_type=${grantType}&username=${username}&password=${password}&client_id=${clientId}`)
+        .then(response => {
+            const accessToken = response.data.access_token
+            localStorage.setItem("accessToken", accessToken)
+            resetForm()
+            history.push("/")
+        })
+        .catch(error => {
+            console.log(error.response);
+            }
+        )
+    }
+  })(LoginFormChild);
+
+  export default withRouter(LoginForm);

@@ -27,17 +27,14 @@ export function createAccount(account) {
         const accountJson = JSON.stringify(account);
         
         try {
-            await axios.post('http://localhost:8081/accounts', accountJson, { headers: { 'Content-Type': 'application/json' } })
+            await axios.post('http://localhost:8081/api/accounts', accountJson, { headers: { 'Content-Type': 'application/json' } })
             dispatch(accountCreationSuccess())
-            return "success"
+            return true
         }
         catch (error) {
-            let errorMessages;
-
-            error.response ? errorMessages = listServerErrors(error.response) : errorMessages = ["Erreur de connexion au serveur"]
-            
+            const errorMessages = listServerErrors(error.response);
             dispatch(accountCreationError(errorMessages))
-            return "error"
+            return false
         }
     }
 }

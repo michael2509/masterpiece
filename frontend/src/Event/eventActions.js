@@ -50,21 +50,19 @@ export function createEvent(event) {
         console.log(eventJson);
 
         try {
+            const accessToken = localStorage.getItem("accessToken");
             await axios.post(
-                "http://localhost:8081/events",
+                "http://localhost:8081/api/events/account/1",
                 eventJson,
-                { headers: { 'Content-Type': 'application/json' } }
+                { headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${accessToken}` } }
             )
 
             dispatch(eventCreationSuccess());
-            return "success"
-        } catch (error) {
-            let errorMessages;
-            
-            error.response ? errorMessages = listServerErrors(error.response) : errorMessages = ["Erreur de connexion au serveur"]
-            
+            return true
+        } catch (error) {            
+            const errorMessages = listServerErrors(error.response);
             dispatch(eventCreationError(errorMessages))
-            return "error"
+            return false
         }
     }
 }
@@ -72,7 +70,13 @@ export function createEvent(event) {
 export function getEventListPageByAccount(accountId) {
     return async (dispatch) => {
         try {
-            const eventListPage = await axios.get(`http://localhost:8081/events/account/${accountId}?page=0&size=5`);
+            const accessToken = localStorage.getItem("accessToken");
+            const config = {
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`
+                }
+            }
+            const eventListPage = await axios.get(`http://localhost:8081/api/events/account/${accountId}?page=0&size=5`, config);
             console.log(eventListPage.data);
         } catch (error) {
             let errorMessages;

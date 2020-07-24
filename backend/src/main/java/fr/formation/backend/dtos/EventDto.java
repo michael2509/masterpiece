@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @AfterDate()
 public class EventDto {
 
-    @NotNull
+    @NotBlank
     @Size(max = 255)
     private String name;
 
@@ -19,9 +19,6 @@ public class EventDto {
     @NotNull
     @Future(message = "La date de fin de l'événement doit être dans le futur")
     private LocalDateTime endDateTime;
-
-    @NotNull
-    private Long accountId;
 
     public EventDto() {
     }
@@ -48,13 +45,5 @@ public class EventDto {
 
     public void setEndDateTime(LocalDateTime endDateTime) {
         this.endDateTime = endDateTime;
-    }
-
-    public Long getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(Long accountId) {
-        this.accountId = accountId;
     }
 }

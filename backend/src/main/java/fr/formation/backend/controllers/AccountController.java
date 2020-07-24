@@ -8,7 +8,6 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/accounts")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AccountController {
 
     private final AccountService accountService;

@@ -5,14 +5,16 @@ import fr.formation.backend.constraints.UniqueUsername;
 import fr.formation.backend.constraints.AccountPassword;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class AccountDto {
 
-    @NotNull
+    @NotBlank
     @UniqueUsername
     private String username;
 
+    @NotBlank
     @Email
     @UniqueEmail
     private String email;

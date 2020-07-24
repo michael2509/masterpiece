@@ -3,16 +3,22 @@ import LocalizedStrings from 'react-localization';
 
 let labels = new LocalizedStrings({
     en: {
-        identifiant: "username",
+        username: "username",
         email: "email",
-        mdp: "password",
-        confirmationMdp: "confirm password"
+        password: "password",
+        confirmPassword: "confirm password",
+        name: "name",
+        startDateTime: "startDateTime",
+        endDateTime: "endDateTime"
     },
     fr: {
-        identifiant: "identifiant",
+        username: "identifiant",
         email: "email",
-        mdp: "mot de passe",
-        confirmationMdp: "confirmation du mot de passe"
+        password: "mot de passe",
+        confirmPassword: "confirmation du mot de passe",
+        name: "nom",
+        startDateTime: "date de début",
+        endDateTime: "date de fin"
     },
 });
 

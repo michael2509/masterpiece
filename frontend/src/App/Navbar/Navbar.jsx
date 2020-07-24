@@ -17,7 +17,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import "./Navbar.css";
 
 const drawerWidth = 240;
@@ -55,7 +55,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Navbar(props) {
-    const { container } = props;
+    const { container, history } = props;
     const classes = useStyles();
     const theme = useTheme();
     const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -63,6 +63,26 @@ function Navbar(props) {
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
+
+    const accessToken = localStorage.getItem("accessToken");
+    let navLinks;
+
+    if (accessToken !== null) {
+        navLinks = [
+            { title: 'événements', path: '/evenements', icon: <EventIcon /> },
+            { title: 'deconnexion', icon: <PersonAddIcon /> },
+        ]
+    } else {
+        navLinks = [
+            { title: 'inscription', path: '/inscription', icon: <PersonAddIcon /> },
+            { title: 'connexion', path: '/connexion', icon: <AccountCircleIcon /> },
+        ]
+    }
+
+    const logout = () => {
+        localStorage.removeItem("accessToken");
+        history.push("/connexion")
+    }
 
     const drawer = (
         <div>
@@ -73,18 +93,25 @@ function Navbar(props) {
             </div>
             <Divider />
             <List>
-                {[
-                    { title: 'inscription', path: '/inscription', icon: <PersonAddIcon /> },
-                    { title: 'connexion', path: '/connexion', icon: <AccountCircleIcon /> },
-                    { title: 'événements', path: '/evenements', icon: <EventIcon /> },
-                ].map(({ title, path, icon }, index) => (
-                    <Link to={path} className="drawerLink" key={index}>
-                        <ListItem button>
+                {navLinks.map(({ title, path, icon }, index) => {
+                    if (title === "deconnexion") {
+                        return (
+                            <ListItem onClick={logout} key={index} button>
                                 <ListItemIcon>{icon}</ListItemIcon>
                                 <ListItemText primary={title} />
-                        </ListItem>
-                    </Link>
-                ))}
+                            </ListItem>
+                        )
+                    } else {
+                        return(
+                            <Link to={path} className="drawerLink" key={index}>
+                                <ListItem button>
+                                        <ListItemIcon>{icon}</ListItemIcon>
+                                        <ListItemText primary={title} />
+                                </ListItem>
+                            </Link>
+                        )
+                    }
+                })}
             </List>
         </div>
     );
@@ -107,17 +134,23 @@ function Navbar(props) {
                     <Hidden smDown>
                         <div style={{ flexGrow: 1 }} />
                         <List style={{ display: "flex" }}>
-                            {[
-                                { title: 'inscription', path: '/inscription' },
-                                { title: 'connexion', path: '/connexion' },
-                                { title: 'événements', path: '/evenements' }
-                            ].map(({ title, path }, index) => (
-                                <Link to={path} className="navbarLink" key={index}>
-                                    <ListItem button>
-                                        <ListItemText primary={title} />
-                                    </ListItem>
-                                </Link>
-                            ))}
+                            {navLinks.map(({ title, path }, index) => {
+                                if (title === "deconnexion") {
+                                    return (
+                                        <ListItem key={index} onClick={logout} button>
+                                            <ListItemText primary={title} />
+                                        </ListItem>
+                                    )
+                                } else {
+                                    return (
+                                        <Link to={path} className="navbarLink" key={index}>
+                                            <ListItem button>
+                                                <ListItemText primary={title} />
+                                            </ListItem>
+                                        </Link>
+                                    )
+                                }
+                            })}
                         </List>
                     </Hidden>
                 </Toolbar>
@@ -154,4 +187,4 @@ Navbar.propTypes = {
     container: PropTypes.instanceOf(typeof Element === 'undefined' ? Object : Element),
 };
 
-export default Navbar;
+export default withRouter(Navbar);

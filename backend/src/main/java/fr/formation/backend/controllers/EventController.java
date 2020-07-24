@@ -10,16 +10,15 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/events")
 public class EventController {
 
     @Autowired
     private EventService eventService;
 
-    @PostMapping
-    protected void createEvent(@Valid @RequestBody EventDto eventDto) {
-        eventService.createEvent(eventDto);
+    @PostMapping("/account/{accountId}")
+    protected void createEvent(@PathVariable("accountId") Long accountId, @Valid @RequestBody EventDto eventDto) {
+        eventService.createEvent(accountId, eventDto);
     }
 
     @GetMapping("/account/{accountId}")

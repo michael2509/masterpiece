@@ -11,7 +11,7 @@ import * as Yup from "yup";
 import { withTheme } from '@material-ui/core/styles';
 import { Card, CardContent } from '@material-ui/core';
 import zenasklogo from '../global/assets/img/zenask-logo.png';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, withRouter } from 'react-router-dom';
 
 const signUpFormChild = props => {
     const {
@@ -80,7 +80,7 @@ const signUpFormChild = props => {
                     <form style={classes.form} onSubmit={handleSubmit} noValidate>
                         <TextField
                             id="username"
-                            label={label.identifiant}
+                            label={label.username}
                             value={values.username}
                             onChange={handleChange}
                             onBlur={handleBlur}
@@ -107,7 +107,7 @@ const signUpFormChild = props => {
                         />
                         <TextField
                             id="password"
-                            label={label.mdp}
+                            label={label.password}
                             type="password"
                             value={values.password}
                             onChange={handleChange}
@@ -121,7 +121,7 @@ const signUpFormChild = props => {
                         />
                         <TextField
                             id="confirmPassword"
-                            label={label.confirmationMdp}
+                            label={label.confirmPassword}
                             type="password"
                             value={values.confirmPassword}
                             onChange={handleChange}
@@ -170,32 +170,34 @@ const SignUpForm = withFormik({
         };
     },
 
-    validationSchema: Yup.object().shape({
-        username: Yup.string()
-            .required("Entrez votre identifiant"),
-        email: Yup.string()
-            .email("Votre adresse ne correspond pas au format email")
-            .required("Entrez votre adresse email"),
-        password: Yup.string()
-            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[.:;?|/\\{}<>!@#$%^&*()_+-=])(?=.{8,})/, <ul><li>test</li></ul>)
-            .required("Entrez votre mot de passe"),
-        confirmPassword: Yup.string()
-            .required("Confirmez votre mot de passe")
-            .oneOf([Yup.ref("password")], "Le mot de passe ne correspond pas")
-    }),
+    // validationSchema: Yup.object().shape({
+    //     username: Yup.string()
+    //         .required("Entrez votre identifiant"),
+    //     email: Yup.string()
+    //         .email("Votre adresse ne correspond pas au format email")
+    //         .required("Entrez votre adresse email"),
+    //     password: Yup.string()
+    //         .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[.:;?|/\\{}<>!@#$%^&*()_+-=])(?=.{8,})/, <ul><li>test</li></ul>)
+    //         .required("Entrez votre mot de passe"),
+    //     confirmPassword: Yup.string()
+    //         .required("Confirmez votre mot de passe")
+    //         .oneOf([Yup.ref("password")], "Le mot de passe ne correspond pas")
+    // }),
 
     handleSubmit: (values, { props, resetForm }) => {
         
+        const { createAccount, history } = props
         const user = Object.assign({}, values)
         delete user.confirmPassword
         
-        props.createAccount(user).then(reqStatus => {
-            if (reqStatus === "success") {
+        createAccount(user).then(requestSuccess => {
+            if (requestSuccess) {
                 resetForm()
+                history.push("/connexion")
             }
         })
 
     }
 })(signUpForm);
 
-export default SignUpForm;
+export default withRouter(SignUpForm);

@@ -25,20 +25,18 @@ public class EventServiceImpl implements  EventService {
     private ModelMapper modelMapper;
 
     @Override
-    public void createEvent(EventDto eventDto) {
+    public void createEvent(Long accountId, EventDto eventDto) {
         Event event = modelMapper.map(eventDto, Event.class);
 
         // Add account and code
-        Account account = accountRepository.findById(eventDto.getAccountId()).get();
+        Account account = accountRepository.findById(accountId).get();
         event.setAccount(account);
 
         Long eventsTableSize = eventRepository.count();
         String salt = String.valueOf(eventsTableSize);
-        System.out.println(salt);
 
-        Hashids hashids = new Hashids(salt, 8);
+        Hashids hashids = new Hashids(salt, 5);
         String code = hashids.encode(eventsTableSize).toUpperCase();
-        System.out.println(code);
         event.setCode(code);
 
         eventRepository.save(event);

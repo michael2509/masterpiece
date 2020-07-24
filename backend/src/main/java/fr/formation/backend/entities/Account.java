@@ -22,7 +22,7 @@ public class Account {
     @Column(nullable = false)
     private String password;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "accounts_roles",
             joinColumns = @JoinColumn(name = "account_id", nullable = false),
             foreignKey = @ForeignKey(name = "accounts_roles_account_id_FK"),
