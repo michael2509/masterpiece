@@ -1,58 +1,51 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+import ImageIcon from '@material-ui/icons/Image';
+import WorkIcon from '@material-ui/icons/Work';
+import BeachAccessIcon from '@material-ui/icons/BeachAccess';
+import { Typography } from '@material-ui/core';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import { roundToNearestMinutes, format } from 'date-fns'
 
-const useStyles = makeStyles({
-  root: {
-    minWidth: 275,
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-});
+const useStyles = makeStyles((theme) => ({
+	root: {
+		width: '100%',
+		backgroundColor: theme.palette.background.paper,
+	},
+}));
 
-const EventList = () => {
-  const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
+const EventList = (props) => {
+	const classes = useStyles();
+	const { events } = props;
+	const { eventListPage } = events;
+	console.log(events);
 
-  return (
-    <div>
-        <h1 style={{ textAlign: "center" }}>Les événements</h1>
-        <Card className={classes.root}>
-        <CardContent>
-            <Typography className={classes.title} color="textSecondary" gutterBottom>
-            Word of the Day
-            </Typography>
-            <Typography variant="h5" component="h2">
-            be{bull}nev{bull}o{bull}lent
-            </Typography>
-            <Typography className={classes.pos} color="textSecondary">
-            adjective
-            </Typography>
-            <Typography variant="body2" component="p">
-            well meaning and kindly.
-            <br />
-            {'"a benevolent smile"'}
-            </Typography>
-        </CardContent>
-        <CardActions>
-            <Button size="small">Learn More</Button>
-        </CardActions>
-        </Card>
-    </div>
-  );
+	return (
+		<Fragment>
+			{!eventListPage ? <p>Chargement...</p> : (
+				<Fragment>
+					<Typography variant="h5" component="h2" align="center" gutterBottom>Vos Evenements</Typography>
+					<List className={classes.root}>
+						{eventListPage.content.map((event, i) => (
+							<ListItem button key={i}>
+								<ListItemAvatar>
+									<Avatar>
+										<MeetingRoomIcon />
+									</Avatar>
+								</ListItemAvatar>
+								<ListItemText primary={event.name} secondary={<span><span>Début : {format(new Date(event.startDateTime), "dd/MM/yyyy à HH:mm")}</span><br></br><span>Fin : {format(new Date(event.endDateTime), "dd/MM/yyyy à HH:mm")}</span></span>} />
+							</ListItem>
+						))}
+					</List>
+				</Fragment>
+			)}
+		</Fragment>
+	);
 }
 
 export default EventList;

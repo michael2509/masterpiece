@@ -1,7 +1,8 @@
-import { EVENT_CREATION_SUCCESS, EVENT_CREATION_ERROR, GET_EVENT_LIST_PAGE_BY_ACCOUNT_SUCCESS, GET_EVENT_LIST_PAGE_BY_ACCOUNT_ERROR } from "./eventActionsTypes"
+import { EVENT_CREATION_SUCCESS, EVENT_CREATION_ERROR, GET_EVENT_LIST_PAGE_SUCCESS, GET_EVENT_LIST_PAGE_ERROR } from "./eventActionsTypes"
 import axios from "axios";
 import convertUTCDateToLocalDate from '../global/functions/convertUTCDateToLocalDate';
 import listServerErrors from "../global/functions/listServerErrors";
+import { roundToNearestMinutes } from "date-fns";
 
 
 export function eventCreationSuccess() {
@@ -22,19 +23,17 @@ export function eventCreationError(errorMessages) {
     }
 }
 
-export function getEventListPageByAccountSuccess(eventListPage) {
+export function getEventListPageSuccess(eventListPage) {
     return {
-        type: GET_EVENT_LIST_PAGE_BY_ACCOUNT_SUCCESS,
+        type: GET_EVENT_LIST_PAGE_SUCCESS,
         eventListPage: eventListPage
     }
 }
 
-export function getEventListPageByAccountError(errorMessages) {
+export function getEventListPageError() {
     return {
-        type: GET_EVENT_LIST_PAGE_BY_ACCOUNT_ERROR,
-        severity: "error",
-        messages: errorMessages,
-        date: Date.now()
+        type: GET_EVENT_LIST_PAGE_ERROR,
+        errorMsg: "Une erreur est survenue"
     }
 }
 
@@ -42,6 +41,8 @@ export function createEvent(event) {
     
     return async (dispatch) => {
 
+        event.startDateTime = roundToNearestMinutes(event.startDateTime)
+        event.endDateTime = roundToNearestMinutes(event.endDateTime)
         event.startDateTime = convertUTCDateToLocalDate(event.startDateTime);
         event.endDateTime = convertUTCDateToLocalDate(event.endDateTime);
 
@@ -52,7 +53,7 @@ export function createEvent(event) {
         try {
             const accessToken = localStorage.getItem("accessToken");
             await axios.post(
-                "http://localhost:8081/api/events/account/1",
+                "http://localhost:8081/api/events",
                 eventJson,
                 { headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${accessToken}` } }
             )
@@ -67,7 +68,7 @@ export function createEvent(event) {
     }
 }
 
-export function getEventListPageByAccount(accountId) {
+export function getEventListPage() {
     return async (dispatch) => {
         try {
             const accessToken = localStorage.getItem("accessToken");
@@ -76,14 +77,11 @@ export function getEventListPageByAccount(accountId) {
                     "Authorization": `Bearer ${accessToken}`
                 }
             }
-            const eventListPage = await axios.get(`http://localhost:8081/api/events/account/${accountId}?page=0&size=5`, config);
-            console.log(eventListPage.data);
-        } catch (error) {
-            let errorMessages;
-            
-            error.response ? errorMessages = listServerErrors(error.response) : errorMessages = ["Erreur de connexion au serveur"];
-            // dispatch(getEventListPageByAccountError(errorMessages));
-            console.log(errorMessages);
+            const response = await axios.get(`http://localhost:8081/api/events?page=0&size=5`, config);
+            const eventListPage = response.data;
+            dispatch(getEventListPageSuccess(eventListPage))
+        } catch {           
+            dispatch(getEventListPageError());
         }
     }
 }

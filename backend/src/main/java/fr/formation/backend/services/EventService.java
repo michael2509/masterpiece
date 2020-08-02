@@ -6,6 +6,6 @@ import org.springframework.data.domain.Page;
 
 public interface EventService {
 
-    void createEvent(Long accountId, EventDto eventDto);
-    Page<EventViewDto> getEventListPageByAccountId(Long accountId, int page, int size);
+    void createEvent(EventDto eventDto);
+    Page<EventViewDto> getEventListPage(int page, int size);
 }

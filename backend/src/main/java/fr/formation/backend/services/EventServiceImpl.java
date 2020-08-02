@@ -1,5 +1,6 @@
 package fr.formation.backend.services;
 
+import fr.formation.backend.config.SecurityHelper;
 import fr.formation.backend.dtos.EventDto;
 import fr.formation.backend.entities.Account;
 import fr.formation.backend.entities.Event;
@@ -25,10 +26,11 @@ public class EventServiceImpl implements  EventService {
     private ModelMapper modelMapper;
 
     @Override
-    public void createEvent(Long accountId, EventDto eventDto) {
+    public void createEvent(EventDto eventDto) {
         Event event = modelMapper.map(eventDto, Event.class);
 
         // Add account and code
+        Long accountId = SecurityHelper.getUserId();
         Account account = accountRepository.findById(accountId).get();
         event.setAccount(account);
 
@@ -43,8 +45,9 @@ public class EventServiceImpl implements  EventService {
     }
 
     @Override
-    public Page<EventViewDto> getEventListPageByAccountId(Long accountId, int page, int size) {
+    public Page<EventViewDto> getEventListPage(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
+        Long accountId = SecurityHelper.getUserId();
         Page<EventViewDto> eventListPage = eventRepository.findAllByAccountId(accountId, pageable);
         return eventListPage;
     }

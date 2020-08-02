@@ -149,44 +149,44 @@ const AddEvent = withFormik({
         endDateTime: endDateTime || endOfMinute(addDays(new Date(), 1))
     }),
 
-    // validationSchema: Yup.object().shape({
-    //     name: Yup.string()
-    //             .max(255, "Le nom de l'événement ne peut pas excéder 255 caractères")
-    //             .required("Veuillez entrer un nom pour l'événement"),
-    //     startDateTime: Yup.mixed()
-    //                 .test("null start date", "Veuillez entrez une date",
-    //                     function (startDateTime) {
-    //                         return startDateTime === null ? false : true
-    //                 })
-    //                 .test("start date not in past", "Ne peut pas être dans le passé",
-    //                     function (startDateTime) {
-    //                         return isValid(startDateTime) && differenceInMinutes(startDateTime, new Date()) < 0 ? false : true
-    //                 })
-    //                 .test("start date before end date", "Doit être avant la fin de l'événement", 
-    //                     function(startDateTime) {
-    //                         const { endDateTime } = this.parent                             
+    validationSchema: Yup.object().shape({
+        name: Yup.string()
+                .max(255, "Le nom de l'événement ne peut pas excéder 255 caractères")
+                .required("Veuillez entrer un nom pour l'événement"),
+        startDateTime: Yup.mixed()
+                    .test("null start date", "Veuillez entrez une date",
+                        function (startDateTime) {
+                            return startDateTime === null ? false : true
+                    })
+                    .test("start date not in past", "Ne peut pas être dans le passé",
+                        function (startDateTime) {
+                            return isValid(startDateTime) && differenceInMinutes(startDateTime, new Date()) < 0 ? false : true
+                    })
+                    .test("start date before end date", "Doit être avant la fin de l'événement", 
+                        function(startDateTime) {
+                            const { endDateTime } = this.parent                             
                             
-    //                         return (isValid(startDateTime) && isValid(endDateTime) && differenceInMinutes(startDateTime, endDateTime) >= 0) ? false : true
-    //                 })
-    //                 .test("invalid start date format", "Format invalide, le format de la date doit être : dd/MM/yy HH:mm",
-    //                     function (startDateTime) {
-    //                         return isValid(startDateTime) ? true : false
-    //                 }),
-    //     endDateTime: Yup.mixed()
-    //                 .test("null end date", "Veuillez entrez une date",
-    //                     function (endDateTime) {
-    //                         return endDateTime === null ? false : true
-    //                 })
-    //                 .test("start date before end date", "Doit être après le début l'événement", 
-    //                     function(endDateTime) {
-    //                         const { startDateTime } = this.parent
-    //                         return (isValid(endDateTime) && isValid(startDateTime) && differenceInMinutes(endDateTime, startDateTime) <= 0) ? false : true
-    //                 })
-    //                 .test("invalid start date format", "Format invalide, le format de la date doit être : dd/MM/yy HH:mm",
-    //                     function (endDateTime) {
-    //                         return isValid(endDateTime) ? true : false
-    //                 }),
-    // }),
+                            return (isValid(startDateTime) && isValid(endDateTime) && differenceInMinutes(startDateTime, endDateTime) >= 0) ? false : true
+                    })
+                    .test("invalid start date format", "Format invalide, le format de la date doit être : dd/MM/yy HH:mm",
+                        function (startDateTime) {
+                            return isValid(startDateTime) ? true : false
+                    }),
+        endDateTime: Yup.mixed()
+                    .test("null end date", "Veuillez entrez une date",
+                        function (endDateTime) {
+                            return endDateTime === null ? false : true
+                    })
+                    .test("start date before end date", "Doit être après le début l'événement", 
+                        function(endDateTime) {
+                            const { startDateTime } = this.parent
+                            return (isValid(endDateTime) && isValid(startDateTime) && differenceInMinutes(endDateTime, startDateTime) <= 0) ? false : true
+                    })
+                    .test("invalid start date format", "Format invalide, le format de la date doit être : dd/MM/yy HH:mm",
+                        function (endDateTime) {
+                            return isValid(endDateTime) ? true : false
+                    }),
+    }),
     handleSubmit: (values, { props, resetForm, setSubmitting }) => {
         const event = {...values};
         

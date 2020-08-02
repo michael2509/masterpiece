@@ -91,19 +91,7 @@ const signUpFormChild = props => {
                             autoFocus
                             fullWidth
                             size="small"
-                        />
-                        <TextField
-                            id="email"
-                            label={label.email}
-                            value={values.email}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            helperText={touched.email ? errors.email : ""}
-                            error={touched.email && Boolean(errors.email)}
-                            variant="outlined"
-                            margin="normal"
-                            fullWidth
-                            size="small"
+                            required
                         />
                         <TextField
                             id="password"
@@ -118,6 +106,7 @@ const signUpFormChild = props => {
                             margin="normal"
                             fullWidth
                             size="small"
+                            required
                         />
                         <TextField
                             id="confirmPassword"
@@ -132,6 +121,7 @@ const signUpFormChild = props => {
                             margin="normal"
                             fullWidth
                             size="small"
+                            required
                         />
                         <Button
                             type="submit"
@@ -158,31 +148,26 @@ const signUpForm = withTheme(signUpFormChild);
 const SignUpForm = withFormik({
     mapPropsToValues: ({
         username,
-        email,
         password,
         confirmPassword,
     }) => {
         return {
             username: username || "",
-            email: email || "",
             password: password || "",
             confirmPassword: confirmPassword || "",
         };
     },
 
-    // validationSchema: Yup.object().shape({
-    //     username: Yup.string()
-    //         .required("Entrez votre identifiant"),
-    //     email: Yup.string()
-    //         .email("Votre adresse ne correspond pas au format email")
-    //         .required("Entrez votre adresse email"),
-    //     password: Yup.string()
-    //         .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[.:;?|/\\{}<>!@#$%^&*()_+-=])(?=.{8,})/, <ul><li>test</li></ul>)
-    //         .required("Entrez votre mot de passe"),
-    //     confirmPassword: Yup.string()
-    //         .required("Confirmez votre mot de passe")
-    //         .oneOf([Yup.ref("password")], "Le mot de passe ne correspond pas")
-    // }),
+    validationSchema: Yup.object().shape({
+        username: Yup.string()
+            .required("Entrez votre identifiant"),
+        password: Yup.string()
+            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[.:;?|/\\{}<>!@#$%^&*()_+-=])(?=.{8,})/, <ul><li>test</li></ul>)
+            .required("Entrez votre mot de passe"),
+        confirmPassword: Yup.string()
+            .required("Confirmez votre mot de passe")
+            .oneOf([Yup.ref("password")], "Le mot de passe ne correspond pas")
+    }),
 
     handleSubmit: (values, { props, resetForm }) => {
         

@@ -16,13 +16,13 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
-    @PostMapping("/account/{accountId}")
-    protected void createEvent(@PathVariable("accountId") Long accountId, @Valid @RequestBody EventDto eventDto) {
-        eventService.createEvent(accountId, eventDto);
+    @PostMapping
+    protected void createEvent(@Valid @RequestBody EventDto eventDto) {
+        eventService.createEvent(eventDto);
     }
 
-    @GetMapping("/account/{accountId}")
-    protected Page<EventViewDto> getEventListPageByAccountId(@PathVariable("accountId") Long accountId, @RequestParam("page") int page, @RequestParam("size") int size) {
-        return eventService.getEventListPageByAccountId(accountId, page, size);
+    @GetMapping()
+    protected Page<EventViewDto> getEventListPage(@RequestParam("page") int page, @RequestParam("size") int size) {
+        return eventService.getEventListPage(page, size);
     }
 }

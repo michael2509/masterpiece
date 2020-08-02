@@ -11,6 +11,7 @@ import Link from '@material-ui/core/Link';
 import { Link as RouterLink, withRouter } from 'react-router-dom';
 import { withFormik } from "formik";
 import axios from "axios";
+import label from '../global/configs/label';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -82,7 +83,7 @@ function LoginFormChild(props) {
                             required
                             fullWidth
                             id="username"
-                            label="Identifiant"
+                            label={label.username}
                             name="username"
                             autoComplete="username"
                             autoFocus
@@ -99,7 +100,7 @@ function LoginFormChild(props) {
                             required
                             fullWidth
                             name="password"
-                            label="Password"
+                            label={label.password}
                             type="password"
                             id="password"
                             autoComplete="current-password"
@@ -154,7 +155,7 @@ const LoginForm = withFormik({
             const accessToken = response.data.access_token
             localStorage.setItem("accessToken", accessToken)
             resetForm()
-            history.push("/")
+            history.push("/evenements")
         })
         .catch(error => {
             console.log(error.response);

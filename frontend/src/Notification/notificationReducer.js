@@ -10,7 +10,7 @@ export function notificationReducer(state = {messages: []}, action) {
                 severity: action.severity,
                 messages: action.messages,
                 date: action.date
-            })
+            });
         case ACCOUNT_CREATION_ERROR:
         case EVENT_CREATION_ERROR:
             return Object.assign({}, state, {
@@ -18,7 +18,6 @@ export function notificationReducer(state = {messages: []}, action) {
                 messages: action.messages,
                 date: action.date
             })
-    
         default:
             return state;
     }

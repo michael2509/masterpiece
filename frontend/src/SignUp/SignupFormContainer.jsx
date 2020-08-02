@@ -8,11 +8,7 @@ class SignUpFormContainer extends Component {
     render() {
         const { createAccount } = this.props;
 
-        return (
-            <div>
-                <SignUpForm createAccount={createAccount} />
-            </div>
-        )
+        return <SignUpForm createAccount={createAccount} />
     }
 }
 

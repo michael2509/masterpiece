@@ -4,7 +4,6 @@ import LocalizedStrings from 'react-localization';
 let labels = new LocalizedStrings({
     en: {
         username: "username",
-        email: "email",
         password: "password",
         confirmPassword: "confirm password",
         name: "name",
@@ -13,7 +12,6 @@ let labels = new LocalizedStrings({
     },
     fr: {
         username: "identifiant",
-        email: "email",
         password: "mot de passe",
         confirmPassword: "confirmation du mot de passe",
         name: "nom",
