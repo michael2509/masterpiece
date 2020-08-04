@@ -1,7 +1,7 @@
 import { GET_EVENT_LIST_PAGE_SUCCESS, GET_EVENT_LIST_PAGE_ERROR } from "./eventActionsTypes";
 
 
-export default function eventReducer(state = {}, action) {
+export default function eventReducer(state = { currentPage: 0 }, action) {
     switch (action.type) {
         case GET_EVENT_LIST_PAGE_SUCCESS:
             return Object.assign({}, state, {

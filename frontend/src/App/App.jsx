@@ -30,11 +30,11 @@ const RoutesWithNavbar = () => (
 
 const AuthRoutes = () => (
     <div className="auth-bg">
-    <Container component="main" maxWidth="xs" className="auth-container">
-        <CssBaseline />
-        <Route exact path="/inscription" component={SignupFormContainer} />
-        <Route exact path="/connexion" component={LoginForm} />
-    </Container>
+        <Container component="main" maxWidth="xs" className="auth-container">
+            <CssBaseline />
+            <Route exact path="/inscription" component={SignupFormContainer} />
+            <Route exact path="/connexion" component={LoginForm} />
+        </Container>
     </div>
 )
 

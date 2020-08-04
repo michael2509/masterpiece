@@ -68,7 +68,7 @@ export function createEvent(event) {
     }
 }
 
-export function getEventListPage() {
+export function getEventListPage(currentPage) {
     return async (dispatch) => {
         try {
             const accessToken = localStorage.getItem("accessToken");
@@ -77,8 +77,10 @@ export function getEventListPage() {
                     "Authorization": `Bearer ${accessToken}`
                 }
             }
-            const response = await axios.get(`http://localhost:8081/api/events?page=0&size=5`, config);
+            const pageSize = 4;
+            const response = await axios.get(`http://localhost:8081/api/events?page=${currentPage}&size=${pageSize}`, config);
             const eventListPage = response.data;
+            console.log(eventListPage);
             dispatch(getEventListPageSuccess(eventListPage))
         } catch {           
             dispatch(getEventListPageError());

@@ -189,11 +189,13 @@ const AddEvent = withFormik({
     }),
     handleSubmit: (values, { props, resetForm, setSubmitting }) => {
         const event = {...values};
+        const { createEvent, getEventListPage, currentPage } = props;
         
-        props.createEvent(event).then(reqSuccess => {
+        createEvent(event).then(reqSuccess => {
             if (reqSuccess) {
                 resetForm();
                 setSubmitting(true);
+                getEventListPage(currentPage);
             } else {
                 setSubmitting(false);
             }

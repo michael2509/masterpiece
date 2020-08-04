@@ -7,17 +7,28 @@ import { connect } from "react-redux";
 class EventContainer extends Component {
 
     componentDidMount() {
-        const { getEventListPage } = this.props;
-        getEventListPage()
+        const { getEventListPage, events } = this.props;
+        const { currentPage } = events;
+        getEventListPage(currentPage);
+    }
+
+    handleEventPageChange(event, value) {
+        console.log(this.props);
+        const page = value - 1;
+        console.log(page);
+        getEventListPage(page);
     }
 
     render() {
-        const { createEvent, events } = this.props;
+        const { createEvent, getEventListPage, events } = this.props;
+        const { eventListPage } = events;
+        const { currentPage } = events;
+        console.log(currentPage);
 
         return (
             <div>
-                <EventList events={events} />
-                <AddEvent createEvent={createEvent} />
+                <EventList eventListPage={eventListPage} getEventListPage={getEventListPage} />
+                <AddEvent createEvent={createEvent} getEventListPage={getEventListPage} currentPage={currentPage} />
             </div>
         )
     }
@@ -27,7 +38,7 @@ const mapStateToProps = (state) => ({ events: state.events });
 
 const mapDispatchToProps = (dispatch) => ({
     createEvent: (event) => dispatch(createEvent(event)),
-    getEventListPage: () => dispatch(getEventListPage())
+    getEventListPage: (currentPage) => dispatch(getEventListPage(currentPage))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventContainer);

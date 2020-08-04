@@ -5,32 +5,39 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-import ImageIcon from '@material-ui/icons/Image';
-import WorkIcon from '@material-ui/icons/Work';
-import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import { Typography } from '@material-ui/core';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
-import { roundToNearestMinutes, format } from 'date-fns'
+import { format } from 'date-fns'
+import Pagination from '@material-ui/lab/Pagination';
 
 const useStyles = makeStyles((theme) => ({
-	root: {
+	eventList: {
 		width: '100%',
 		backgroundColor: theme.palette.background.paper,
+		margin: "30px 0"
 	},
+	paginationContainer: {
+		display: "flex",
+		alignItems: "center",
+  		justifyContent: "center"
+	},
+	pagination: {
+		display: "inline-flex",
+		padding: 0,
+		marginBottom: 30
+	}
 }));
 
 const EventList = (props) => {
 	const classes = useStyles();
-	const { events } = props;
-	const { eventListPage } = events;
-	console.log(events);
+	const { eventListPage, getEventListPage } = props;
 
 	return (
 		<Fragment>
 			{!eventListPage ? <p>Chargement...</p> : (
 				<Fragment>
 					<Typography variant="h5" component="h2" align="center" gutterBottom>Vos Evenements</Typography>
-					<List className={classes.root}>
+					<List className={classes.eventList}>
 						{eventListPage.content.map((event, i) => (
 							<ListItem button key={i}>
 								<ListItemAvatar>
@@ -38,10 +45,13 @@ const EventList = (props) => {
 										<MeetingRoomIcon />
 									</Avatar>
 								</ListItemAvatar>
-								<ListItemText primary={event.name} secondary={<span><span>Début : {format(new Date(event.startDateTime), "dd/MM/yyyy à HH:mm")}</span><br></br><span>Fin : {format(new Date(event.endDateTime), "dd/MM/yyyy à HH:mm")}</span></span>} />
+						<ListItemText primary={event.name} secondary={<span><span>Début : {format(new Date(event.startDateTime), "dd/MM/yyyy à HH:mm")}</span><br></br><span>Fin : {format(new Date(event.endDateTime), "dd/MM/yyyy à HH:mm")}</span><br></br><span>Code d'accès : #{event.code}</span></span>} />
 							</ListItem>
 						))}
 					</List>
+					<div className={classes.paginationContainer}>
+						<Pagination page={eventListPage.number+1} count={eventListPage.totalPages} className={classes.pagination} onChange={(event, value) => getEventListPage(value-1)} />
+					</div>
 				</Fragment>
 			)}
 		</Fragment>

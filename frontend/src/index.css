@@ -13,7 +13,7 @@ code {
 }
 
 .auth-container {
-    display: flex;
+    display: flex !important;
     justify-content: center;
     min-height: 100vh;
 }
