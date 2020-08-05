@@ -51,7 +51,7 @@ export function createEvent(event) {
         console.log(eventJson);
 
         try {
-            const accessToken = localStorage.getItem("accessToken");
+            const accessToken = localStorage.getItem("access_token");
             await axios.post(
                 "http://localhost:8081/api/events",
                 eventJson,
@@ -71,7 +71,7 @@ export function createEvent(event) {
 export function getEventListPage(currentPage) {
     return async (dispatch) => {
         try {
-            const accessToken = localStorage.getItem("accessToken");
+            const accessToken = localStorage.getItem("access_token");
             const config = {
                 headers: {
                     "Authorization": `Bearer ${accessToken}`

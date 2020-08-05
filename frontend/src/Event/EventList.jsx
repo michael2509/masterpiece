@@ -5,7 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-import { Typography } from '@material-ui/core';
+import { Typography, Divider } from '@material-ui/core';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import { format } from 'date-fns'
 import Pagination from '@material-ui/lab/Pagination';
@@ -39,14 +39,17 @@ const EventList = (props) => {
 					<Typography variant="h5" component="h2" align="center" gutterBottom>Vos Evenements</Typography>
 					<List className={classes.eventList}>
 						{eventListPage.content.map((event, i) => (
-							<ListItem button key={i}>
-								<ListItemAvatar>
-									<Avatar>
-										<MeetingRoomIcon />
-									</Avatar>
-								</ListItemAvatar>
-						<ListItemText primary={event.name} secondary={<span><span>Début : {format(new Date(event.startDateTime), "dd/MM/yyyy à HH:mm")}</span><br></br><span>Fin : {format(new Date(event.endDateTime), "dd/MM/yyyy à HH:mm")}</span><br></br><span>Code d'accès : #{event.code}</span></span>} />
-							</ListItem>
+							<Fragment key={i}>
+								<ListItem button>
+									<ListItemAvatar>
+										<Avatar>
+											<MeetingRoomIcon />
+										</Avatar>
+									</ListItemAvatar>
+									<ListItemText primary={event.name} secondary={<span><span>Début : {format(new Date(event.startDateTime), "dd/MM/yyyy à HH:mm")}</span><br></br><span>Fin : {format(new Date(event.endDateTime), "dd/MM/yyyy à HH:mm")}</span><br></br><span>Code d'accès : #{event.code}</span></span>} />
+								</ListItem>
+								{i < eventListPage.content.length - 1 ? <Divider variant="inset" component="li" /> : null}
+							</Fragment>
 						))}
 					</List>
 					<div className={classes.paginationContainer}>

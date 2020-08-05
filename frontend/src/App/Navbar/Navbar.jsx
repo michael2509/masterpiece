@@ -19,6 +19,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Link, withRouter } from 'react-router-dom';
 import "./Navbar.css";
+import { isLogged, logout } from '../../Auth/authService';
 
 const drawerWidth = 240;
 
@@ -64,10 +65,15 @@ function Navbar(props) {
         setMobileOpen(!mobileOpen);
     };
 
-    const accessToken = localStorage.getItem("accessToken");
+    const logoutAndRedirect = () => {
+        logout();
+        history.push("/connexion")
+    }
+
+    const logged = isLogged();
     let navLinks;
 
-    if (accessToken !== null) {
+    if (logged) {
         navLinks = [
             { title: 'événements', path: '/evenements', icon: <EventIcon /> },
             { title: 'deconnexion', icon: <PersonAddIcon /> },
@@ -77,11 +83,6 @@ function Navbar(props) {
             { title: 'inscription', path: '/inscription', icon: <PersonAddIcon /> },
             { title: 'connexion', path: '/connexion', icon: <AccountCircleIcon /> },
         ]
-    }
-
-    const logout = () => {
-        localStorage.removeItem("accessToken");
-        history.push("/connexion")
     }
 
     const drawer = (
@@ -96,7 +97,7 @@ function Navbar(props) {
                 {navLinks.map(({ title, path, icon }, index) => {
                     if (title === "deconnexion") {
                         return (
-                            <ListItem onClick={logout} key={index} button>
+                            <ListItem onClick={logoutAndRedirect} key={index} button>
                                 <ListItemIcon>{icon}</ListItemIcon>
                                 <ListItemText primary={title} />
                             </ListItem>

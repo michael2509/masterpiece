@@ -5,12 +5,12 @@ import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import label from '../global/configs/label';
+import label from '../../global/configs/label';
 import { withFormik } from "formik";
 import * as Yup from "yup";
 import { withTheme } from '@material-ui/core/styles';
 import { Card, CardContent } from '@material-ui/core';
-import zenasklogo from '../global/assets/img/zenask-logo.png';
+import zenasklogo from '../../global/assets/img/zenask-logo.png';
 import { Link as RouterLink, withRouter } from 'react-router-dom';
 
 const signUpFormChild = props => {

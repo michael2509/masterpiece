@@ -1,4 +1,4 @@
-import { ACCOUNT_CREATION_SUCCESS, ACCOUNT_CREATION_ERROR } from "../SignUp/signUpActionTypes";
+import { ACCOUNT_CREATION_SUCCESS, ACCOUNT_CREATION_ERROR } from "../Auth/SignUp/signUpActionTypes";
 import { EVENT_CREATION_SUCCESS, EVENT_CREATION_ERROR } from "../Event/eventActionsTypes"
 
 export function notificationReducer(state = {messages: []}, action) {

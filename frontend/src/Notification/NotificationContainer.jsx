@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Notification from "./Notification";
-import { createAccount } from "../SignUp/signUpActions";
+import { createAccount } from "../Auth/SignUp/signUpActions";
 
 class NotificationContainer extends Component {
 

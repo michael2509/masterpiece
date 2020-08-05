@@ -1,6 +1,6 @@
 import { ACCOUNT_CREATION_SUCCESS, ACCOUNT_CREATION_ERROR } from './signUpActionTypes.js';
 import axios from 'axios';
-import listServerErrors from "../global/functions/listServerErrors";
+import listServerErrors from "../../global/functions/listServerErrors";
 
 export function accountCreationSuccess() {
     return {

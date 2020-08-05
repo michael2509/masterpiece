@@ -6,12 +6,12 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent } from '@material-ui/core';
-import zenasklogo from '../global/assets/img/zenask-logo.png';
+import zenasklogo from '../../global/assets/img/zenask-logo.png';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink, withRouter } from 'react-router-dom';
 import { withFormik } from "formik";
-import axios from "axios";
-import label from '../global/configs/label';
+import label from '../../global/configs/label';
+import { login } from '../authService';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -144,23 +144,15 @@ const LoginForm = withFormik({
     handleSubmit: (values, { props, resetForm }) => {
         const { history } = props
 
-        const clientId = process.env.REACT_APP_CLIENT_ID
-        console.log(clientId);
-        const grantType = "password"
         const username = values.username
         const password = values.password
-      
-        axios.post(`http://localhost:8081/oauth/token?grant_type=${grantType}&username=${username}&password=${password}&client_id=${clientId}`)
-        .then(response => {
-            const accessToken = response.data.access_token
-            localStorage.setItem("accessToken", accessToken)
-            resetForm()
-            history.push("/evenements")
-        })
-        .catch(error => {
-            console.log(error.response);
+
+        login(username, password).then(logged => {
+            if (logged) {
+                resetForm();
+                history.push("/evenements");
             }
-        )
+        })
     }
   })(LoginFormChild);
 

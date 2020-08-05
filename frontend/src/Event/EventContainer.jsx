@@ -3,12 +3,14 @@ import EventList from './EventList';
 import AddEvent from './AddEvent';
 import { createEvent, getEventListPage } from "./eventActions";
 import { connect } from "react-redux";
+import { isLogged } from '../Auth/authService';
 
 class EventContainer extends Component {
 
     componentDidMount() {
         const { getEventListPage, events } = this.props;
         const { currentPage } = events;
+
         getEventListPage(currentPage);
     }
 
@@ -20,10 +22,15 @@ class EventContainer extends Component {
     }
 
     render() {
-        const { createEvent, getEventListPage, events } = this.props;
+        const { createEvent, getEventListPage, events, history } = this.props;
         const { eventListPage } = events;
         const { currentPage } = events;
-        console.log(currentPage);
+
+        const logged = isLogged();
+
+        if (!logged) {
+            history.push("/connexion")
+        }
 
         return (
             <div>
@@ -34,11 +41,13 @@ class EventContainer extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({ events: state.events });
+const mapStateToProps = (state) => ({
+    events: state.events
+});
 
 const mapDispatchToProps = (dispatch) => ({
     createEvent: (event) => dispatch(createEvent(event)),
-    getEventListPage: (currentPage) => dispatch(getEventListPage(currentPage))
+    getEventListPage: (currentPage) => dispatch(getEventListPage(currentPage)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventContainer);
