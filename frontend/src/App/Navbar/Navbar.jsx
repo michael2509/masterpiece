@@ -16,11 +16,12 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Link, withRouter } from 'react-router-dom';
 import "./Navbar.css";
 import { isLogged, logout } from '../../Auth/authService';
+import eMeetingLogo from '../../global/assets/img/e-meeting-logo.png';
+import eMeetingLogoWhite from '../../global/assets/img/e-meeting-logo-white.png';
 
 const drawerWidth = 240;
 
@@ -54,6 +55,14 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
         padding: theme.spacing(3),
     },
+    logoWrapper: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    logo: {
+        height: 40
+    }
 }));
 
 function Navbar(props) {
@@ -76,27 +85,27 @@ function Navbar(props) {
 
     if (logged) {
         navLinks = [
-            { title: 'meetings', path: '/meetings', icon: <MeetingRoomIcon /> },
-            { title: 'deconnexion', icon: <ExitToAppIcon /> },
+            { title: 'Meetings', path: '/meetings', icon: <MeetingRoomIcon /> },
+            { title: 'Déconnexion', icon: <ExitToAppIcon /> },
         ]
     } else {
         navLinks = [
-            { title: 'inscription', path: '/inscription', icon: <PersonAddIcon /> },
-            { title: 'connexion', path: '/connexion', icon: <AccountCircleIcon /> },
+            { title: 'Inscription', path: '/inscription', icon: <PersonAddIcon /> },
+            { title: 'Connexion', path: '/connexion', icon: <AccountCircleIcon /> },
         ]
     }
 
     const drawer = (
         <div>
-            <div className={`${classes.toolbar} drawerLogo`}>
-                <Typography className="drawerLogoTitle" variant="h6" noWrap>
-                    <Link className="drawerLink" to="/">ZenAsk</Link>
-                </Typography>
+            <div className={`${classes.toolbar} drawerLogo ${classes.logoWrapper}`}>
+                    <Link className="drawerLink" to="/">
+                        <img className={classes.logo} src={eMeetingLogo} alt="E-Meeting logo" />
+                    </Link>
             </div>
             <Divider />
             <List>
                 {navLinks.map(({ title, path, icon }, index) => {
-                    if (title === "deconnexion") {
+                    if (title === "Déconnexion") {
                         return (
                             <ListItem onClick={logoutAndRedirect} key={index} button>
                                 <ListItemIcon>{icon}</ListItemIcon>
@@ -132,14 +141,14 @@ function Navbar(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap>ZenAsk</Typography>
+                    <img className={classes.logo} src={eMeetingLogoWhite} alt="E-Meeting logo" />
                     <Hidden smDown>
                         <div style={{ flexGrow: 1 }} />
                         <List style={{ display: "flex" }}>
                             {navLinks.map(({ title, path }, index) => {
-                                if (title === "deconnexion") {
+                                if (title === "Déconnexion") {
                                     return (
-                                        <ListItem key={index} onClick={logout} button>
+                                        <ListItem key={index} onClick={logoutAndRedirect} button>
                                             <ListItemText primary={title} />
                                         </ListItem>
                                     )

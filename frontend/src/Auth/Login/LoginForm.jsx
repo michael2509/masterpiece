@@ -6,7 +6,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent } from '@material-ui/core';
-import zenasklogo from '../../global/assets/img/zenask-logo.png';
+import eMeetingLogo from '../../global/assets/img/e-meeting-logo.png';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink, withRouter } from 'react-router-dom';
 import { withFormik } from "formik";
@@ -45,8 +45,9 @@ const useStyles = makeStyles(theme => ({
     title: {
         marginBottom: theme.spacing(3)
     },
-    zenaskLogo: {
-        maxHeight: 100
+    eMeetingLogo: {
+        maxHeight: 40,
+        marginBottom: 20
     }
 }));
 
@@ -65,7 +66,7 @@ function LoginFormChild(props) {
         <div className={classes.paper}>
             <RouterLink to={"/"}>
                 <Link component="span">
-                    <img className={classes.zenaskLogo} src={zenasklogo} alt="Zenask logo" />
+                    <img className={classes.eMeetingLogo} src={eMeetingLogo} alt="E-Meeting logo" />
                 </Link>
             </RouterLink>
             <Card className={classes.card}>

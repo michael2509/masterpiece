@@ -65,20 +65,20 @@ const AddMeetingForm = (props) => {
         <div>
         <Fab onClick={handleClickOpen} className={classes.fab} color="primary" aria-label="add" variant="extended">
             <AddIcon className={classes.extendedIcon} />
-            Créer un meeting
+            Créer un Meeting
         </Fab>
         <Dialog open={isSubmitting ? false : open} onClose={handleClose} aria-labelledby="form-dialog-title" disableBackdropClick>
             <form onSubmit={handleSubmit}>
-                <DialogTitle id="form-dialog-title">Créer un nouvel meeting</DialogTitle>
+                <DialogTitle id="form-dialog-title">Créer un nouveau meeting</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Créer un nouvel espace dédié à votre meeting, vous permettant de récupérer les questions des participants, et de leur soumettre des sondages et quiz.
+                        Créer un nouvel espace, vous permettant de communiquer avec vos invités, et de leur soumettre des sondages et quiz.
                     </DialogContentText>
                     <TextField
                         autoFocus
                         margin="dense"
                         id="name"
-                        label="Nom de l'meeting"
+                        label="Nom du meeting"
                         type="text"
                         fullWidth
                         className={classes.meetingNameInput}
@@ -94,7 +94,7 @@ const AddMeetingForm = (props) => {
                             id="startDateTime"
                             variant="inline"
                             ampm={false}
-                            label="Début de l'meeting"
+                            label="Début du meeting"
                             value={values.startDateTime}
                             onChange={value => setFieldValue("startDateTime", value)}
                             disablePast
@@ -110,7 +110,7 @@ const AddMeetingForm = (props) => {
                             id="endDateTime"
                             variant="inline"
                             ampm={false}
-                            label="Fin de l'meeting"
+                            label="Fin du meeting"
                             value={values.endDateTime}
                             onChange={value => setFieldValue("endDateTime", value)}
                             disablePast
@@ -151,8 +151,8 @@ const AddMeeting = withFormik({
 
     validationSchema: Yup.object().shape({
         name: Yup.string()
-                .max(255, "Le nom de l'meeting ne peut pas excéder 255 caractères")
-                .required("Veuillez entrer un nom pour l'meeting"),
+                .max(255, "Le nom du meeting ne peut pas excéder 255 caractères")
+                .required("Veuillez entrer un nom pour le meeting"),
         startDateTime: Yup.mixed()
                     .test("null start date", "Veuillez entrez une date",
                         function (startDateTime) {
@@ -162,7 +162,7 @@ const AddMeeting = withFormik({
                         function (startDateTime) {
                             return isValid(startDateTime) && differenceInMinutes(startDateTime, new Date()) < 0 ? false : true
                     })
-                    .test("start date before end date", "Doit être avant la fin de l'meeting", 
+                    .test("start date before end date", "Doit être avant la fin du meeting", 
                         function(startDateTime) {
                             const { endDateTime } = this.parent                             
                             

@@ -10,7 +10,7 @@ import { withFormik } from "formik";
 import * as Yup from "yup";
 import { withTheme } from '@material-ui/core/styles';
 import { Card, CardContent } from '@material-ui/core';
-import zenasklogo from '../../global/assets/img/zenask-logo.png';
+import eMeetinglogo from '../../global/assets/img/e-meeting-logo.png';
 import { Link as RouterLink, withRouter } from 'react-router-dom';
 
 const signUpFormChild = props => {
@@ -57,8 +57,9 @@ const signUpFormChild = props => {
         title: {
             marginBottom: theme.spacing(3)
         },
-        zenaskLogo: {
-            maxHeight: 100
+        eMeetinglogo: {
+            maxHeight: 40,
+            marginBottom: 20
         }
     };
 
@@ -66,7 +67,7 @@ const signUpFormChild = props => {
         <div style={classes.paper}>
             <RouterLink to={"/"}>
                 <Link component="span">
-                    <img style={classes.zenaskLogo} src={zenasklogo} alt="Zenask logo" />
+                    <img style={classes.eMeetinglogo} src={eMeetinglogo} alt="E-Meeting logo" />
                 </Link>
             </RouterLink>
             <Card style={classes.card}>

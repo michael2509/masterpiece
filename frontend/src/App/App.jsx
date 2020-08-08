@@ -14,39 +14,26 @@ import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import LoginForm from '../Auth/Login/LoginForm';
 import PrivateRoute from './privateRoute';
+import PageNotFound from './PageNotFound/PageNotFound';
 
 const store = configureStore();
-
-const RoutesWithNavbar = () => (
-    <div>
-        <Navbar />
-        <div style={{ marginTop: 100 }}></div>
-        <Container component="main" maxWidth="sm" style={{ minHeight: "calc(100vh - 100px)" }}>
-            <CssBaseline />
-            <PrivateRoute exact path="/meetings" component={MeetingContainer} />
-            <Route exact path="/" component={Home} />
-        </Container>
-    </div>
-)
-
-const AuthRoutes = () => (
-    <div className="auth-bg">
-        <Container component="main" maxWidth="xs" className="auth-container">
-            <CssBaseline />
-            <Route exact path="/inscription" component={SignupFormContainer} />
-            <Route exact path="/connexion" component={LoginForm} />
-        </Container>
-    </div>
-)
 
 const App = () => (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <ReduxStoreProvider store={store}>
             <Router>
-                <Switch>
-                    <Route path={["/inscription", "/connexion"]} component={AuthRoutes} />
-                    <Route path="/" component={RoutesWithNavbar} />
-                </Switch>
+                <CssBaseline />
+                <Navbar />
+                <div style={{ marginTop: 100 }}></div>
+                <Container component="main" maxWidth="sm" style={{ minHeight: "calc(100vh - 100px)" }}>
+                    <Switch>
+                        <Route exact path="/inscription" component={SignupFormContainer} />
+                        <Route exact path="/connexion" component={LoginForm} />
+                        <PrivateRoute exact path="/meetings" component={MeetingContainer} />
+                        <Route exact path="/" component={Home} />
+                        <Route path="*" component={PageNotFound} />
+                    </Switch>
+                </Container>
             </Router>
             <NotificationContainer />
             <Footer />
