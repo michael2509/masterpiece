@@ -8,11 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AccountPasswordValidator implements ConstraintValidator<AccountPassword, String> {
-    @Override
-    public void initialize(AccountPassword constraintAnnotation) {
-
-    }
+public class UserPasswordValidator implements ConstraintValidator<UserPassword, String> {
 
     @Override
     public boolean isValid(String password, ConstraintValidatorContext context) {
@@ -28,14 +24,8 @@ public class AccountPasswordValidator implements ConstraintValidator<AccountPass
 
         if (result.isValid()) {
             return true;
+        } else {
+            return false;
         }
-        List<String> messages = validator.getMessages(result);
-
-        String messageTemplate = messages.stream()
-                .collect(Collectors.joining(","));
-        context.buildConstraintViolationWithTemplate(messageTemplate)
-                .addConstraintViolation()
-                .disableDefaultConstraintViolation();
-        return false;
     }
 }

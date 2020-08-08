@@ -1,6 +1,6 @@
 package fr.formation.backend.viewdtos;
 
-public interface AccountViewDto {
+public interface UserViewDto {
 
     Long getId();
     String getUsername();

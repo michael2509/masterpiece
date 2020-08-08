@@ -1,9 +1,9 @@
-import { notificationReducer } from "../Notification/notificationReducer";
-import eventReducer from "../Event/eventReducer";
+import notificationReducer from "../Notification/notificationReducer";
+import meetingReducer from "../Meeting/meetingReducer";
 
 export function rootReducer(state = {}, action) {
     return {
         notification: notificationReducer(state.notification, action),
-        events: eventReducer(state.events, action)
+        meetings: meetingReducer(state.meetings, action)
     }
 }

@@ -4,10 +4,10 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "accounts", uniqueConstraints = {
-        @UniqueConstraint(name = "accounts_username_UQ", columnNames = {"username"}),
+@Table(name = "users", uniqueConstraints = {
+        @UniqueConstraint(name = "users_username_UQ", columnNames = {"username"}),
 })
-public class Account {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,7 +18,7 @@ public class Account {
     @Column(nullable = false)
     private String password;
 
-    public Account() {
+    public User() {
     }
 
     public Long getId() {

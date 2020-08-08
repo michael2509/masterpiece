@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SignUpForm from "./SignUpForm";
-import { createAccount } from "./signUpActions";
+import { createUser } from "./signUpActions";
 
 class SignUpFormContainer extends Component {
 
     render() {
-        const { createAccount } = this.props;
+        const { createUser } = this.props;
 
-        return <SignUpForm createAccount={createAccount} />
+        return <SignUpForm createUser={createUser} />
     }
 }
 
-const mapDispatchToProps = (dispatch) => ({ createAccount: (account) => dispatch(createAccount(account)) });
+const mapDispatchToProps = (dispatch) => ({ createUser: (user) => dispatch(createUser(user)) });
 
 export default connect(null, mapDispatchToProps)(SignUpFormContainer)

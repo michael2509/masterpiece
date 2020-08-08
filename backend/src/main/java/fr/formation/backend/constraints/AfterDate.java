@@ -11,7 +11,7 @@ import javax.validation.Payload;
 @Documented
 public @interface AfterDate {
 
-    String message() default "La date de début de l'événement doit être avant la date de fin de l'événement" ;
+    String message() default "End date time must be after start date time" ;
 
     Class<?>[] groups() default { };
 

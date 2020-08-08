@@ -4,8 +4,12 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "events")
-public class Event {
+@Table(name = "meetings", uniqueConstraints = {
+        @UniqueConstraint(name = "meetings_code_IDX", columnNames = {"code"})
+}, indexes = {
+        @Index(name = "meetings_user_id_IDX", columnList = "user_id")
+})
+public class Meeting {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,10 +28,10 @@ public class Event {
     private String code;
 
     @ManyToOne
-    @JoinColumn(name = "account_id", nullable = false)
-    private Account account;
+    @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "meetings_users_FK"))
+    private User user;
 
-    public Event() {
+    public Meeting() {
     }
 
     public Long getId() {
@@ -70,11 +74,11 @@ public class Event {
         this.code = code;
     }
 
-    public Account getAccount() {
-        return account;
+    public User getUser() {
+        return user;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

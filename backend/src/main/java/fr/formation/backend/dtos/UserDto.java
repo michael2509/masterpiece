@@ -1,21 +1,20 @@
 package fr.formation.backend.dtos;
 
 import fr.formation.backend.constraints.UniqueUsername;
-import fr.formation.backend.constraints.AccountPassword;
+import fr.formation.backend.constraints.UserPassword;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-public class AccountDto {
+public class UserDto {
 
     @NotBlank
     @UniqueUsername
     private String username;
 
-    @AccountPassword
+    @UserPassword
     private String password;
 
-    public AccountDto() {
+    public UserDto() {
     }
 
     public String getUsername() {

@@ -5,8 +5,8 @@ import fr.formation.backend.constraints.AfterDate;
 import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 
-@AfterDate()
-public class EventDto {
+@AfterDate
+public class MeetingDto {
 
     @NotBlank
     @Size(max = 255)
@@ -20,7 +20,7 @@ public class EventDto {
     @Future(message = "La date de fin de l'événement doit être dans le futur")
     private LocalDateTime endDateTime;
 
-    public EventDto() {
+    public MeetingDto() {
     }
 
     public String getName() {

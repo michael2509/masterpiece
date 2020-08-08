@@ -7,7 +7,7 @@ import { Provider as ReduxStoreProvider } from 'react-redux';
 import configureStore from './configure-store';
 import SignupFormContainer from '../Auth/SignUp/SignupFormContainer';
 import NotificationContainer from '../Notification/NotificationContainer';
-import EventContainer from '../Event/EventContainer';
+import MeetingContainer from '../Meeting/MeetingContainer';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import Container from '@material-ui/core/Container';
@@ -23,8 +23,8 @@ const RoutesWithNavbar = () => (
         <div style={{ marginTop: 100 }}></div>
         <Container component="main" maxWidth="sm" style={{ minHeight: "calc(100vh - 100px)" }}>
             <CssBaseline />
-            <PrivateRoute exact path="/evenements" component={EventContainer} />
-            <PrivateRoute exact path="/" component={Home} />
+            <PrivateRoute exact path="/meetings" component={MeetingContainer} />
+            <Route exact path="/" component={Home} />
         </Container>
     </div>
 )

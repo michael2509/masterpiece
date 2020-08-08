@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Notification from "./Notification";
-import { createAccount } from "../Auth/SignUp/signUpActions";
 
 class NotificationContainer extends Component {
 
@@ -35,6 +34,5 @@ class NotificationContainer extends Component {
 
 
 const mapStateToProps = (state) => ({ notification: state.notification });
-const mapDispatchToProps = (dispatch) => ({ createAccount: (account) => dispatch(createAccount(account)) });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NotificationContainer)
+export default connect(mapStateToProps, null)(NotificationContainer)

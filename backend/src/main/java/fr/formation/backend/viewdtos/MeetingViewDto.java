@@ -2,11 +2,11 @@ package fr.formation.backend.viewdtos;
 
 import java.time.LocalDateTime;
 
-public interface EventViewDto {
+public interface MeetingViewDto {
     Long getId();
     String getName();
     LocalDateTime getStartDateTime();
     LocalDateTime getEndDateTime();
     String getCode();
-    String getAccountUsername();
+    String getUserUsername();
 }

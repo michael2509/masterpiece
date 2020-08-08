@@ -6,13 +6,14 @@ import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import EventIcon from '@material-ui/icons/Event';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -75,8 +76,8 @@ function Navbar(props) {
 
     if (logged) {
         navLinks = [
-            { title: 'événements', path: '/evenements', icon: <EventIcon /> },
-            { title: 'deconnexion', icon: <PersonAddIcon /> },
+            { title: 'meetings', path: '/meetings', icon: <MeetingRoomIcon /> },
+            { title: 'deconnexion', icon: <ExitToAppIcon /> },
         ]
     } else {
         navLinks = [

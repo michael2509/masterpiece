@@ -150,7 +150,7 @@ const LoginForm = withFormik({
         login(username, password).then(logged => {
             if (logged) {
                 resetForm();
-                history.push("/evenements");
+                history.push("/meetings");
             }
         })
     }

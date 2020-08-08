@@ -2,14 +2,13 @@ package fr.formation.backend.config;
 
 import java.util.Arrays;
 
-import fr.formation.backend.services.AccountService;
+import fr.formation.backend.services.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -23,7 +22,6 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Configuration
@@ -54,7 +52,7 @@ public class AuthorizationServerConfig
 
     // Custom user details service to authenticate users with username and
     // password from the database
-    private final AccountService accountService;
+    private final UserService userService;
 
     // Custom token converter to store custom info within access token
     private final CustomAccessTokenConverter customAccessTokenConverter;
@@ -63,11 +61,11 @@ public class AuthorizationServerConfig
 
     protected AuthorizationServerConfig(
 	    AuthenticationManager authenticationManagerBean,
-	    AccountService accountService,
+	    UserService userService,
 	    CustomAccessTokenConverter customAccessTokenConverter,
         PasswordEncoder passwordEncoder) {
 	authenticationManager = authenticationManagerBean;
-	this.accountService = accountService;
+	this.userService = userService;
 	this.customAccessTokenConverter = customAccessTokenConverter;
 	this.passwordEncoder = passwordEncoder;
     }
@@ -108,7 +106,7 @@ public class AuthorizationServerConfig
 		Arrays.asList(tokenEnhancer(), accessTokenConverter()));
 	configurer.tokenStore(tokenStore()).tokenEnhancer(tokenEnhancerChain)
 		.authenticationManager(authenticationManager)
-		.userDetailsService(accountService);
+		.userDetailsService(userService);
     }
 
     /**

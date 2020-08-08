@@ -1,39 +1,39 @@
-import { ACCOUNT_CREATION_SUCCESS, ACCOUNT_CREATION_ERROR } from './signUpActionTypes.js';
+import { USER_CREATION_SUCCESS, USER_CREATION_ERROR } from './signUpActionTypes.js';
 import axios from 'axios';
 import listServerErrors from "../../global/functions/listServerErrors";
 
-export function accountCreationSuccess() {
+export function userCreationSuccess() {
     return {
-        type: ACCOUNT_CREATION_SUCCESS,
+        type: USER_CREATION_SUCCESS,
         severity: "success",
         messages: ["Compte crée avec succès"],
         date: Date.now()
     }
 }
 
-export function accountCreationError(errorMessages) {
+export function userCreationError(errorMessages) {
     return {
-        type: ACCOUNT_CREATION_ERROR,
+        type: USER_CREATION_ERROR,
         severity: "error",
         messages: errorMessages,
         date: Date.now()
     }
 }
 
-export function createAccount(account) {
+export function createUser(user) {
     
     return async (dispatch) => {
         
-        const accountJson = JSON.stringify(account);
+        const userJson = JSON.stringify(user);
         
         try {
-            await axios.post('http://localhost:8081/api/accounts', accountJson, { headers: { 'Content-Type': 'application/json' } })
-            dispatch(accountCreationSuccess())
+            await axios.post('http://localhost:8081/api/users', userJson, { headers: { 'Content-Type': 'application/json' } })
+            dispatch(userCreationSuccess())
             return true
         }
         catch (error) {
             const errorMessages = listServerErrors(error.response);
-            dispatch(accountCreationError(errorMessages))
+            dispatch(userCreationError(errorMessages))
             return false
         }
     }

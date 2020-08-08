@@ -171,11 +171,11 @@ const SignUpForm = withFormik({
 
     handleSubmit: (values, { props, resetForm }) => {
         
-        const { createAccount, history } = props
+        const { createUser, history } = props
         const user = Object.assign({}, values)
         delete user.confirmPassword
         
-        createAccount(user).then(requestSuccess => {
+        createUser(user).then(requestSuccess => {
             if (requestSuccess) {
                 resetForm()
                 history.push("/connexion")

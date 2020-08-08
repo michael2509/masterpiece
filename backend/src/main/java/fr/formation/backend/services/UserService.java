@@ -1,12 +1,12 @@
 package fr.formation.backend.services;
 
-import fr.formation.backend.dtos.AccountDto;
+import fr.formation.backend.dtos.UserDto;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-public interface AccountService extends UserDetailsService {
+public interface UserService extends UserDetailsService {
 
-    void createAccount(AccountDto accountDto);
+    void createUser(UserDto userDto);
 
     UserDetails loadUserByUsername(String username);
 

@@ -17,7 +17,7 @@ import { addDays, differenceInMinutes, endOfMinute } from 'date-fns';
 import { isValid } from 'date-fns/esm';
 
 const useStyles = makeStyles(theme => ({
-    eventNameInput: {
+    meetingNameInput: {
         marginBottom: theme.spacing(4)
     },
     datePicker: {
@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const AddEventChild = (props) => {
+const AddMeetingForm = (props) => {
 
     const {
         values,
@@ -65,23 +65,23 @@ const AddEventChild = (props) => {
         <div>
         <Fab onClick={handleClickOpen} className={classes.fab} color="primary" aria-label="add" variant="extended">
             <AddIcon className={classes.extendedIcon} />
-            Créer un événement
+            Créer un meeting
         </Fab>
         <Dialog open={isSubmitting ? false : open} onClose={handleClose} aria-labelledby="form-dialog-title" disableBackdropClick>
             <form onSubmit={handleSubmit}>
-                <DialogTitle id="form-dialog-title">Créer un nouvel événement</DialogTitle>
+                <DialogTitle id="form-dialog-title">Créer un nouvel meeting</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Créer un nouvel espace dédié à votre événement, vous permettant de récupérer les questions des participants, et de leur soumettre des sondages et quiz.
+                        Créer un nouvel espace dédié à votre meeting, vous permettant de récupérer les questions des participants, et de leur soumettre des sondages et quiz.
                     </DialogContentText>
                     <TextField
                         autoFocus
                         margin="dense"
                         id="name"
-                        label="Nom de l'événement"
+                        label="Nom de l'meeting"
                         type="text"
                         fullWidth
-                        className={classes.eventNameInput}
+                        className={classes.meetingNameInput}
                         value={values.name}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -94,7 +94,7 @@ const AddEventChild = (props) => {
                             id="startDateTime"
                             variant="inline"
                             ampm={false}
-                            label="Début de l'événement"
+                            label="Début de l'meeting"
                             value={values.startDateTime}
                             onChange={value => setFieldValue("startDateTime", value)}
                             disablePast
@@ -110,7 +110,7 @@ const AddEventChild = (props) => {
                             id="endDateTime"
                             variant="inline"
                             ampm={false}
-                            label="Fin de l'événement"
+                            label="Fin de l'meeting"
                             value={values.endDateTime}
                             onChange={value => setFieldValue("endDateTime", value)}
                             disablePast
@@ -138,7 +138,7 @@ const AddEventChild = (props) => {
     );
 }
 
-const AddEvent = withFormik({
+const AddMeeting = withFormik({
     mapPropsToValues: ({
         name,
         startDateTime,
@@ -151,8 +151,8 @@ const AddEvent = withFormik({
 
     validationSchema: Yup.object().shape({
         name: Yup.string()
-                .max(255, "Le nom de l'événement ne peut pas excéder 255 caractères")
-                .required("Veuillez entrer un nom pour l'événement"),
+                .max(255, "Le nom de l'meeting ne peut pas excéder 255 caractères")
+                .required("Veuillez entrer un nom pour l'meeting"),
         startDateTime: Yup.mixed()
                     .test("null start date", "Veuillez entrez une date",
                         function (startDateTime) {
@@ -162,7 +162,7 @@ const AddEvent = withFormik({
                         function (startDateTime) {
                             return isValid(startDateTime) && differenceInMinutes(startDateTime, new Date()) < 0 ? false : true
                     })
-                    .test("start date before end date", "Doit être avant la fin de l'événement", 
+                    .test("start date before end date", "Doit être avant la fin de l'meeting", 
                         function(startDateTime) {
                             const { endDateTime } = this.parent                             
                             
@@ -177,7 +177,7 @@ const AddEvent = withFormik({
                         function (endDateTime) {
                             return endDateTime === null ? false : true
                     })
-                    .test("start date before end date", "Doit être après le début l'événement", 
+                    .test("start date before end date", "Doit être après le début l'meeting", 
                         function(endDateTime) {
                             const { startDateTime } = this.parent
                             return (isValid(endDateTime) && isValid(startDateTime) && differenceInMinutes(endDateTime, startDateTime) <= 0) ? false : true
@@ -188,19 +188,19 @@ const AddEvent = withFormik({
                     }),
     }),
     handleSubmit: (values, { props, resetForm, setSubmitting }) => {
-        const event = {...values};
-        const { createEvent, getEventListPage, currentPage } = props;
+        const meeting = {...values};
+        const { createMeeting, getMeetingListPage, currentPage } = props;
         
-        createEvent(event).then(reqSuccess => {
+        createMeeting(meeting).then(reqSuccess => {
             if (reqSuccess) {
                 resetForm();
                 setSubmitting(true);
-                getEventListPage(currentPage);
+                getMeetingListPage(currentPage);
             } else {
                 setSubmitting(false);
             }
         })
     }
-})(AddEventChild)
+})(AddMeetingForm)
 
-export default AddEvent;
+export default AddMeeting;

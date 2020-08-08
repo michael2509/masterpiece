@@ -11,10 +11,10 @@ import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Documented
-@Constraint(validatedBy = AccountPasswordValidator.class)
+@Constraint(validatedBy = UserPasswordValidator.class)
 @Target({ FIELD, ANNOTATION_TYPE })
 @Retention(RUNTIME)
-public @interface AccountPassword {
+public @interface UserPassword {
 
     String message() default "Invalid Password";
 

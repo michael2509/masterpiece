@@ -2,7 +2,7 @@ package fr.formation.backend.config;
 
 import java.util.ArrayList;
 
-import fr.formation.backend.viewdtos.AccountViewDto;
+import fr.formation.backend.viewdtos.UserViewDto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
@@ -15,7 +15,7 @@ public class CustomUserDetails extends User {
 
     private Long id;
 
-    public CustomUserDetails(AccountViewDto account) {
+    public CustomUserDetails(UserViewDto account) {
 		super(account.getUsername(), account.getPassword(), new ArrayList<GrantedAuthority>());
 		id = account.getId();
     }
