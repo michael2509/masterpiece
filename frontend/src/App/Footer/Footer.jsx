@@ -9,7 +9,7 @@ function Copyright() {
         <Typography variant="body2" color="textSecondary">
             {'Copyright © '}
             <Link color="inherit" href="https://material-ui.com/">
-                ZenAsk
+                E-Meeting
       </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -32,7 +32,7 @@ export default function StickyFooter() {
     return (
         <footer className={classes.footer}>
             <Container maxWidth="sm">
-                <Typography variant="body1">Site réalisé par Michael De Madet.</Typography>
+                <Typography variant="body1">Application réalisé par Michael De Madet.</Typography>
                 <Copyright />
             </Container>
         </footer>

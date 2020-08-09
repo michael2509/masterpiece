@@ -25,11 +25,12 @@ export function meetingCreationError(errorMessages) {
     }
 }
 
-export function getMeetingListPageSuccess(pageNumber, meetingListPage) {
+export function getMeetingListPageSuccess(pageNumber, meetingListPage, totalPages) {
     return {
         type: GET_MEETING_LIST_PAGE_SUCCESS,
         meetingListPage: meetingListPage,
-        pageNumber: pageNumber
+        pageNumber: pageNumber,
+        totalPages: totalPages
     }
 }
 
@@ -51,10 +52,8 @@ export function createMeeting(meeting) {
 
         const meetingJson = JSON.stringify(meeting);
 
-        console.log(meetingJson);
-
         try {
-            const accessToken = localStorage.getItem("access_token");
+            const accessToken = getTokenFromLocalStorage("access_token");
             await axios.post(
                 "http://localhost:8081/api/meetings",
                 meetingJson,
@@ -71,21 +70,20 @@ export function createMeeting(meeting) {
     }
 }
 
-export function getMeetingListPage(currentPage) {
+export function getMeetingListPage(pageNumber) {
     return async (dispatch) => {
         try {
-            // const accessToken = localStorage.getItem("access_token");
             const accessToken = getTokenFromLocalStorage("access_token");
             const config = {
                 headers: {
                     "Authorization": `Bearer ${accessToken}`
                 }
             }
-            const pageSize = 4;
-            const response = await axios.get(`http://localhost:8081/api/meetings?page=${currentPage}&size=${pageSize}`, config);
+            const pageSize = 3;
+            const response = await axios.get(`http://localhost:8081/api/meetings?page=${pageNumber}&size=${pageSize}`, config);
             const meetingListPage = response.data.content;
-            const pageNumber = response.data.number;
-            dispatch(getMeetingListPageSuccess(pageNumber, meetingListPage))
+            const totalPages = response.data.totalPages;
+            dispatch(getMeetingListPageSuccess(pageNumber, meetingListPage, totalPages))
         } catch {           
             dispatch(getMeetingListPageError());
         }

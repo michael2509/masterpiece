@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MeetingList = (props) => {
 	const classes = useStyles();
-	const { meetingListPage, getMeetingListPage } = props;
+	const { meetingListPage, getMeetingListPage, pageNumber, totalPages } = props;
 
 	return (
 		<Fragment>
@@ -53,7 +53,7 @@ const MeetingList = (props) => {
 						))}
 					</List>
 					<div className={classes.paginationContainer}>
-						<Pagination page={meetingListPage.number+1} count={meetingListPage.totalPages} className={classes.pagination} onChange={(meeting, value) => getMeetingListPage(value-1)} />
+						<Pagination page={pageNumber+1} count={totalPages} className={classes.pagination} onChange={(meeting, value) => getMeetingListPage(value-1)} />
 					</div>
 				</Fragment>
 			)}

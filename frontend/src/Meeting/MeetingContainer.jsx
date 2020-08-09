@@ -13,7 +13,7 @@ class MeetingContainer extends Component {
     }
 
     render() {
-        const { createMeeting, getMeetingListPage, meetingListPage, pageNumber, history } = this.props;
+        const { createMeeting, getMeetingListPage, meetingListPage, pageNumber, totalPages, history } = this.props;
         const logged = isLogged();
 
         if (!logged) {
@@ -22,7 +22,7 @@ class MeetingContainer extends Component {
 
         return (
             <div>
-                <MeetingList meetingListPage={meetingListPage} getMeetingListPage={getMeetingListPage} />
+                <MeetingList totalPages={totalPages} meetingListPage={meetingListPage} getMeetingListPage={getMeetingListPage} pageNumber={pageNumber} />
                 <AddMeeting createMeeting={createMeeting} getMeetingListPage={getMeetingListPage} pageNumber={pageNumber} />
             </div>
         )
@@ -31,7 +31,8 @@ class MeetingContainer extends Component {
 
 const mapStateToProps = (state) => ({
     pageNumber: state.meetings.pageNumber,
-    meetingListPage: state.meetings.meetingListPage
+    meetingListPage: state.meetings.meetingListPage,
+    totalPages: state.meetings.totalPages
 });
 
 const mapDispatchToProps = (dispatch) => ({
