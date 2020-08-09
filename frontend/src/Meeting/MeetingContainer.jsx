@@ -8,17 +8,12 @@ import { isLogged } from '../Auth/authService';
 class MeetingContainer extends Component {
 
     componentDidMount() {
-        const { getMeetingListPage, meetings } = this.props;
-        const { currentPage } = meetings;
-
-        getMeetingListPage(currentPage);
+        const { getMeetingListPage, pageNumber } = this.props;
+        getMeetingListPage(pageNumber);
     }
 
     render() {
-        const { createMeeting, getMeetingListPage, meetings, history } = this.props;
-        const { meetingListPage } = meetings;
-        const { currentPage } = meetings;
-
+        const { createMeeting, getMeetingListPage, meetingListPage, pageNumber, history } = this.props;
         const logged = isLogged();
 
         if (!logged) {
@@ -28,19 +23,20 @@ class MeetingContainer extends Component {
         return (
             <div>
                 <MeetingList meetingListPage={meetingListPage} getMeetingListPage={getMeetingListPage} />
-                <AddMeeting createMeeting={createMeeting} getMeetingListPage={getMeetingListPage} currentPage={currentPage} />
+                <AddMeeting createMeeting={createMeeting} getMeetingListPage={getMeetingListPage} pageNumber={pageNumber} />
             </div>
         )
     }
 }
 
 const mapStateToProps = (state) => ({
-    meetings: state.meetings
+    pageNumber: state.meetings.pageNumber,
+    meetingListPage: state.meetings.meetingListPage
 });
 
 const mapDispatchToProps = (dispatch) => ({
     createMeeting: (meeting) => dispatch(createMeeting(meeting)),
-    getMeetingListPage: (currentPage) => dispatch(getMeetingListPage(currentPage)),
+    getMeetingListPage: (pageNumber) => dispatch(getMeetingListPage(pageNumber)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MeetingContainer);

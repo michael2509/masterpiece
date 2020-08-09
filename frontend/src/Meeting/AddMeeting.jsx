@@ -189,13 +189,13 @@ const AddMeeting = withFormik({
     }),
     handleSubmit: (values, { props, resetForm, setSubmitting }) => {
         const meeting = {...values};
-        const { createMeeting, getMeetingListPage, currentPage } = props;
+        const { createMeeting, getMeetingListPage, pageNumber } = props;
         
         createMeeting(meeting).then(reqSuccess => {
             if (reqSuccess) {
                 resetForm();
                 setSubmitting(true);
-                getMeetingListPage(currentPage);
+                getMeetingListPage(pageNumber);
             } else {
                 setSubmitting(false);
             }

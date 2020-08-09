@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent } from '@material-ui/core';
 import eMeetingLogo from '../../global/assets/img/e-meeting-logo.png';
 import Link from '@material-ui/core/Link';
-import { Link as RouterLink, withRouter } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { withFormik } from "formik";
 import label from '../../global/configs/label';
 import { login } from '../authService';
@@ -157,4 +157,4 @@ const LoginForm = withFormik({
     }
   })(LoginFormChild);
 
-  export default withRouter(LoginForm);
+  export default LoginForm;

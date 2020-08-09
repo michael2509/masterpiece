@@ -38,7 +38,7 @@ const MeetingList = (props) => {
 				<Fragment>
 					<Typography variant="h5" component="h2" align="center" gutterBottom>Vos Meetings</Typography>
 					<List className={classes.meetingList}>
-						{meetingListPage.content.map((meeting, i) => (
+						{meetingListPage.map((meeting, i) => (
 							<Fragment key={i}>
 								<ListItem button>
 									<ListItemAvatar>
@@ -48,7 +48,7 @@ const MeetingList = (props) => {
 									</ListItemAvatar>
 									<ListItemText primary={meeting.name} secondary={<span><span>Début : {format(new Date(meeting.startDateTime), "dd/MM/yyyy à HH:mm")}</span><br></br><span>Fin : {format(new Date(meeting.endDateTime), "dd/MM/yyyy à HH:mm")}</span><br></br><span>Code d'accès : #{meeting.code}</span></span>} />
 								</ListItem>
-								{i < meetingListPage.content.length - 1 ? <Divider variant="inset" component="li" /> : null}
+								{i < meetingListPage.length - 1 ? <Divider variant="inset" component="li" /> : null}
 							</Fragment>
 						))}
 					</List>

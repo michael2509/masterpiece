@@ -3,6 +3,8 @@ import axios from "axios";
 import convertUTCDateToLocalDate from '../global/functions/convertUTCDateToLocalDate';
 import listServerErrors from "../global/functions/listServerErrors";
 import { roundToNearestMinutes } from "date-fns";
+import { getTokenFromLocalStorage } from '../Auth/authService';
+
 
 
 export function meetingCreationSuccess() {
@@ -23,10 +25,11 @@ export function meetingCreationError(errorMessages) {
     }
 }
 
-export function getMeetingListPageSuccess(meetingListPage) {
+export function getMeetingListPageSuccess(pageNumber, meetingListPage) {
     return {
         type: GET_MEETING_LIST_PAGE_SUCCESS,
-        meetingListPage: meetingListPage
+        meetingListPage: meetingListPage,
+        pageNumber: pageNumber
     }
 }
 
@@ -71,7 +74,8 @@ export function createMeeting(meeting) {
 export function getMeetingListPage(currentPage) {
     return async (dispatch) => {
         try {
-            const accessToken = localStorage.getItem("access_token");
+            // const accessToken = localStorage.getItem("access_token");
+            const accessToken = getTokenFromLocalStorage("access_token");
             const config = {
                 headers: {
                     "Authorization": `Bearer ${accessToken}`
@@ -79,9 +83,9 @@ export function getMeetingListPage(currentPage) {
             }
             const pageSize = 4;
             const response = await axios.get(`http://localhost:8081/api/meetings?page=${currentPage}&size=${pageSize}`, config);
-            const meetingListPage = response.data;
-            console.log(meetingListPage);
-            dispatch(getMeetingListPageSuccess(meetingListPage))
+            const meetingListPage = response.data.content;
+            const pageNumber = response.data.number;
+            dispatch(getMeetingListPageSuccess(pageNumber, meetingListPage))
         } catch {           
             dispatch(getMeetingListPageError());
         }

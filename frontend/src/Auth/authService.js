@@ -1,14 +1,10 @@
 import axios from 'axios';
 
 export function isLogged() {
-    let logged = null
-    const access_token = localStorage.getItem("access_token");
+    let logged = null;
+    const access_token = getTokenFromLocalStorage("access_token");
 
-    if (access_token !== null) {
-        logged = true;
-    } else {
-        logged = false
-    }
+    access_token ? logged = true : logged = false;
 
     return logged;
 }
@@ -20,7 +16,8 @@ export async function login(username, password) {
         try {
             const response = await axios.post(`http://localhost:8081/oauth/token?grant_type=${grantType}&username=${username}&password=${password}&client_id=${clientId}`)
             const accessToken = response.data.access_token
-            localStorage.setItem("access_token", accessToken)
+            const expiresIn = response.data.expires_in
+            setTokenInLocalStorage("access_token", accessToken, expiresIn)
             return true;
         } catch (error) {
             console.log(error.response);
@@ -30,4 +27,35 @@ export async function login(username, password) {
 
 export function logout() {
     localStorage.removeItem("access_token");
+}
+
+function setTokenInLocalStorage(tokenKey, tokenValue, expiresIn) {
+    const now = new Date();
+    const expiresInMls = expiresIn * 1000;
+
+    const token = {
+        value: tokenValue,
+        expiry: now.getTime() + expiresInMls
+    }
+
+    localStorage.setItem(tokenKey, JSON.stringify(token))
+}
+
+export function getTokenFromLocalStorage(tokenKey) {
+	const tokenStr = localStorage.getItem(tokenKey)
+	// if the item doesn't exist, return null
+	if (!tokenStr) {
+		return null
+	}
+	const token = JSON.parse(tokenStr)
+	const now = new Date()
+	// compare the expiry time of the token with the current time
+	if (now.getTime() > token.expiry) {
+		// If the token is expired, delete the token from storage
+		// and return null
+		localStorage.removeItem(tokenKey)
+		return null
+    }
+
+	return token.value
 }
