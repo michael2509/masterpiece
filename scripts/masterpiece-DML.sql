@@ -3,7 +3,7 @@ USE masterpiece;
 -- empty all tables
 SET FOREIGN_KEY_CHECKS = 0;
 
-TRUNCATE TABLE meetings;
+TRUNCATE TABLE rooms;
 TRUNCATE TABLE users;
 
 SET FOREIGN_KEY_CHECKS = 1;

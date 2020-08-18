@@ -1,0 +1,77 @@
+package fr.formation.backend.entities;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Entity
+@Table(name = "rooms", indexes = {
+        @Index(name = "rooms_host_id_IDX", columnList = "host_id"),
+})
+public class Room {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "name", nullable = false, length = 255)
+    private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "host_id", nullable = false, foreignKey = @ForeignKey(name = "rooms_users_FK"))
+    private User host;
+
+    @ManyToMany
+    @JoinTable(name = "rooms_users",
+            joinColumns = @JoinColumn(name = "room_id", nullable = false),
+            foreignKey = @ForeignKey(name = "rooms_rooms_users_FK"),
+            inverseJoinColumns = @JoinColumn(name = "user_id", nullable = false),
+            inverseForeignKey = @ForeignKey(name = "rooms_users_rooms_FK"),
+            indexes = {
+                    @Index(name = "rooms_users_room_id_IDX", columnList = "room_id"),
+                    @Index(name = "rooms_users_user_id_IDX", columnList = "user_id")
+            },
+            uniqueConstraints = {
+                    @UniqueConstraint(
+                            name = "rooms_users_room_id_user_id_UQ",
+                            columnNames = {"room_id", "user_id"}
+                    )
+            }
+    )
+    private List<User> users;
+
+    public Room() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public User getHost() {
+        return host;
+    }
+
+    public void setHost(User host) {
+        this.host = host;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+}
