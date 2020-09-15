@@ -6,12 +6,11 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent } from '@material-ui/core';
-import eMeetingLogo from '../../global/assets/img/e-meeting-logo.png';
 import Link from '@material-ui/core/Link';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, withRouter } from 'react-router-dom';
 import { withFormik } from "formik";
 import label from '../../global/configs/label';
-import { login } from '../authService';
+import { login } from "../authService";
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -64,11 +63,6 @@ function LoginFormChild(props) {
     } = props;
     return (
         <div className={classes.paper}>
-            <RouterLink to={"/"}>
-                <Link component="span">
-                    <img className={classes.eMeetingLogo} src={eMeetingLogo} alt="E-Meeting logo" />
-                </Link>
-            </RouterLink>
             <Card className={classes.card}>
                 <CardContent className={classes.cardContent}>
                     <Avatar className={classes.avatar}>
@@ -143,7 +137,7 @@ const LoginForm = withFormik({
     },
   
     handleSubmit: (values, { props, resetForm }) => {
-        const { history } = props
+        const { history, loginSuccess, loginError } = props;
 
         const username = values.username
         const password = values.password
@@ -151,10 +145,13 @@ const LoginForm = withFormik({
         login(username, password).then(logged => {
             if (logged) {
                 resetForm();
-                history.push("/meetings");
+                loginSuccess(username);
+                history.push("/salons");
+            } else {
+                loginError();
             }
         })
     }
   })(LoginFormChild);
 
-  export default LoginForm;
+  export default withRouter(LoginForm);

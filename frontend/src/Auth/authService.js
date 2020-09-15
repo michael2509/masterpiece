@@ -20,7 +20,6 @@ export async function login(username, password) {
             setTokenInLocalStorage("access_token", accessToken, expiresIn)
             return true;
         } catch (error) {
-            console.log(error.response);
             return false;
         }
 }

@@ -7,5 +7,6 @@ import org.springframework.data.domain.Page;
 public interface RoomService {
 
     void createRoom(RoomDto roomDto);
+    void deleteRoom(Long roomId);
     Page<RoomViewDto> getRoomListPage(int page, int size);
 }

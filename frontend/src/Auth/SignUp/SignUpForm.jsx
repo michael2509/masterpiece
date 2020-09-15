@@ -10,7 +10,6 @@ import { withFormik } from "formik";
 import * as Yup from "yup";
 import { withTheme } from '@material-ui/core/styles';
 import { Card, CardContent } from '@material-ui/core';
-import eMeetinglogo from '../../global/assets/img/e-meeting-logo.png';
 import { Link as RouterLink, withRouter } from 'react-router-dom';
 
 const signUpFormChild = props => {
@@ -65,11 +64,6 @@ const signUpFormChild = props => {
 
     return (
         <div style={classes.paper}>
-            <RouterLink to={"/"}>
-                <Link component="span">
-                    <img style={classes.eMeetinglogo} src={eMeetinglogo} alt="E-Meeting logo" />
-                </Link>
-            </RouterLink>
             <Card style={classes.card}>
                 <CardContent style={classes.cardContent}>
                     <Avatar style={classes.avatar}>
@@ -163,7 +157,7 @@ const SignUpForm = withFormik({
         username: Yup.string()
             .required("Entrez votre identifiant"),
         password: Yup.string()
-            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[.:;?|/\\{}<>!@#$%^&*()_+-=])(?=.{8,})/, <ul><li>test</li></ul>)
+            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[.:;?|/\\{}<>!@#$%^&*()_+-=])(?=.{8,})/, "Doit contenir au moins 8 caractères, 1 minuscule, 1 majuscule, 1 chiffres, 1 caractère spécial")
             .required("Entrez votre mot de passe"),
         confirmPassword: Yup.string()
             .required("Confirmez votre mot de passe")

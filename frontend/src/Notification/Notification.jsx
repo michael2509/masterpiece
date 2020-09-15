@@ -32,7 +32,7 @@ const Notification = ({ open, handleClose, messages, severity }) => {
 
   return (
     <div className={classes.root}>
-      <Snackbar open={open} autoHideDuration={20000} onClose={handleClose}>
+      <Snackbar open={open} autoHideDuration={10000} onClose={handleClose}>
         <Alert severity={severity} onClose={handleClose}>
             {msghtml}
         </Alert>

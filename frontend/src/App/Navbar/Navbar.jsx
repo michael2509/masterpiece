@@ -20,8 +20,6 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Link, withRouter } from 'react-router-dom';
 import "./Navbar.css";
 import { isLogged, logout } from '../../Auth/authService';
-import eMeetingLogo from '../../global/assets/img/e-meeting-logo.png';
-import eMeetingLogoWhite from '../../global/assets/img/e-meeting-logo-white.png';
 
 const drawerWidth = 240;
 
@@ -66,7 +64,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Navbar(props) {
-    const { container, history } = props;
+    const { container, history, showLogoutNotif } = props;
     const classes = useStyles();
     const theme = useTheme();
     const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -77,6 +75,7 @@ function Navbar(props) {
 
     const logoutAndRedirect = () => {
         logout();
+        showLogoutNotif();
         history.push("/connexion")
     }
 
@@ -85,7 +84,7 @@ function Navbar(props) {
 
     if (logged) {
         navLinks = [
-            { title: 'Meetings', path: '/meetings', icon: <MeetingRoomIcon /> },
+            { title: 'Salons', path: '/salons', icon: <MeetingRoomIcon /> },
             { title: 'Déconnexion', icon: <ExitToAppIcon /> },
         ]
     } else {
@@ -98,9 +97,7 @@ function Navbar(props) {
     const drawer = (
         <div>
             <div className={`${classes.toolbar} drawerLogo ${classes.logoWrapper}`}>
-                    <Link className="drawerLink" to="/">
-                        <img className={classes.logo} src={eMeetingLogo} alt="E-Meeting logo" />
-                    </Link>
+                <p>ISPEAK</p>  
             </div>
             <Divider />
             <List>
@@ -141,7 +138,7 @@ function Navbar(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <img className={classes.logo} src={eMeetingLogoWhite} alt="E-Meeting logo" />
+                    <p>ISPEAK</p>
                     <Hidden smDown>
                         <div style={{ flexGrow: 1 }} />
                         <List style={{ display: "flex" }}>

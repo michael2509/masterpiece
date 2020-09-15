@@ -10,9 +10,6 @@ public class RoomDto {
     @Size(max = 255)
     private String name;
 
-    @NotNull
-    private List<String> users;
-
     public RoomDto() {
     }
 
@@ -22,13 +19,5 @@ public class RoomDto {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<String> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<String> users) {
-        this.users = users;
     }
 }

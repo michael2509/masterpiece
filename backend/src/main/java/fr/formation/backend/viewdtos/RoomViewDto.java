@@ -7,6 +7,6 @@ import java.util.List;
 public interface RoomViewDto {
     Long getId();
     String getName();
+    String getCode();
     String getHostUsername();
-    List<String> getAllUsersUsername();
 }

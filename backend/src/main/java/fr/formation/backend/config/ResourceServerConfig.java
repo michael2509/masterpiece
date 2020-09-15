@@ -29,14 +29,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		http.httpBasic().disable().csrf().disable().cors().disable()
 		.sessionManagement()
 		.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-		// Allow options requests
-		.authorizeRequests().antMatchers(HttpMethod.OPTIONS).permitAll().and()//allow CORS option calls
-		// "/api/public/**" for anyone even anonymous
+		.authorizeRequests().antMatchers(HttpMethod.OPTIONS).permitAll().and()
 		.authorizeRequests().antMatchers("/api/users/**").permitAll()
-		/*
-		 * "/api/userInfo", "/api/private/**" for fully authenticated
-		 * (not anonymous)
-		 */
 		.antMatchers("/api/rooms/**")
 		.authenticated();
     }

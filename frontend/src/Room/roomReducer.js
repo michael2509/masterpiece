@@ -1,15 +1,15 @@
-import { GET_MEETING_LIST_PAGE_SUCCESS, GET_MEETING_LIST_PAGE_ERROR } from "./meetingActionsTypes";
+import { GET_ROOM_LIST_PAGE_SUCCESS, GET_ROOM_LIST_PAGE_ERROR } from "./roomActionsTypes";
 
 
-export default function meetingReducer(state = { pageNumber: 0, totalPages: 0 }, action) {
+export default function roomReducer(state = { pageNumber: 0, totalPages: 0 }, action) {
     switch (action.type) {
-        case GET_MEETING_LIST_PAGE_SUCCESS:
+        case GET_ROOM_LIST_PAGE_SUCCESS:
             return Object.assign({}, state, {
                 pageNumber: action.pageNumber,
-                meetingListPage: action.meetingListPage,
+                roomListPage: action.roomListPage,
                 totalPages: action.totalPages
             })
-        case GET_MEETING_LIST_PAGE_ERROR:
+        case GET_ROOM_LIST_PAGE_ERROR:
             return Object.assign({}, state, {
                 errorMsg: action.errorMsg
             })            

@@ -1,8 +1,13 @@
 package fr.formation.backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "rooms", indexes = {
@@ -21,24 +26,8 @@ public class Room {
     @JoinColumn(name = "host_id", nullable = false, foreignKey = @ForeignKey(name = "rooms_users_FK"))
     private User host;
 
-    @ManyToMany
-    @JoinTable(name = "rooms_users",
-            joinColumns = @JoinColumn(name = "room_id", nullable = false),
-            foreignKey = @ForeignKey(name = "rooms_rooms_users_FK"),
-            inverseJoinColumns = @JoinColumn(name = "user_id", nullable = false),
-            inverseForeignKey = @ForeignKey(name = "rooms_users_rooms_FK"),
-            indexes = {
-                    @Index(name = "rooms_users_room_id_IDX", columnList = "room_id"),
-                    @Index(name = "rooms_users_user_id_IDX", columnList = "user_id")
-            },
-            uniqueConstraints = {
-                    @UniqueConstraint(
-                            name = "rooms_users_room_id_user_id_UQ",
-                            columnNames = {"room_id", "user_id"}
-                    )
-            }
-    )
-    private List<User> users;
+    @Column(name = "code", nullable = false)
+    private String code;
 
     public Room() {
     }
@@ -67,11 +56,11 @@ public class Room {
         this.host = host;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public String getCode() {
+        return code;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setCode(String code) {
+        this.code = code;
     }
 }
