@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.formation.backend.config.SecurityHelper;
 import fr.formation.backend.dtos.RoomDto;
+import fr.formation.backend.dtos.UpdateRoomDto;
 import fr.formation.backend.entities.Room;
 import fr.formation.backend.repositories.RoomRepository;
 import fr.formation.backend.services.RoomService;
@@ -35,8 +36,13 @@ public class RoomController {
         roomService.deleteRoom(roomId);
     }
 
-    @GetMapping()
+    @GetMapping
     protected Page<RoomViewDto> getRoomListPage(@RequestParam("page") int page, @RequestParam("size") int size) {
         return roomService.getRoomListPage(page, size);
+    }
+
+    @PutMapping
+    protected void updateRoom(@Valid @RequestBody UpdateRoomDto updatedRoomDto) {
+        roomService.updateRoom(updatedRoomDto);
     }
 }

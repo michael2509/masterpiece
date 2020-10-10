@@ -1,5 +1,5 @@
 import { USER_CREATION_SUCCESS, USER_CREATION_ERROR } from "../Auth/SignUp/signUpActionTypes";
-import { ROOM_CREATION_SUCCESS, ROOM_CREATION_ERROR, ROOM_DELETION_SUCCESS, ROOM_DELETION_ERROR } from "../Room/roomActionsTypes";
+import { ROOM_CREATION_SUCCESS, ROOM_CREATION_ERROR, ROOM_DELETION_SUCCESS, ROOM_DELETION_ERROR, UPDATE_ROOM_SUCCESS, UPDATE_ROOM_ERROR } from "../Room/roomActionsTypes";
 import { LOGIN_SUCCESS, LOGIN_ERROR } from "../Auth/Login/loginActionTypes";
 import { LOGOUT_SUCCESS } from "../Auth/Logout/logoutActionTypes";
 
@@ -15,6 +15,8 @@ export default function notificationReducer(state = {messages: []}, action) {
         case ROOM_CREATION_ERROR:
         case ROOM_DELETION_SUCCESS:
         case ROOM_DELETION_ERROR:
+        case UPDATE_ROOM_SUCCESS:
+        case UPDATE_ROOM_ERROR:
             return Object.assign({}, state, {
                 severity: action.severity,
                 messages: action.messages,

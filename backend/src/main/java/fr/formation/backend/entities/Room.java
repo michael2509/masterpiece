@@ -29,6 +29,9 @@ public class Room {
     @Column(name = "code", nullable = false)
     private String code;
 
+    @Column(name = "creation_date", nullable = false)
+    private LocalDateTime creationDate;
+
     public Room() {
     }
 
@@ -62,5 +65,13 @@ public class Room {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 }

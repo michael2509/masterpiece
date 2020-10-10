@@ -1,7 +1,15 @@
-import { GET_ROOM_LIST_PAGE_SUCCESS, GET_ROOM_LIST_PAGE_ERROR } from "./roomActionsTypes";
+import { GET_ROOM_LIST_PAGE_SUCCESS, GET_ROOM_LIST_PAGE_ERROR, OPEN_UPDATE_ROOM, CLOSE_UPDATE_ROOM } from "./roomActionsTypes";
 
+const initialState = {
+    pageNumber: 0,
+    totalPages: 0,
+    updateRoomState: {
+        roomId: null,
+        open: false
+    }
+}
 
-export default function roomReducer(state = { pageNumber: 0, totalPages: 0 }, action) {
+export default function roomReducer(state = initialState, action) {
     switch (action.type) {
         case GET_ROOM_LIST_PAGE_SUCCESS:
             return Object.assign({}, state, {
@@ -12,7 +20,17 @@ export default function roomReducer(state = { pageNumber: 0, totalPages: 0 }, ac
         case GET_ROOM_LIST_PAGE_ERROR:
             return Object.assign({}, state, {
                 errorMsg: action.errorMsg
-            })            
+            })
+        case OPEN_UPDATE_ROOM:
+            return {
+                ...state,
+                updateRoomState: { open: action.open, roomId: action.roomId }
+            }
+        case CLOSE_UPDATE_ROOM:
+            return {
+                ...state,
+                updateRoomState: { open: action.open }
+            }
         default:
             return state;
     }

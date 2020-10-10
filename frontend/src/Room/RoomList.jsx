@@ -1,14 +1,9 @@
 import React, { Fragment } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import { Typography, Divider, Button } from '@material-ui/core';
-import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import { Typography } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
-import DeleteIcon from '@material-ui/icons/Delete';
+import Room from './Room';
 
 const useStyles = makeStyles((theme) => ({
 	roomList: {
@@ -36,14 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const RoomList = (props) => {
 	const classes = useStyles();
-	const { roomListPage, deleteRoom, getRoomListPage, pageNumber, totalPages } = props;
-
-	const deleteAndRefresh = (roomId) => {
-		deleteRoom(roomId)
-		.then(() => getRoomListPage(pageNumber));
-	}
-
-	console.log(roomListPage);
+	const { roomListPage, deleteRoom, getRoomListPage, openUpdateRoom, pageNumber, totalPages } = props;
 
 	return (
 		<Fragment>
@@ -52,23 +40,14 @@ const RoomList = (props) => {
 				<Fragment>
 					<List className={classes.roomList}>
 						{roomListPage.map((room, i) => (
-							<Fragment key={i}>
-								<ListItem button>
-									<ListItemAvatar>
-										<Avatar>
-											<MeetingRoomIcon />
-										</Avatar>
-									</ListItemAvatar>
-									<ListItemText primary={room.name} secondary={`Code : ${room.code}`}/>
-									<Button variant="outlined" color="secondary" onClick={() => deleteAndRefresh(room.id)}><DeleteIcon /></Button>
-								</ListItem>
-								{i < roomListPage.length - 1 ? <Divider variant="inset" component="li" /> : null}
-							</Fragment>
+							<Room key={i} openUpdateRoom={openUpdateRoom} deleteRoom={deleteRoom} room={room} getRoomListPage={getRoomListPage} />
 						))}
 					</List>
-					<div className={classes.paginationContainer}>
-						<Pagination page={pageNumber+1} count={totalPages} className={classes.pagination} onChange={(room, value) => getRoomListPage(value-1)} />
-					</div>
+					{totalPages > 1 ? (
+						<div className={classes.paginationContainer}>
+							<Pagination page={pageNumber+1} count={totalPages} className={classes.pagination} onChange={(room, value) => getRoomListPage(value-1)} />
+						</div>
+					) : null}
 				</Fragment>
 			)}
 		</Fragment>

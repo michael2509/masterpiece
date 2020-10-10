@@ -25,7 +25,7 @@ const App = () => (
                 <CssBaseline />
                 <NavbarContainer />
                 <div style={{ marginTop: 150 }}></div>
-                <Container component="main" maxWidth="sm" style={{ minHeight: "calc(100vh - 150px)" }}>
+                <Container component="main" maxWidth="md" style={{ minHeight: "calc(100vh - 150px)" }}>
                     <Switch>
                         <Route exact path="/inscription" component={SignupFormContainer} />
                         <Route exact path="/connexion" component={LoginFormContainer} />

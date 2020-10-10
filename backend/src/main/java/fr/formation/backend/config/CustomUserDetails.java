@@ -15,9 +15,9 @@ public class CustomUserDetails extends User {
 
     private Long id;
 
-    public CustomUserDetails(UserViewDto account) {
-		super(account.getUsername(), account.getPassword(), new ArrayList<GrantedAuthority>());
-		id = account.getId();
+    public CustomUserDetails(UserViewDto user) {
+		super(user.getUsername(), user.getPassword(), new ArrayList<GrantedAuthority>());
+		id = user.getId();
     }
 
     public Long getId() {
