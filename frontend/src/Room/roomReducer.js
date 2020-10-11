@@ -4,7 +4,10 @@ const initialState = {
     pageNumber: 0,
     totalPages: 0,
     updateRoomState: {
-        roomId: null,
+        room: {
+            id: null,
+            name: ""
+        },
         open: false
     }
 }
@@ -24,12 +27,12 @@ export default function roomReducer(state = initialState, action) {
         case OPEN_UPDATE_ROOM:
             return {
                 ...state,
-                updateRoomState: { open: action.open, roomId: action.roomId }
+                updateRoomState: { open: action.open, room: action.room }
             }
         case CLOSE_UPDATE_ROOM:
             return {
                 ...state,
-                updateRoomState: { open: action.open }
+                updateRoomState: { ...state.updateRoomState, open: action.open }
             }
         default:
             return state;

@@ -41,7 +41,7 @@ const mapDispatchToProps = (dispatch) => ({
     updateRoom: (room) => dispatch(updateRoom(room)),
     deleteRoom: (roomId) => dispatch(deleteRoom(roomId)),
     getRoomListPage: (pageNumber) => dispatch(getRoomListPage(pageNumber)),
-    openUpdateRoom: (roomId) => dispatch(openUpdateRoom(roomId)),
+    openUpdateRoom: (room) => dispatch(openUpdateRoom(room)),
     closeUpdateRoom: () => dispatch(closeUpdateRoom()),
 })
 

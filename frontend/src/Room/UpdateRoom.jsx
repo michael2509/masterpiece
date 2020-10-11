@@ -43,8 +43,6 @@ const UpdateRoomForm = (props) => {
         handleClose
     } = props;
 
-    console.log(state);
-
     return (
         <Dialog open={state.open} onClose={handleClose} aria-labelledby="form-dialog-title" disableBackdropClick>
             <form onSubmit={handleSubmit}>
@@ -80,10 +78,11 @@ const UpdateRoomForm = (props) => {
 }
 
 const UpdateRoom = withFormik({
-    mapPropsToValues: ({
-        name
-    }) => ({
-        name: name || ""
+
+    enableReinitialize: true,
+
+    mapPropsToValues: (props) => ({
+        name: props.state.room.name || ""
     }),
 
     validationSchema: Yup.object().shape({
@@ -96,10 +95,8 @@ const UpdateRoom = withFormik({
 
         const room = {
             ...values,
-            id: state.roomId
+            id: state.room.id
         }
-
-        console.log(room);
 
         updateRoom(room);
     }

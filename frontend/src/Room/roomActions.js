@@ -123,18 +123,19 @@ export function getRoomListPage(pageNumber) {
 }
 
 // Actions for update room
-export function openUpdateRoom(roomId) {
+export function openUpdateRoom(room) {
     return {
         type: OPEN_UPDATE_ROOM,
         open: true,
-        roomId: roomId
+        room: room
     }
 }
 
 export function closeUpdateRoom() {
     return {
         type: CLOSE_UPDATE_ROOM,
-        open: false
+        open: false,
+        room: null
     }
 }
 
