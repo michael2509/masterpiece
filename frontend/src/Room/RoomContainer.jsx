@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import RoomList from './RoomList';
 import AddRoom from './AddRoom';
-import { createRoom, deleteRoom, getRoomListPage, openUpdateRoom, closeUpdateRoom, updateRoom } from "./roomActions";
+import { createRoom, deleteRoom, getRoomListPage, openUpdateRoom, closeUpdateRoom, updateRoom, fetchMoreRooms } from "./roomActions";
 import { connect } from "react-redux";
 import { isLogged } from '../Auth/authService';
 import UpdateRoom from './UpdateRoom';
@@ -11,11 +11,11 @@ class RoomContainer extends Component {
     componentDidMount() {
         const { getRoomListPage, roomState } = this.props;
 
-        getRoomListPage(roomState.pageNumber);
+        getRoomListPage(0);
     }
 
     render() {
-        const { roomState, createRoom, deleteRoom, getRoomListPage, openUpdateRoom, closeUpdateRoom, updateRoom, history } = this.props;
+        const { roomState, createRoom, deleteRoom, getRoomListPage, openUpdateRoom, closeUpdateRoom, updateRoom, fetchMoreRooms, history } = this.props;
         const { roomListPage, pageNumber, totalPages, updateRoomState } = roomState;
 
         const logged = isLogged();
@@ -26,7 +26,7 @@ class RoomContainer extends Component {
 
         return (
             <div>
-                <RoomList totalPages={totalPages} roomListPage={roomListPage} getRoomListPage={getRoomListPage} pageNumber={pageNumber} deleteRoom={deleteRoom} openUpdateRoom={openUpdateRoom} />
+                <RoomList totalPages={totalPages} roomListPage={roomListPage} getRoomListPage={getRoomListPage} pageNumber={pageNumber} deleteRoom={deleteRoom} openUpdateRoom={openUpdateRoom} fetchMoreRooms={fetchMoreRooms} />
                 <AddRoom createRoom={createRoom} getRoomListPage={getRoomListPage} pageNumber={pageNumber} />
                 <UpdateRoom state={updateRoomState} handleClose={closeUpdateRoom} updateRoom={updateRoom} />
             </div>
@@ -41,6 +41,7 @@ const mapDispatchToProps = (dispatch) => ({
     updateRoom: (room) => dispatch(updateRoom(room)),
     deleteRoom: (roomId) => dispatch(deleteRoom(roomId)),
     getRoomListPage: (pageNumber) => dispatch(getRoomListPage(pageNumber)),
+    fetchMoreRooms: (pageNumber) => dispatch(fetchMoreRooms(pageNumber)),
     openUpdateRoom: (room) => dispatch(openUpdateRoom(room)),
     closeUpdateRoom: () => dispatch(closeUpdateRoom()),
 })

@@ -1,4 +1,4 @@
-import { ROOM_CREATION_SUCCESS, ROOM_CREATION_ERROR, GET_ROOM_LIST_PAGE_SUCCESS, GET_ROOM_LIST_PAGE_ERROR, ROOM_DELETION_SUCCESS, ROOM_DELETION_ERROR, OPEN_UPDATE_ROOM, CLOSE_UPDATE_ROOM, UPDATE_ROOM_SUCCESS, UPDATE_ROOM_ERROR } from "./roomActionsTypes"
+import { ROOM_CREATION_SUCCESS, ROOM_CREATION_ERROR, GET_ROOM_LIST_PAGE_SUCCESS, GET_ROOM_LIST_PAGE_ERROR, ROOM_DELETION_SUCCESS, ROOM_DELETION_ERROR, OPEN_UPDATE_ROOM, CLOSE_UPDATE_ROOM, UPDATE_ROOM_SUCCESS, UPDATE_ROOM_ERROR, FETCH_MORE_ROOMS_SUCCESS, FETCH_MORE_ROOMS_ERROR } from "./roomActionsTypes"
 import axios from "axios";
 import listServerErrors from "../global/functions/listServerErrors";
 import { getTokenFromLocalStorage } from '../Auth/authService';
@@ -37,6 +37,7 @@ export function createRoom(room) {
             )
 
             dispatch(roomCreationSuccess());
+            dispatch(getRoomListPage(0));
             return true
         } catch (error) {            
             const errorMessages = listServerErrors(error.response);
@@ -47,12 +48,13 @@ export function createRoom(room) {
 }
 
 // Delete Room Actions
-export function roomDeletionSuccess() {
+export function roomDeletionSuccess(roomId) {
     return {
         type: ROOM_DELETION_SUCCESS,
         severity: "success",
         messages: ["Salon supprimé avec succès"],
-        date: Date.now()
+        date: Date.now(),
+        roomId: roomId
     }
 }
 
@@ -75,8 +77,7 @@ export function deleteRoom(roomId) {
                 }
             }
             await axios.delete(`http://localhost:8081/api/rooms?roomId=${roomId}`, config);
-            dispatch(roomDeletionSuccess())
-            dispatch(getRoomListPage(0))
+            dispatch(roomDeletionSuccess(roomId))
             return true
         } catch (error) {
             dispatch(roomDeletionError())
@@ -178,6 +179,43 @@ export function updateRoom(room) {
             const errorMessages = listServerErrors(error.response);
             dispatch(updateRoomError(errorMessages))
             return false
+        }
+    }
+}
+
+// Fetch more rooms action
+export function fetchMoreRoomsSuccess(pageNumber, roomListPage, totalPages) {
+    return {
+        type: FETCH_MORE_ROOMS_SUCCESS,
+        roomListPage: roomListPage,
+        pageNumber: pageNumber,
+        totalPages: totalPages
+    }
+}
+
+export function fetchMoreRoomsError() {
+    return {
+        type: FETCH_MORE_ROOMS_ERROR,
+        errorMsg: "Une erreur est survenue"
+    }
+}
+
+export function fetchMoreRooms(pageNumber) {
+    return async (dispatch) => {
+        try {
+            const accessToken = getTokenFromLocalStorage("access_token");
+            const config = {
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`
+                }
+            }
+            const pageSize = 5;
+            const response = await axios.get(`http://localhost:8081/api/rooms?page=${pageNumber}&size=${pageSize}`, config);
+            const roomListPage = response.data.content;
+            const totalPages = response.data.totalPages;
+            dispatch(fetchMoreRoomsSuccess(pageNumber, roomListPage, totalPages))
+        } catch {           
+            dispatch(fetchMoreRoomsError());
         }
     }
 }
