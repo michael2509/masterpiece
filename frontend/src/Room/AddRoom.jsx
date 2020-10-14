@@ -119,7 +119,7 @@ const AddRoom = withFormik({
             if (reqSuccess) {
                 resetForm();
                 setSubmitting(true);
-                getRoomListPage(pageNumber);
+                getRoomListPage(0);
             } else {
                 setSubmitting(false);
             }

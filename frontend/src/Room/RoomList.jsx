@@ -34,9 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 const RoomList = (props) => {
 	const classes = useStyles();
-	const { roomListPage, deleteRoom, getRoomListPage, openUpdateRoom, fetchMoreRooms, pageNumber, totalPages } = props;
-
-	console.log(roomListPage);
+	const { roomListPage, deleteRoom, getRoomListPage, openUpdateRoom, fetchMoreRooms, pageNumber, totalPages, last } = props;
 
 	return (
 		<Fragment>
@@ -55,7 +53,7 @@ const RoomList = (props) => {
 					) : null} */}
 					<InfiniteScroll
 						dataLength={roomListPage.length}
-						next={() => fetchMoreRooms(pageNumber + 1)}
+						next={!last ? () => fetchMoreRooms(pageNumber + 1) : console.log("already in last page")}
 						hasMore={true}
 						>
 						<List className={classes.roomList}>

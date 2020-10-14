@@ -9,14 +9,12 @@ import UpdateRoom from './UpdateRoom';
 class RoomContainer extends Component {
 
     componentDidMount() {
-        const { getRoomListPage, roomState } = this.props;
-
-        getRoomListPage(0);
+        this.props.getRoomListPage(0);
     }
 
     render() {
         const { roomState, createRoom, deleteRoom, getRoomListPage, openUpdateRoom, closeUpdateRoom, updateRoom, fetchMoreRooms, history } = this.props;
-        const { roomListPage, pageNumber, totalPages, updateRoomState } = roomState;
+        const { roomListPage, pageNumber, totalPages, updateRoomState, last } = roomState;
 
         const logged = isLogged();
 
@@ -26,7 +24,7 @@ class RoomContainer extends Component {
 
         return (
             <div>
-                <RoomList totalPages={totalPages} roomListPage={roomListPage} getRoomListPage={getRoomListPage} pageNumber={pageNumber} deleteRoom={deleteRoom} openUpdateRoom={openUpdateRoom} fetchMoreRooms={fetchMoreRooms} />
+                <RoomList totalPages={totalPages} roomListPage={roomListPage} getRoomListPage={getRoomListPage} pageNumber={pageNumber} deleteRoom={deleteRoom} openUpdateRoom={openUpdateRoom} fetchMoreRooms={fetchMoreRooms} last={last} />
                 <AddRoom createRoom={createRoom} getRoomListPage={getRoomListPage} pageNumber={pageNumber} />
                 <UpdateRoom state={updateRoomState} handleClose={closeUpdateRoom} updateRoom={updateRoom} />
             </div>

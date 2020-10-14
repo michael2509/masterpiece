@@ -3,6 +3,7 @@ import { GET_ROOM_LIST_PAGE_SUCCESS, GET_ROOM_LIST_PAGE_ERROR, OPEN_UPDATE_ROOM,
 const initialState = {
     pageNumber: 0,
     totalPages: 0,
+    last: null,
     updateRoomState: {
         room: {
             id: null,
@@ -19,7 +20,8 @@ export default function roomReducer(state = initialState, action) {
                 ...state,
                 pageNumber: action.pageNumber,
                 roomListPage: action.roomListPage,
-                totalPages: action.totalPages
+                totalPages: action.totalPages,
+                last: action.last
             }
         case GET_ROOM_LIST_PAGE_ERROR:
             return {
@@ -41,17 +43,13 @@ export default function roomReducer(state = initialState, action) {
                 ...state,
                 pageNumber: action.pageNumber,
                 roomListPage: [...state.roomListPage, ...action.roomListPage],
-                totalPages: action.totalPages
+                totalPages: action.totalPages,
+                last: action.last
             }
         case FETCH_MORE_ROOMS_ERROR:
             return {
                 ...state,
                 errorMsg: action.errorMsg
-            }
-        case ROOM_DELETION_SUCCESS:
-            return {
-                ...state,
-                roomListPage: state.roomListPage.filter(room => room.id !== action.roomId)
             }
         default:
             return state;

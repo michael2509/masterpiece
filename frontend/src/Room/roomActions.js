@@ -48,13 +48,12 @@ export function createRoom(room) {
 }
 
 // Delete Room Actions
-export function roomDeletionSuccess(roomId) {
+export function roomDeletionSuccess() {
     return {
         type: ROOM_DELETION_SUCCESS,
         severity: "success",
         messages: ["Salon supprimé avec succès"],
         date: Date.now(),
-        roomId: roomId
     }
 }
 
@@ -77,7 +76,8 @@ export function deleteRoom(roomId) {
                 }
             }
             await axios.delete(`http://localhost:8081/api/rooms?roomId=${roomId}`, config);
-            dispatch(roomDeletionSuccess(roomId))
+            dispatch(roomDeletionSuccess())
+            dispatch(getRoomListPage(0))
             return true
         } catch (error) {
             dispatch(roomDeletionError())
@@ -104,6 +104,7 @@ export function getRoomListPageError() {
 }
 
 export function getRoomListPage(pageNumber) {
+    console.log("getRoomListPage called with page number : " + pageNumber);
     return async (dispatch) => {
         try {
             const accessToken = getTokenFromLocalStorage("access_token");
@@ -116,7 +117,8 @@ export function getRoomListPage(pageNumber) {
             const response = await axios.get(`http://localhost:8081/api/rooms?page=${pageNumber}&size=${pageSize}`, config);
             const roomListPage = response.data.content;
             const totalPages = response.data.totalPages;
-            dispatch(getRoomListPageSuccess(pageNumber, roomListPage, totalPages))
+            const last = response.data.last
+            dispatch(getRoomListPageSuccess(pageNumber, roomListPage, totalPages, last))
         } catch {           
             dispatch(getRoomListPageError());
         }
@@ -184,12 +186,13 @@ export function updateRoom(room) {
 }
 
 // Fetch more rooms action
-export function fetchMoreRoomsSuccess(pageNumber, roomListPage, totalPages) {
+export function fetchMoreRoomsSuccess(pageNumber, roomListPage, totalPages, last) {
     return {
         type: FETCH_MORE_ROOMS_SUCCESS,
         roomListPage: roomListPage,
         pageNumber: pageNumber,
-        totalPages: totalPages
+        totalPages: totalPages,
+        last: last
     }
 }
 
@@ -213,7 +216,8 @@ export function fetchMoreRooms(pageNumber) {
             const response = await axios.get(`http://localhost:8081/api/rooms?page=${pageNumber}&size=${pageSize}`, config);
             const roomListPage = response.data.content;
             const totalPages = response.data.totalPages;
-            dispatch(fetchMoreRoomsSuccess(pageNumber, roomListPage, totalPages))
+            const last = response.data.last
+            dispatch(fetchMoreRoomsSuccess(pageNumber, roomListPage, totalPages, last))
         } catch {           
             dispatch(fetchMoreRoomsError());
         }
