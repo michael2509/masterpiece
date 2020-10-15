@@ -113,7 +113,7 @@ const AddRoom = withFormik({
     }),
     handleSubmit: (values, { props, resetForm, setSubmitting }) => {
         const room = {...values};
-        const { createRoom, getRoomListPage, pageNumber } = props;
+        const { createRoom, getRoomListPage } = props;
         
         createRoom(room).then(reqSuccess => {
             if (reqSuccess) {
