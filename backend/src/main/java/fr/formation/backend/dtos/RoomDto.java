@@ -7,7 +7,7 @@ import java.util.List;
 public class RoomDto {
 
     @NotBlank
-    @Size(max = 255)
+    @Size(max = 120)
     private String name;
 
     public RoomDto() {

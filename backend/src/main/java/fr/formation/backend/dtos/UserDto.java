@@ -4,14 +4,17 @@ import fr.formation.backend.constraints.UniqueUsername;
 import fr.formation.backend.constraints.UserPassword;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 public class UserDto {
 
     @NotBlank
+    @Size(max = 120)
     @UniqueUsername
     private String username;
 
     @UserPassword
+    @Size(max = 255)
     private String password;
 
     public UserDto() {

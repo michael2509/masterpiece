@@ -31,14 +31,14 @@ public class RoomServiceImpl implements RoomService {
         // Set room's name
         room.setName(roomDto.getName());
         // Set room's host
-        Long hostId = SecurityHelper.getUserId();
-        User host = userRepository.findById(hostId).get();
-        room.setHost(host);
+        Long userId = SecurityHelper.getUserId();
+        User user = userRepository.findById(userId).get();
+        room.setUser(user);
         // Set room's code
         Long roomsTableSize = roomRepository.count();
         String salt = String.valueOf(roomsTableSize);
-        Hashids hashids = new Hashids(salt, 5);
-        String code = "#" + hashids.encode(roomsTableSize).toUpperCase();
+        Hashids hashids = new Hashids(salt, 4);
+        String code = hashids.encode(roomsTableSize).toUpperCase();
         room.setCode(code);
         // Set room's creation date
         LocalDateTime creationDate = LocalDateTime.now();
@@ -65,8 +65,8 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public Page<RoomViewDto> getRoomListPage(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Long hostId = SecurityHelper.getUserId();
-        Page<RoomViewDto> roomListPage = roomRepository.findByHostIdOrderByCreationDateDesc(hostId, pageable);
+        Long userId = SecurityHelper.getUserId();
+        Page<RoomViewDto> roomListPage = roomRepository.findByUserIdOrderByCreationDateDesc(userId, pageable);
         return roomListPage;
     }
 }

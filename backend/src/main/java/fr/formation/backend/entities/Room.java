@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "rooms", indexes = {
-        @Index(name = "rooms_host_id_IDX", columnList = "host_id"),
+        @Index(name = "rooms_user_id_IDX", columnList = "user_id"),
 })
 public class Room {
 
@@ -19,14 +19,14 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false, length = 255)
+    @Column(name = "name", nullable = false, length = 120)
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "host_id", nullable = false, foreignKey = @ForeignKey(name = "rooms_users_FK"))
-    private User host;
+    @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "rooms_users_FK"))
+    private User user;
 
-    @Column(name = "code", nullable = false)
+    @Column(name = "code", nullable = false, length = 10)
     private String code;
 
     @Column(name = "creation_date", nullable = false)
@@ -51,12 +51,12 @@ public class Room {
         this.name = name;
     }
 
-    public User getHost() {
-        return host;
+    public User getUser() {
+        return user;
     }
 
-    public void setHost(User host) {
-        this.host = host;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getCode() {

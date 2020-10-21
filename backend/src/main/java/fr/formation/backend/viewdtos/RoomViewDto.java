@@ -8,5 +8,5 @@ public interface RoomViewDto {
     Long getId();
     String getName();
     String getCode();
-    String getHostUsername();
+    String getUserUsername();
 }

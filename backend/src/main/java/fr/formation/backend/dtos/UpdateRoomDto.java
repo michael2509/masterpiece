@@ -10,7 +10,7 @@ public class UpdateRoomDto {
     private Long id;
 
     @NotBlank
-    @Size(max = 255)
+    @Size(max = 120)
     private String name;
 
     public UpdateRoomDto() {
