@@ -5,6 +5,7 @@ import { createRoom, deleteRoom, getRoomListPage, openUpdateRoom, closeUpdateRoo
 import { connect } from "react-redux";
 import { isLogged } from '../Auth/authService';
 import UpdateRoom from './UpdateRoom';
+import Container from '@material-ui/core/Container';
 
 class RoomContainer extends Component {
 
@@ -23,11 +24,11 @@ class RoomContainer extends Component {
         }
 
         return (
-            <div>
+            <Container component="main" maxWidth="md" style={{ minHeight: "calc(100vh - 150px)" }}>
                 <RoomList totalPages={totalPages} roomListPage={roomListPage} getRoomListPage={getRoomListPage} pageNumber={pageNumber} deleteRoom={deleteRoom} openUpdateRoom={openUpdateRoom} fetchMoreRooms={fetchMoreRooms} last={last} />
                 <AddRoom createRoom={createRoom} getRoomListPage={getRoomListPage} pageNumber={pageNumber} />
                 <UpdateRoom state={updateRoomState} handleClose={closeUpdateRoom} updateRoom={updateRoom} />
-            </div>
+            </Container>
         )
     }
 }
