@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
 		margin: "30px 0"
 	},
 	title: {
+		marginTop: 50,
 		marginBottom: 50
 	},
 	noRoom: {

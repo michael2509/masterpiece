@@ -36,7 +36,7 @@ public class RoomController {
         roomService.deleteRoom(roomId);
     }
 
-    @GetMapping
+    @GetMapping("/{code}")
     protected RoomViewDto getRoom(@RequestParam("code") String code) {
         return roomService.getRoom(code);
     }

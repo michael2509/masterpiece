@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import LoginForm from "./LoginForm";
 import { loginSuccess, loginError } from './loginActions';
+import AuthContainer from '../AuthContainer';
 
-class LoginFormContainer extends Component {
+const LoginFormContainer = ({ loginSuccess, loginError }) => {
 
-    render() {
-        const { loginSuccess, loginError } = this.props;
-
-        return <LoginForm loginSuccess={loginSuccess} loginError={loginError} />
-    }
+    return (
+        <AuthContainer maxWidth="md" >
+            <LoginForm loginSuccess={loginSuccess} loginError={loginError} />
+        </AuthContainer>
+    )
 }
 
 const mapDispatchToProps = (dispatch) => ({

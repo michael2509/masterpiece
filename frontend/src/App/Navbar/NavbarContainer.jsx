@@ -7,12 +7,14 @@ import { showLogoutNotif } from "../../Auth/Logout/logoutAction";
 class NavbarContainer extends Component {
 
     render() {
-        return <Navbar showLogoutNotif={this.props.showLogoutNotif} />
+        return <Navbar showLogoutNotif={this.props.showLogoutNotif} navbarHeight={this.props.navbarHeight} />
     }
 }
+
+const mapStateToProps = (state) => ({ navbarHeight: state.navbar.height })
 
 const mapDispatchToProps = (dispatch) => ({
     showLogoutNotif: () => dispatch(showLogoutNotif()),
 });
 
-export default connect(null, mapDispatchToProps)(NavbarContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(NavbarContainer)

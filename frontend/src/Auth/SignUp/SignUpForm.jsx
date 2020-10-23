@@ -9,7 +9,7 @@ import label from '../../global/configs/label';
 import { withFormik } from "formik";
 import * as Yup from "yup";
 import { withTheme } from '@material-ui/core/styles';
-import { Card, CardContent } from '@material-ui/core';
+import { Paper } from '@material-ui/core';
 import { Link as RouterLink, withRouter } from 'react-router-dom';
 
 const signUpFormChild = props => {
@@ -25,13 +25,6 @@ const signUpFormChild = props => {
 
 
     const classes = {
-        paper: {
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            textAlign: 'center'
-        },
         avatar: {
             marginTop: theme.spacing(3),
             marginBottom: theme.spacing(1),
@@ -56,85 +49,81 @@ const signUpFormChild = props => {
         title: {
             marginBottom: theme.spacing(3)
         },
-        eMeetinglogo: {
-            maxHeight: 40,
-            marginBottom: 20
+        paper: {
+            width: "100%",
+            padding: 60
         }
     };
 
+    console.log(classes.paper);
+
     return (
-        <div style={classes.paper}>
-            <Card style={classes.card}>
-                <CardContent style={classes.cardContent}>
-                    <Avatar style={classes.avatar}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography style={classes.title} component="h1" variant="h5">
-                        Inscription
+        <Paper style={classes.paper} elevation={3}>
+            <Avatar style={classes.avatar}>
+                <LockOutlinedIcon />
+            </Avatar>
+            <Typography style={classes.title} component="h1" variant="h5">
+                Inscription
                     </Typography>
-                    <form style={classes.form} onSubmit={handleSubmit} noValidate>
-                        <TextField
-                            id="username"
-                            label={label.username}
-                            value={values.username}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            helperText={touched.username ? errors.username : ""}
-                            error={touched.username && Boolean(errors.username)}
-                            variant="outlined"
-                            margin="normal"
-                            autoFocus
-                            fullWidth
-                            size="small"
-                            required
-                        />
-                        <TextField
-                            id="password"
-                            label={label.password}
-                            type="password"
-                            value={values.password}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            helperText={touched.password ? errors.password : ""}
-                            error={touched.password && Boolean(errors.password)}
-                            variant="outlined"
-                            margin="normal"
-                            fullWidth
-                            size="small"
-                            required
-                        />
-                        <TextField
-                            id="confirmPassword"
-                            label={label.confirmPassword}
-                            type="password"
-                            value={values.confirmPassword}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            helperText={touched.confirmPassword ? errors.confirmPassword : ""}
-                            error={touched.confirmPassword && Boolean(errors.confirmPassword)}
-                            variant="outlined"
-                            margin="normal"
-                            fullWidth
-                            size="small"
-                            required
-                        />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            style={classes.submit}
-                        >
-                            S'inscrire
+            <form style={classes.form} onSubmit={handleSubmit} noValidate>
+                <TextField
+                    id="username"
+                    label={label.username}
+                    value={values.username}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    helperText={touched.username ? errors.username : ""}
+                    error={touched.username && Boolean(errors.username)}
+                    variant="outlined"
+                    margin="normal"
+                    autoFocus
+                    fullWidth
+                    required
+                />
+                <TextField
+                    id="password"
+                    label={label.password}
+                    type="password"
+                    value={values.password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    helperText={touched.password ? errors.password : ""}
+                    error={touched.password && Boolean(errors.password)}
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                    required
+                />
+                <TextField
+                    id="confirmPassword"
+                    label={label.confirmPassword}
+                    type="password"
+                    value={values.confirmPassword}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    helperText={touched.confirmPassword ? errors.confirmPassword : ""}
+                    error={touched.confirmPassword && Boolean(errors.confirmPassword)}
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                    required
+                />
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    style={classes.submit}
+                    size="large"
+                >
+                    S'inscrire
                         </Button>
 
-                    </form>
-                    <RouterLink to={"/connexion"}>
-                        <Link component="span" variant="body2">Vous avez déjà un compte? Connectez-vous</Link>
-                    </RouterLink>
-                </CardContent>
-            </Card>
-        </div>
+            </form>
+            <RouterLink to={"/connexion"}>
+                <Link component="span" variant="body2">Vous avez déjà un compte? Connectez-vous</Link>
+            </RouterLink>
+        </Paper>
     );
 }
 
@@ -165,11 +154,11 @@ const SignUpForm = withFormik({
     }),
 
     handleSubmit: (values, { props, resetForm }) => {
-        
+
         const { createUser, history } = props
         const user = Object.assign({}, values)
         delete user.confirmPassword
-        
+
         createUser(user).then(requestSuccess => {
             if (requestSuccess) {
                 resetForm()

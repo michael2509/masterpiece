@@ -2,13 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SignUpForm from "./SignUpForm";
 import { createUser } from "./signUpActions";
+import AuthContainer from '../AuthContainer';
 
 class SignUpFormContainer extends Component {
 
     render() {
         const { createUser } = this.props;
 
-        return <SignUpForm createUser={createUser} />
+        return (
+            <AuthContainer maxWidth="md" >
+                <SignUpForm createUser={createUser} />
+            </AuthContainer>
+        )
     }
 }
 

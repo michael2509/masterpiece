@@ -1,7 +1,6 @@
 import React from 'react'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -14,10 +13,10 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { withFormik } from "formik";
 import * as Yup from "yup";
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
-	root: {
-		height: '100vh',
+	grid: {
 		display: "flex",
 		alignSelf: "center",
 		[`${theme.breakpoints.down('sm')}`]: {
@@ -85,12 +84,12 @@ function HomeContent(props) {
 		errors,
 		handleChange,
 		handleBlur,
-		handleSubmit
+		handleSubmit,
+		navbar
 	} = props;
 
 	return (
-		<Grid container component="main" className={classes.root}>
-			<CssBaseline />
+		<Grid container className={classes.grid} component="main" style={{ minHeight: `calc(100vh - ${navbar.height}px)`, marginTop: navbar.height}} >
 			<Grid item xs={12} sm={12} md={7} className={`${classes.image} ${classes.gridItem}`} >
 				<div className={classes.leftContainer}>
 					<Typography component="h2" variant="h4" >Application d'aide pour vos conférences</Typography>
@@ -133,7 +132,7 @@ function HomeContent(props) {
 							endIcon={<ArrowForwardIcon />}
 						>
 							Rejoindre
-            </Button>
+						</Button>
 					</form>
 				</div>
 			</Grid>
@@ -161,4 +160,6 @@ const Home = withFormik({
 	}
 })(HomeContent);
 
-export default Home;
+const mapStateToProps = (state) => ({ navbar: state.navbar })
+
+export default connect(mapStateToProps)(Home);

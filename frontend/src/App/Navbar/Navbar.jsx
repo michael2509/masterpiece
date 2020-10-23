@@ -128,7 +128,7 @@ function Navbar(props) {
         <div className={classes.root}>
             <CssBaseline />
             <AppBar className={classes.appBar}>
-                <Toolbar>
+                <Toolbar style={{ height: props.navbarHeight }}>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
