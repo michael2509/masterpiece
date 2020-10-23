@@ -63,6 +63,11 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+    public RoomViewDto getRoom(String code) {
+        return roomRepository.findByCode(code);
+    }
+
+    @Override
     public Page<RoomViewDto> getRoomListPage(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Long userId = SecurityHelper.getUserId();

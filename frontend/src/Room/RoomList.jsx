@@ -3,8 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import { Hidden, Typography } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
-import Room from './Room';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import RoomItem from './RoomItem';
 
 const useStyles = makeStyles((theme) => ({
 	roomList: {
@@ -42,7 +42,7 @@ const RoomList = (props) => {
 					<Hidden xsDown>
 						<List className={classes.roomList}>
 							{roomListPage.map((room, i) => (
-								<Room key={i} openUpdateRoom={openUpdateRoom} deleteRoom={deleteRoom} room={room} getRoomListPage={getRoomListPage} />
+								<RoomItem key={i} openUpdateRoom={openUpdateRoom} deleteRoom={deleteRoom} room={room} getRoomListPage={getRoomListPage} />
 							))}
 						</List>
 						{totalPages > 1 ? (
@@ -60,7 +60,7 @@ const RoomList = (props) => {
 							>
 							<List className={classes.roomList}>
 								{roomListPage.map((room, i) => (
-									<Room key={i} openUpdateRoom={openUpdateRoom} deleteRoom={deleteRoom} room={room} getRoomListPage={getRoomListPage} />
+									<RoomItem key={i} openUpdateRoom={openUpdateRoom} deleteRoom={deleteRoom} room={room} getRoomListPage={getRoomListPage} />
 								))}
 							</List>
 						</InfiniteScroll>

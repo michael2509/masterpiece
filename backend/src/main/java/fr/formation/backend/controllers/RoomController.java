@@ -37,6 +37,11 @@ public class RoomController {
     }
 
     @GetMapping
+    protected RoomViewDto getRoom(@RequestParam("code") String code) {
+        return roomService.getRoom(code);
+    }
+
+    @GetMapping
     protected Page<RoomViewDto> getRoomListPage(@RequestParam("page") int page, @RequestParam("size") int size) {
         return roomService.getRoomListPage(page, size);
     }

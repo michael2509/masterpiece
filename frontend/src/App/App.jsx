@@ -24,6 +24,7 @@ const App = () => (
             <Router>
                 <CssBaseline />
                 <NavbarContainer />
+                <div style={{ height: store.getState().navBar.height }}></div>
                 <Container component="main" maxWidth="xl" style={{ minHeight: `calc(100vh - ${store.getState().navBar.height}px)` }}>
                     <Switch>
                         <Route exact path="/inscription" component={SignupFormContainer} />

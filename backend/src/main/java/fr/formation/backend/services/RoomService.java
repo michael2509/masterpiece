@@ -10,5 +10,6 @@ public interface RoomService {
     void createRoom(RoomDto roomDto);
     void updateRoom(UpdateRoomDto updatedRoomDto);
     void deleteRoom(Long roomId);
+    RoomViewDto getRoom(String code);
     Page<RoomViewDto> getRoomListPage(int page, int size);
 }

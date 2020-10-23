@@ -14,7 +14,7 @@ class RoomContainer extends Component {
     }
 
     render() {
-        const { roomState, createRoom, deleteRoom, getRoomListPage, openUpdateRoom, closeUpdateRoom, updateRoom, fetchMoreRooms, history } = this.props;
+        const { navBarState, roomState, createRoom, deleteRoom, getRoomListPage, openUpdateRoom, closeUpdateRoom, updateRoom, fetchMoreRooms, history } = this.props;
         const { roomListPage, pageNumber, totalPages, updateRoomState, last } = roomState;
 
         const logged = isLogged();
@@ -24,7 +24,7 @@ class RoomContainer extends Component {
         }
 
         return (
-            <Container component="main" maxWidth="md" style={{ minHeight: "calc(100vh - 150px)" }}>
+            <Container component="main" maxWidth="md" style={{ minHeight: `calc(100vh - ${navBarState.height})` }}>
                 <RoomList totalPages={totalPages} roomListPage={roomListPage} getRoomListPage={getRoomListPage} pageNumber={pageNumber} deleteRoom={deleteRoom} openUpdateRoom={openUpdateRoom} fetchMoreRooms={fetchMoreRooms} last={last} />
                 <AddRoom createRoom={createRoom} getRoomListPage={getRoomListPage} pageNumber={pageNumber} />
                 <UpdateRoom state={updateRoomState} handleClose={closeUpdateRoom} updateRoom={updateRoom} />
@@ -33,7 +33,7 @@ class RoomContainer extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({ roomState: state.rooms });
+const mapStateToProps = (state) => ({ roomState: state.rooms, navBarState: state.navBar });
 
 const mapDispatchToProps = (dispatch) => ({
     createRoom: (room) => dispatch(createRoom(room)),
