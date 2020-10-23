@@ -7,7 +7,7 @@ import { isLogged } from '../Auth/authService';
 import UpdateRoom from './UpdateRoom';
 import Container from '@material-ui/core/Container';
 
-class RoomContainer extends Component {
+class RoomsContainer extends Component {
 
     componentDidMount() {
         this.props.getRoomListPage(0);
@@ -45,4 +45,4 @@ const mapDispatchToProps = (dispatch) => ({
     closeUpdateRoom: () => dispatch(closeUpdateRoom()),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(RoomContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(RoomsContainer);

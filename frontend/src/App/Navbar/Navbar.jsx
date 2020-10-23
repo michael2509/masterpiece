@@ -97,7 +97,7 @@ function Navbar(props) {
     const drawer = (
         <div>
             <div className={`${classes.toolbar} drawerLogo ${classes.logoWrapper}`}>
-                <p>ISPEAK</p>  
+                <Link to="/" className="drawerLink">ISPEAK</Link>
             </div>
             <Divider />
             <List>
@@ -138,7 +138,7 @@ function Navbar(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <p>ISPEAK</p>
+                    <Link to="/" className="navbarLink">ISPEAK</Link>
                     <Hidden smDown>
                         <div style={{ flexGrow: 1 }} />
                         <List style={{ display: "flex" }}>

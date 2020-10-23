@@ -57,7 +57,6 @@ const RoomList = (props) => {
 							dataLength={roomListPage.length}
 							next={!last ? () => fetchMoreRooms(pageNumber + 1) : console.log("already in last page")}
 							hasMore={true}
-							loader={!last ? <p>Chargement...</p> : null}
 							>
 							<List className={classes.roomList}>
 								{roomListPage.map((room, i) => (

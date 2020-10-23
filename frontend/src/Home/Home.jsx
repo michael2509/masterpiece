@@ -14,6 +14,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { withFormik } from "formik";
 import * as Yup from "yup";
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
 	grid: {
@@ -94,9 +95,13 @@ function HomeContent(props) {
 				<div className={classes.leftContainer}>
 					<Typography component="h2" variant="h4" >Application d'aide pour vos conférences</Typography>
 					<Typography component="h3" variant="h5" className={classes.leftSecondTitle} >Commencez à créer vos salons pour vos conférences en créant un compte ou en vous connectant</Typography>
-					<Button size='large' className={classes.leftButton} variant="contained" color="primary" startIcon={<PersonAddIcon />}>Créer un compte</Button>
+					<Link to="/inscription">
+						<Button size='large' className={classes.leftButton} variant="contained" color="primary" startIcon={<PersonAddIcon />}>Créer un compte</Button>
+					</Link>
 					<span className={classes.or}>ou</span>
-					<Button size='large' className={classes.leftButton} variant="contained" color="primary" startIcon={<AccountCircleIcon />}>Se connecter</Button>
+					<Link to="/connexion">
+						<Button size='large' className={classes.leftButton} variant="contained" color="primary" startIcon={<AccountCircleIcon />}>Se connecter</Button>
+					</Link>
 				</div>
 			</Grid>
 			<Grid item xs={12} sm={12} md={5} component={Paper} elevation={6} className={classes.gridItem} square>

@@ -13,7 +13,7 @@ const initialState = {
     }
 }
 
-export default function roomReducer(state = initialState, action) {
+export default function roomsReducer(state = initialState, action) {
     switch (action.type) {
         case GET_ROOM_LIST_PAGE_SUCCESS:
             return {

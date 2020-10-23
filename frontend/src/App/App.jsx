@@ -6,12 +6,13 @@ import { Provider as ReduxStoreProvider } from 'react-redux';
 import configureStore from './configure-store';
 import SignupFormContainer from '../Auth/SignUp/SignupFormContainer';
 import NotificationContainer from '../Notification/NotificationContainer';
-import RoomContainer from '../Room/RoomContainer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import PrivateRoute from './privateRoute';
 import PageNotFound from './PageNotFound/PageNotFound';
 import LoginFormContainer from '../Auth/Login/LoginFormContainer';
 import NavbarContainer from './Navbar/NavbarContainer';
+import RoomsContainer from '../Room/RoomsContainer';
+import SingleRoomContainer from '../Room/SingleRoom/SingleRoomContainer';
 
 const store = configureStore();
 
@@ -24,7 +25,8 @@ const App = () => (
                 <Route exact path="/" component={Home} />
                 <Route exact path="/inscription" component={SignupFormContainer} />
                 <Route exact path="/connexion" component={LoginFormContainer} />
-                <PrivateRoute exact path="/salons" component={RoomContainer} />
+                <PrivateRoute exact path="/salons" component={RoomsContainer} />
+                <Route exact path="/salons/:code" component={SingleRoomContainer} />
                 <Route path="*" component={PageNotFound} />
             </Switch>
         </Router>

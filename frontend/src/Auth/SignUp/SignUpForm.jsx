@@ -55,8 +55,6 @@ const signUpFormChild = props => {
         }
     };
 
-    console.log(classes.paper);
-
     return (
         <Paper style={classes.paper} elevation={3}>
             <Avatar style={classes.avatar}>

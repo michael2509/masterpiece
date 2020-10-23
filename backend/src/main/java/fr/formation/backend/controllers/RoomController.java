@@ -37,7 +37,7 @@ public class RoomController {
     }
 
     @GetMapping("/{code}")
-    protected RoomViewDto getRoom(@RequestParam("code") String code) {
+    protected RoomViewDto getRoom(@PathVariable("code") String code) {
         return roomService.getRoom(code);
     }
 
