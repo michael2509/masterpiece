@@ -2,16 +2,17 @@ import { Container } from "@material-ui/core";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import SingleRoom from "./SingleRoom";
-import { getRoom } from "./singleRoomActions";
+import { getSingleRoom } from "./singleRoomActions";
 
 class SingleRoomContainer extends Component {
 
     componentDidMount() {
-        this.props.getRoom(this.props.match.params.code)
+        if (this.props.singleRoom.id === null) {
+            this.props.getSingleRoom(this.props.match.params.code)       
+        }
     }
 
     render() {
-        console.log(this.props);
         return (
             <Container component="main" maxWidth="md" style={{ minHeight: `calc(100vh - 150px)`, marginTop: 150}}>
                 <SingleRoom singleRoom={this.props.singleRoom} />
@@ -23,7 +24,7 @@ class SingleRoomContainer extends Component {
 const mapStateToProps = (state) => ({ singleRoom: state.singleRoom })
 
 const mapDispatchToProps = (dispatch) => ({
-    getRoom: (code) => dispatch(getRoom(code))
+    getSingleRoom: (code) => dispatch(getSingleRoom(code))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleRoomContainer);

@@ -1,4 +1,4 @@
-import { GET_SINGLE_ROOM_SUCCESS } from "./singleRoomActionsTypes";
+import { SINGLE_ROOM_FOUND } from "./singleRoomActionsTypes";
 
 const initialState = {
     id: null,
@@ -9,7 +9,7 @@ const initialState = {
 
 export default function singleRoomReducer(state = initialState, action) {
     switch(action.type) {
-        case GET_SINGLE_ROOM_SUCCESS:
+        case SINGLE_ROOM_FOUND:
             return {
                 ...state,
                 id: action.room.id,
