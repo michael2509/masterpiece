@@ -57,7 +57,7 @@ function LoginFormChild(props) {
     } = props;
 
     return (
-        <Paper className={classes.paper} elevation={3}>
+        <Paper className={classes.paper} elevation={5}>
             <Avatar className={classes.avatar}>
                 <LockOutlinedIcon />
             </Avatar>

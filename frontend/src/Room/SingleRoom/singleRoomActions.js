@@ -29,7 +29,7 @@ export const getSingleRoom = (code) => {
             }
 
         } catch(e) {           
-            console.log(e.response.data);
+            console.log(e);
             return false;
         }
     }

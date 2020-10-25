@@ -1,4 +1,4 @@
-import { Divider, makeStyles, Typography } from "@material-ui/core";
+import { Box, Divider, makeStyles, Typography } from "@material-ui/core";
 import React, { Fragment } from "react";
 import Message from "./Message/Message";
 
@@ -12,6 +12,10 @@ const singleRoomStyles = makeStyles((theme) => ({
     section3: {
       margin: theme.spacing(3, 1, 1),
     },
+    message: {
+      marginBottom: 50,
+      color: "blue !important"
+    }
   }));
 
 const SingleRoom = ({ singleRoom }) => {
@@ -26,9 +30,15 @@ const SingleRoom = ({ singleRoom }) => {
             </div>
             <Divider variant="middle" />
             <div className={classes.section2}>
+              <Box marginBottom={2}>
                 <Message />
+              </Box>
+              <Box marginBottom={2}>
                 <Message />
+              </Box>
+              <Box marginBottom={2}>
                 <Message />
+              </Box>
             </div>
         </Fragment>
     )

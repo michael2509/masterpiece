@@ -14,7 +14,7 @@ class SingleRoomContainer extends Component {
 
     render() {
         return (
-            <Container component="main" maxWidth="md" style={{ minHeight: `calc(100vh - 150px)`, marginTop: 150}}>
+            <Container component="main" maxWidth="lg" style={{ minHeight: `calc(100vh - 150px)`, marginTop: 150}}>
                 <SingleRoom singleRoom={this.props.singleRoom} />
             </Container>
         )

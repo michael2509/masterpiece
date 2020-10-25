@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -7,11 +7,12 @@ import Avatar from '@material-ui/core/Avatar';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
+import { Link } from "react-router-dom";
 
 const RoomItem = ({ room, openUpdateRoom, deleteRoom }) => {
 
     return (
-        <Fragment>
+        <Link to={`/salons/${room.code}`} style={{ color: 'inherit', textDecoration: 'inherit'}}>
             <ListItem button>
                 <ListItemAvatar>
                     <Avatar>
@@ -26,7 +27,7 @@ const RoomItem = ({ room, openUpdateRoom, deleteRoom }) => {
                     <DeleteIcon />
                 </IconButton>
             </ListItem>
-        </Fragment>
+        </Link>
     )
 }
 

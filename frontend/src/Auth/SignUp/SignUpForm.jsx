@@ -56,7 +56,7 @@ const signUpFormChild = props => {
     };
 
     return (
-        <Paper style={classes.paper} elevation={3}>
+        <Paper style={classes.paper} elevation={5}>
             <Avatar style={classes.avatar}>
                 <LockOutlinedIcon />
             </Avatar>
