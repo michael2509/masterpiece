@@ -128,7 +128,7 @@ const AddMessage = withFormik({
             .max(255, "Votre message ne peut pas excéder 255 caractères")
             .required("Entrez votre message")
     }),
-    handleSubmit: (message, { props, resetForm, setSubmitting }) => {        
+    handleSubmit: (message, { props, resetForm, setSubmitting }) => {
         props.sendMessage(message, props.clientRef);
     }
 })(AddMessageForm)

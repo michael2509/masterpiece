@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
@@ -26,7 +26,10 @@ const Notification = ({ open, handleClose, messages, severity }) => {
       msghtml = messages[0]
   } else {
       msghtml = messages.map((message, index) => (
-          <span key={index}>- {message}</span>
+        <Fragment key={index}>
+            <span>- {message}</span>
+            <br></br>
+        </Fragment>
       ))
   }
 

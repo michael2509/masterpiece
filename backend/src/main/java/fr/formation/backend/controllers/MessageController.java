@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.handler.annotation.support.MethodArgumentNotValidException;
 import org.springframework.messaging.simp.annotation.SendToUser;
@@ -16,7 +15,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.WebRequest;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -27,15 +25,13 @@ public class MessageController {
 
     @MessageMapping("user-all")
     @SendTo("/topic/user")
-    protected MessageDto sendToAll(@Valid @RequestBody MessageDto messageDto) throws MethodArgumentNotValidException {
-        return messageDto;
+    protected ResponseEntity sendToAll(@Valid @RequestBody MessageDto messageDto) throws MethodArgumentNotValidException {
+        return ResponseEntity.ok().body(messageDto);
     }
 
     @MessageExceptionHandler
     @SendToUser("/queue/errors")
-    public ResponseEntity<Object> handleException(MethodArgumentNotValidException ex) {
-        System.out.println("test");
-
+    public ResponseEntity handleException(MethodArgumentNotValidException ex) {
         BindingResult result = ex.getBindingResult();
         // Spring field errors:
         List<FieldError> fieldErrors = result.getFieldErrors();

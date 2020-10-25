@@ -5,7 +5,8 @@ import AddMessage from "./Message/AddMessage";
 import SingleRoom from "./SingleRoom";
 import { getSingleRoom } from "./singleRoomActions";
 import SockJsClient from 'react-stomp';
-import { addMessage, sendMessage } from "./Message/messageActions";
+import { addMessage, sendMessage, sendMessageSuccess, sendMessageError } from "./Message/messageActions";
+import listServerErrors from "../../global/functions/listServerErrors";
 
 class SingleRoomContainer extends Component {
 
@@ -22,7 +23,7 @@ class SingleRoomContainer extends Component {
 
     render() {
         return (
-            <Container component="main" maxWidth="lg" style={{ minHeight: `calc(100vh - 150px)`, marginTop: 150}}>
+            <Container component="main" maxWidth="md" style={{ minHeight: `calc(100vh - 150px)`, marginTop: 150}}>
                 <SingleRoom singleRoom={this.props.singleRoom} messages={this.props.messages} />
                 <AddMessage sendMessage={this.props.sendMessage} clientRef={this.clientRef} />
                 <SockJsClient
@@ -34,9 +35,21 @@ class SingleRoomContainer extends Component {
                     onDisconnect={() => {
                         console.log("Disconnected");
                     }}
-                    onMessage={(msg) => {
-                        console.log(msg);
-                        // this.props.addMessage(msg);
+                    onMessage={(response) => {
+                        const { body, statusCode, statusCodeValue } = response;
+
+                        // Request validation errors
+                        if(statusCode === "BAD_REQUEST") {
+                            const errorsMsg = listServerErrors(statusCodeValue, body)
+                            this.props.sendMessageError(errorsMsg);
+                        }
+                        // Message sent with success
+                        if (statusCode === "OK" && body !== null) {
+                            this.props.addMessage(body);
+                            this.props.sendMessageSuccess();
+                        }
+
+                        console.log(response);
                     }}
                     ref={(client) => {
                         this.clientRef = client
@@ -52,7 +65,9 @@ const mapStateToProps = (state) => ({ singleRoom: state.singleRoom, messages: st
 const mapDispatchToProps = (dispatch) => ({
     getSingleRoom: (code) => dispatch(getSingleRoom(code)),
     sendMessage: (message, clientRef) => dispatch(sendMessage(message, clientRef)),
-    addMessage: (message) => dispatch(addMessage(message))
+    sendMessageSuccess: () => dispatch(sendMessageSuccess()),
+    sendMessageError: (errorsMsg) => dispatch(sendMessageError(errorsMsg)),
+    addMessage: (message) => dispatch(addMessage(message)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleRoomContainer);

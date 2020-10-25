@@ -8,7 +8,9 @@ let labels = new LocalizedStrings({
         confirmPassword: "confirm password",
         name: "name",
         startDateTime: "startDateTime",
-        endDateTime: "endDateTime"
+        endDateTime: "endDateTime",
+        author: "author",
+        message: "message"
     },
     fr: {
         username: "identifiant",
@@ -16,7 +18,10 @@ let labels = new LocalizedStrings({
         confirmPassword: "confirmation du mot de passe",
         name: "nom",
         startDateTime: "date de début",
-        endDateTime: "date de fin"
+        endDateTime: "date de fin",
+        author: "auteur",
+        message: "message"
+
     },
 });
 
