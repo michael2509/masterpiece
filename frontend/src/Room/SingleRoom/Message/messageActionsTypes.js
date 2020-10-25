@@ -1,0 +1,2 @@
+export const SEND_MESSAGE_SUCCESS = "SEND_MESSAGE_SUCCESS";
+export const ADD_MESSAGE = "ADD_MESSAGE";

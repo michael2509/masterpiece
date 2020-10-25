@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Message() {
+export default function Message({ author, message }) {
     const classes = useStyles();
 
     return (
@@ -39,17 +39,13 @@ export default function Message() {
                     className={classes.cardHeader}
                     avatar={
                         <Avatar aria-label="recipe" className={classes.avatar}>
-                            M
+                            {author.toUpperCase()[0]}
                         </Avatar>
                     }
-                    title="Michael De Madet"
-                    subheader="Envoyé le 25/10/2020 à 02h24"
+                    title={author}
                 />
                 <CardContent className={classes.cardContent}>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        This impressive paella is a perfect party dish and a fun meal to cook together with your
-                        guests. Add 1 cup of frozen peas along with the mussels, if you like.
-        </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">{message}</Typography>
                 </CardContent>
                 <CardActions disableSpacing>
                     <IconButton aria-label="add to favorites">

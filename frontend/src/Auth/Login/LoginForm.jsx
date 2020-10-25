@@ -11,6 +11,7 @@ import { Link as RouterLink, withRouter } from 'react-router-dom';
 import { withFormik } from "formik";
 import label from '../../global/configs/label';
 import { login } from "../authService";
+import * as Yup from "yup";
 
 const useStyles = makeStyles(theme => ({
     avatar: {
@@ -125,6 +126,14 @@ const LoginForm = withFormik({
             password: password || "",
         };
     },
+
+    validationSchema: Yup.object().shape({
+        username: Yup.string()
+            .required("Entrez votre identifiant"),
+        password: Yup.string()
+            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[.:;?|/\\{}<>!@#$%^&*()_+-=])(?=.{8,})/, "Doit contenir au moins 8 caractères, 1 minuscule, 1 majuscule, 1 chiffres, 1 caractère spécial")
+            .required("Entrez votre mot de passe")
+    }),
 
     handleSubmit: (values, { props, resetForm }) => {
         const { history, loginSuccess, loginError } = props;
