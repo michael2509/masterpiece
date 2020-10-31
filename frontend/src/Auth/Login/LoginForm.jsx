@@ -136,7 +136,7 @@ const LoginForm = withFormik({
     }),
 
     handleSubmit: (values, { props, resetForm }) => {
-        const { history, loginSuccess, loginError } = props;
+        const { history, openNotification } = props;
 
         const username = values.username
         const password = values.password
@@ -144,10 +144,10 @@ const LoginForm = withFormik({
         login(username, password).then(logged => {
             if (logged) {
                 resetForm();
-                loginSuccess(username);
+                openNotification(`Bienvenue ${username}, vous êtes connecté`, "success")
                 history.push("/salons");
             } else {
-                loginError();
+                openNotification("Informations de connexion invalides", "error")
             }
         })
     }

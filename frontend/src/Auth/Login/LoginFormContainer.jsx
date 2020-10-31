@@ -1,21 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import LoginForm from "./LoginForm";
-import { loginSuccess, loginError } from './loginActions';
 import AuthContainer from '../AuthContainer';
+import { openNotification } from '../../Notification/notificationActions';
 
-const LoginFormContainer = ({ loginSuccess, loginError }) => {
+const LoginFormContainer = ({ openNotification }) => {
 
     return (
         <AuthContainer maxWidth="md" >
-            <LoginForm loginSuccess={loginSuccess} loginError={loginError} />
+            <LoginForm openNotification={openNotification} />
         </AuthContainer>
     )
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    loginSuccess: (username) => dispatch(loginSuccess(username)),
-    loginError: (errorMessages) => dispatch(loginError(errorMessages))
+    openNotification: (message, severity) => dispatch(openNotification(message, severity)),
 });
 
 export default connect(null, mapDispatchToProps)(LoginFormContainer)

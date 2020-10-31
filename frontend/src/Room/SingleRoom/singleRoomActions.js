@@ -1,16 +1,10 @@
-import { SINGLE_ROOM_FOUND, SINGLE_ROOM_NOT_FOUND } from "./singleRoomActionsTypes";
+import { SINGLE_ROOM_FOUND } from "./singleRoomActionsTypes";
 import axios from "axios";
+import { openNotification } from "../../Notification/notificationActions";
 
 export const singleRoomFound = (room) => ({
     type: SINGLE_ROOM_FOUND,
     room: room
-})
-
-export const singleRoomNotFound = (code) => ({
-    type: SINGLE_ROOM_NOT_FOUND,
-    severity: "error",
-    messages: [`Aucun salon trouvé avec le code [${code}]`],
-    date: Date.now()
 })
 
 export const getSingleRoom = (code) => {
@@ -24,7 +18,7 @@ export const getSingleRoom = (code) => {
                 dispatch(singleRoomFound(room));
                 return true;
             } else {
-                dispatch(singleRoomNotFound(code))
+                dispatch(openNotification(`Aucun salon trouvé avec le code [${code}]`, "error"))
                 return false;
             }
 

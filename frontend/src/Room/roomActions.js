@@ -1,27 +1,10 @@
-import { ROOM_CREATION_SUCCESS, ROOM_CREATION_ERROR, GET_ROOM_LIST_PAGE_SUCCESS, GET_ROOM_LIST_PAGE_ERROR, ROOM_DELETION_SUCCESS, ROOM_DELETION_ERROR, OPEN_UPDATE_ROOM, CLOSE_UPDATE_ROOM, UPDATE_ROOM_SUCCESS, UPDATE_ROOM_ERROR, FETCH_MORE_ROOMS_SUCCESS, FETCH_MORE_ROOMS_ERROR } from "./roomActionsTypes"
+import { GET_ROOM_LIST_PAGE_SUCCESS, GET_ROOM_LIST_PAGE_ERROR, OPEN_UPDATE_ROOM, CLOSE_UPDATE_ROOM, FETCH_MORE_ROOMS_SUCCESS, FETCH_MORE_ROOMS_ERROR } from "./roomActionsTypes"
 import axios from "axios";
 import listServerErrors from "../global/functions/listServerErrors";
 import { getTokenFromLocalStorage } from '../Auth/authService';
+import { openNotification } from "../Notification/notificationActions";
 
 // Create Room Actions
-export function roomCreationSuccess() {
-    return {
-        type: ROOM_CREATION_SUCCESS,
-        severity: "success",
-        messages: ["Salon crée avec succès"],
-        date: Date.now()
-    }
-}
-
-export function roomCreationError(errorMessages) {
-    return {
-        type: ROOM_CREATION_ERROR,
-        severity: "error",
-        messages: errorMessages,
-        date: Date.now()
-    }
-}
-
 export function createRoom(room) {
     
     return async (dispatch) => {
@@ -36,36 +19,18 @@ export function createRoom(room) {
                 { headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${accessToken}` } }
             )
 
-            dispatch(roomCreationSuccess());
+            dispatch(openNotification("Salon crée avec succès", "success"));
             dispatch(getRoomListPage(0));
             return true
         } catch (error) {            
             const errorMessages = listServerErrors(error.response);
-            dispatch(roomCreationError(errorMessages))
+            dispatch(openNotification(errorMessages, "error"))
             return false
         }
     }
 }
 
-// Delete Room Actions
-export function roomDeletionSuccess() {
-    return {
-        type: ROOM_DELETION_SUCCESS,
-        severity: "success",
-        messages: ["Salon supprimé avec succès"],
-        date: Date.now(),
-    }
-}
-
-export function roomDeletionError() {
-    return {
-        type: ROOM_DELETION_ERROR,
-        severity: "error",
-        messages: ["La suppression du salon a échoué"],
-        date: Date.now()
-    }
-}
-
+// Delete Room Action
 export function deleteRoom(roomId) {
     return async (dispatch) => {
         try {
@@ -76,11 +41,11 @@ export function deleteRoom(roomId) {
                 }
             }
             await axios.delete(`http://localhost:8081/api/rooms?roomId=${roomId}`, config);
-            dispatch(roomDeletionSuccess())
+            dispatch(openNotification("Salon supprimé avec succès", "success"))
             dispatch(getRoomListPage(0))
             return true
         } catch (error) {
-            dispatch(roomDeletionError())
+            dispatch(openNotification("La suppression du salon a échoué", "error"))
             return false           
         }
     }
@@ -142,24 +107,6 @@ export function closeUpdateRoom() {
     }
 }
 
-export function updateRoomSuccess() {
-    return {
-        type: UPDATE_ROOM_SUCCESS,
-        severity: "success",
-        messages: ["Salon modifié avec succès"],
-        date: Date.now()
-    }
-}
-
-export function updateRoomError() {
-    return {
-        type: UPDATE_ROOM_ERROR,
-        severity: "error",
-        messages: ["La modification du salon a échoué"],
-        date: Date.now()
-    }
-}
-
 export function updateRoom(room) {
     return async (dispatch) => {
 
@@ -173,13 +120,13 @@ export function updateRoom(room) {
                 { headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${accessToken}` } }
             )
 
-            dispatch(updateRoomSuccess());
+            dispatch(openNotification("Salon modifié avec succès", "error"))
             dispatch(closeUpdateRoom());
             dispatch(getRoomListPage(0));
             return true
         } catch (error) {            
             const errorMessages = listServerErrors(error.response);
-            dispatch(updateRoomError(errorMessages))
+            dispatch(openNotification(errorMessages, "error"))
             return false
         }
     }

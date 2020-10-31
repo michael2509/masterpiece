@@ -1,38 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Notification from "./Notification";
+import { closeNotification } from './notificationActions';
 
 class NotificationContainer extends Component {
 
-    state = {
-        open: false
-    }
-
-    componentDidUpdate(prevProps) {
-        if(this.props.notification.date !== prevProps.notification.date) {
-            this.setState({ open: true })
-        }
-      }
-
-    handleClose(event, reason) {
-        if (reason === 'clickaway') {
-          return;
-        }
-    
-        this.setState({ open: false })
-    };
-
     render() {
-        const { messages, severity } = this.props.notification;
-        const { open } = this.state;
-
-        return <Notification open={open} handleClose={() => this.handleClose()} messages={messages} severity={severity} />
+        const { open, message, severity, closeNotification } = this.props
+        console.log("notification re render");
+        console.log(this.props);
+        return <Notification open={open} closeNotification={closeNotification} message={message} severity={severity} />
     }
 }
 
 
+const mapStateToProps = (state) => ({
+    open: state.notification.open,
+    message: state.notification.message,
+    severity: state.notification.severity
+});
 
+const mapDispatchToProps = (dispatch) => ({
+    closeNotification: () => dispatch(closeNotification())
+})
 
-const mapStateToProps = (state) => ({ notification: state.notification });
-
-export default connect(mapStateToProps, null)(NotificationContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(NotificationContainer)

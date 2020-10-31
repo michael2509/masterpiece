@@ -16,18 +16,26 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Notification = ({ open, handleClose, messages, severity }) => {
+const Notification = ({ open, closeNotification, message, severity }) => {
   
   const classes = useStyles();
 
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    closeNotification();
+  };
+
   let msghtml = ""
 
-  if (messages.length === 1) {
-      msghtml = messages[0]
-  } else {
-      msghtml = messages.map((message, index) => (
+  if (typeof message === "string") {
+      msghtml = message
+  }
+  if (Array.isArray(message)) {
+      msghtml = message.map((line, index) => (
         <Fragment key={index}>
-            <span>- {message}</span>
+            <span>- {line}</span>
             <br></br>
         </Fragment>
       ))
@@ -35,11 +43,13 @@ const Notification = ({ open, handleClose, messages, severity }) => {
 
   return (
     <div className={classes.root}>
-      <Snackbar open={open} autoHideDuration={10000} onClose={handleClose}>
-        <Alert severity={severity} onClose={handleClose}>
-            {msghtml}
-        </Alert>
-      </Snackbar>
+      {message === null && severity === null ? null : (
+        <Snackbar open={open} autoHideDuration={20000} onClose={handleClose}>
+          <Alert severity={severity} onClose={handleClose}>
+              {msghtml}
+          </Alert>
+        </Snackbar>
+      ) }
     </div>
   );
 }

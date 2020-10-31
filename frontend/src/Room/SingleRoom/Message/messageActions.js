@@ -1,18 +1,4 @@
-import { SEND_MESSAGE_SUCCESS, SEND_MESSAGE_ERROR, ADD_MESSAGE } from "./messageActionsTypes"
-
-export const sendMessageSuccess = () => ({
-    type: SEND_MESSAGE_SUCCESS,
-    severity: "success",
-    messages: [`Message envoyé !`],
-    date: Date.now()
-})
-
-export const sendMessageError = (messages) => ({
-    type: SEND_MESSAGE_ERROR,
-    severity: "error",
-    messages: messages,
-    date: Date.now()
-})
+import { ADD_MESSAGE } from "./messageActionsTypes"
 
 export const addMessage = (message) => ({
     type: ADD_MESSAGE,

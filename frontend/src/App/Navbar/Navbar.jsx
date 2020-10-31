@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Navbar(props) {
-    const { container, history, showLogoutNotif } = props;
+    const { container, history, openNotification } = props;
     const classes = useStyles();
     const theme = useTheme();
     const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -75,8 +75,8 @@ function Navbar(props) {
 
     const logoutAndRedirect = () => {
         logout();
-        showLogoutNotif();
-        history.push("/connexion")
+        openNotification("Vous êtes déconnecté", "info");
+        history.push("/connexion");
     }
 
     const logged = isLogged();

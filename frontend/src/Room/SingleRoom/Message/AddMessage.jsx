@@ -59,7 +59,7 @@ const AddMessageForm = (props) => {
         <div>
         <Fab onClick={handleClickOpen} className={classes.fab} color="primary" aria-label="add" variant="extended">
             <AddIcon className={classes.extendedIcon} />
-            Créer un salon
+            Nouveau message
         </Fab>
         <Dialog open={isSubmitting ? false : open} onClose={handleClose} aria-labelledby="form-dialog-title" disableBackdropClick>
             <form onSubmit={handleSubmit}>
@@ -129,6 +129,7 @@ const AddMessage = withFormik({
             .required("Entrez votre message")
     }),
     handleSubmit: (message, { props, resetForm, setSubmitting }) => {
+        console.log(props);
         props.sendMessage(message, props.clientRef);
     }
 })(AddMessageForm)
