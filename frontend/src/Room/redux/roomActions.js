@@ -1,8 +1,8 @@
 import { GET_ROOM_LIST_PAGE_SUCCESS, GET_ROOM_LIST_PAGE_ERROR, OPEN_UPDATE_ROOM, CLOSE_UPDATE_ROOM, FETCH_MORE_ROOMS_SUCCESS, FETCH_MORE_ROOMS_ERROR } from "./roomActionsTypes"
 import axios from "axios";
-import listServerErrors from "../global/functions/listServerErrors";
-import { getTokenFromLocalStorage } from '../Auth/authService';
-import { openNotification } from "../Notification/notificationActions";
+import listServerErrors from "../../global/functions/listServerErrors";
+import { getTokenFromLocalStorage } from '../../Auth/authService';
+import { openNotification } from "../../Notification/notificationActions";
 
 // Create Room Actions
 export function createRoom(room) {

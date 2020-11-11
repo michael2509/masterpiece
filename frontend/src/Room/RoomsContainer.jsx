@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import RoomList from './RoomList';
-import AddRoom from './AddRoom';
-import { createRoom, deleteRoom, getRoomListPage, openUpdateRoom, closeUpdateRoom, updateRoom, fetchMoreRooms } from "./roomActions";
+import RoomList from './RoomList/RoomList';
+import AddRoom from './RoomForms/AddRoom';
+import { createRoom, deleteRoom, getRoomListPage, openUpdateRoom, closeUpdateRoom, updateRoom, fetchMoreRooms } from "./redux/roomActions";
 import { connect } from "react-redux";
 import { isLogged } from '../Auth/authService';
-import UpdateRoom from './UpdateRoom';
+import UpdateRoom from './RoomForms/UpdateRoom';
 import Container from '@material-ui/core/Container';
 
 class RoomsContainer extends Component {

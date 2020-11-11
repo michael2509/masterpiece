@@ -1,5 +1,5 @@
 import notificationReducer from "../Notification/notificationReducer";
-import roomsReducer from "../Room/roomsReducer";
+import roomsReducer from "../Room/redux/roomsReducer";
 import messagesReducer from "../Room/SingleRoom/Message/messagesReducer";
 import singleRoomReducer from "../Room/SingleRoom/singleRoomReducer";
 
