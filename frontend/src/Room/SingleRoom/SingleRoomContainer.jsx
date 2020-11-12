@@ -1,7 +1,7 @@
 import { Container } from "@material-ui/core";
 import React, { Component, createRef } from "react";
 import { connect } from "react-redux";
-import AddMessage from "./Message/AddMessage";
+import AddMessage from "../../Message/AddMessage";
 import SingleRoom from "./SingleRoom";
 import { getSingleRoom } from "./singleRoomActions";
 import SockJsClient from 'react-stomp';

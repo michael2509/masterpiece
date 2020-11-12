@@ -120,7 +120,7 @@ export function updateRoom(room) {
                 { headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${accessToken}` } }
             )
 
-            dispatch(openNotification("Salon modifié avec succès", "error"))
+            dispatch(openNotification("Salon modifié avec succès", "success"))
             dispatch(closeUpdateRoom());
             dispatch(getRoomListPage(0));
             return true

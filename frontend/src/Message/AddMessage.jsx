@@ -131,6 +131,8 @@ const AddMessage = withFormik({
     handleSubmit: (message, { props, resetForm, setSubmitting }) => {
         console.log(props);
         props.sendMessage(message, props.clientRef);
+        resetForm();
+        setSubmitting(true)
     }
 })(AddMessageForm)
 

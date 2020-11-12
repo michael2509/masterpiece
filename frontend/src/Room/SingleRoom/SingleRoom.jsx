@@ -1,6 +1,6 @@
-import { Box, Divider, makeStyles, Typography } from "@material-ui/core";
+import { makeStyles, Paper, Typography } from "@material-ui/core";
 import React, { Fragment } from "react";
-import Message from "./Message/Message";
+import MessageList from "../../Message/MessageList";
 
 const singleRoomStyles = makeStyles((theme) => ({
 	section1: {
@@ -12,9 +12,14 @@ const singleRoomStyles = makeStyles((theme) => ({
 	section3: {
 		margin: theme.spacing(3, 1, 1),
 	},
-	message: {
-		marginBottom: 50,
-		color: "blue !important"
+	paper: {
+		padding: 24
+	},
+	messagesTitle: {
+		marginTop: theme.spacing(4)
+	},
+	noMessageText: {
+		marginTop: theme.spacing(2)
 	}
 }));
 
@@ -23,22 +28,16 @@ const SingleRoom = ({ singleRoom, messages }) => {
 
 	return (
 		<Fragment>
-			<div className={classes.section1}>
-				<Typography component="h1" variant="h4">{singleRoom.name ? singleRoom.name : "Non trouvé"}</Typography>
-				<Typography component="h6" variant="h6" color="textSecondary">Animé par : {singleRoom.userUsername ? singleRoom.userUsername : "Non trouvé"}</Typography>
-				<Typography component="h2" variant="h6" color="textSecondary">Code : {singleRoom.code ? singleRoom.code : "Non trouvé"}</Typography>
-			</div>
-			<Divider variant="middle" />
+			<Paper elevation={12} className={classes.paper}>
+				<div className={classes.section1}>
+					<Typography component="h1" variant="h4">{singleRoom.name ? singleRoom.name : "Non trouvé"}</Typography>
+					<Typography variant="body1" color="textSecondary">Animé par : {singleRoom.userUsername ? singleRoom.userUsername : "Non trouvé"}</Typography>
+					<Typography variant="body1" color="textSecondary">Code : {singleRoom.code ? singleRoom.code : "Non trouvé"}</Typography>
+				</div>
+			</Paper>
 			<div className={classes.section2}>
-				{messages.length === 0 ? (<p>Aucun messages</p>) : (
-					<Fragment>
-						{messages.map((message, i) => (
-							<Box marginBottom={2} key={i}>
-								<Message author={message.author} message={message.message} />
-							</Box>
-						))}
-					</Fragment>
-				)}
+				<Typography variant="h5" className={classes.messagesTitle}>Messages</Typography>
+				<MessageList messages={messages} />
 			</div>
 		</Fragment>
 	)
