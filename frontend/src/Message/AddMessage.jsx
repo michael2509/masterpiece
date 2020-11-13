@@ -123,7 +123,7 @@ const AddMessage = withFormik({
 
     validationSchema: Yup.object().shape({
         author: Yup.string()
-            .max(120, "Votre pseudo ne peut pas excéder 120 caractères")
+            .max(80, "Votre pseudo ne peut pas excéder 120 caractères")
             .required("Entrez votre pseudo"),
         message: Yup.string()
             .max(255, "Votre message ne peut pas excéder 255 caractères")

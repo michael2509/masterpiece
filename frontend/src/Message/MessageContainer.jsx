@@ -20,18 +20,21 @@ class MessageContainer extends Component {
         this.props.getMessageList(this.props.match.params.code);
     }
 
-    handleMessage(response) {
+    handleMessage(response, topic) {
         const { body, statusCode, statusCodeValue } = response;
 
-        // Request validation errors
-        if(statusCode === "BAD_REQUEST") {
-            const errorsMsg = listServerErrors(statusCodeValue, body)
-            this.props.openNotification(errorsMsg, "error")
-        }
-        // Message sent with success
+        // Message received with success
         if (statusCode === "OK" && body !== null) {
             this.props.addMessage(body);
-            this.props.openNotification("Message envoyé", "success")
+        }
+        // Show success notif if message sent with success
+        if (topic === "/user/queue/success") {
+            this.props.openNotification("Message envoyé", "success");
+        }
+        // Show error notif if message sending failed
+        if(topic === "/user/queue/errors") {
+            const errorsMsg = listServerErrors(statusCodeValue, body)
+            this.props.openNotification(errorsMsg, "error")
         }
     }
 
@@ -42,14 +45,14 @@ class MessageContainer extends Component {
                 <AddMessage roomId={this.props.roomId} sendMessage={this.props.sendMessage} clientRef={this.clientRef.current} />
                 <SockJsClient
                     url='http://localhost:8081/websocket-chat/'
-                    topics={['/topic/user', "/user/queue/errors"]}
+                    topics={['/topic/user', "/user/queue/errors", "/user/queue/success"]}
                     onConnect={() => {
                         console.log("connected");
                     }}
                     onDisconnect={() => {
                         console.log("Disconnected");
                     }}
-                    onMessage={(response) => this.handleMessage(response)}
+                    onMessage={(response, topic) => this.handleMessage(response, topic)}
                     ref={this.clientRef}
                 />
             </Fragment>

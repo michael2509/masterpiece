@@ -9,6 +9,9 @@ import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.handler.annotation.support.MethodArgumentNotValidException;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.messaging.simp.SimpMessageType;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -26,9 +29,11 @@ import java.util.List;
 public class MessageController {
 
     private final MessageService messageService;
+    private final SimpMessagingTemplate simpMessagingTemplate;
 
-    public MessageController(MessageService messageService) {
+    public MessageController(MessageService messageService, SimpMessagingTemplate simpMessagingTemplate) {
         this.messageService = messageService;
+        this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
     @GetMapping("/messages/room/{roomCode}")
@@ -38,8 +43,18 @@ public class MessageController {
 
     @MessageMapping("user-all")
     @SendTo("/topic/user")
-    protected ResponseEntity sendToAll(@Valid @RequestBody MessageDto messageDto) throws MethodArgumentNotValidException {
+    protected ResponseEntity sendToAll(@Valid @RequestBody MessageDto messageDto, SimpMessageHeaderAccessor headerAccessor) throws MethodArgumentNotValidException {
+        // Insert message to DB
         messageService.postMessage(messageDto);
+
+        // Send reply only to the message sender
+        SimpMessageHeaderAccessor ha = SimpMessageHeaderAccessor
+                .create(SimpMessageType.MESSAGE);
+        ha.setSessionId(headerAccessor.getSessionId());
+        ha.setLeaveMutable(true);
+        simpMessagingTemplate.convertAndSendToUser(headerAccessor.getSessionId(), "/queue/success", "message envoyé avec succès", ha.getMessageHeaders());
+
+        // Send message to all subscribers
         return ResponseEntity.ok().body(messageDto);
     }
 
