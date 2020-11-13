@@ -7,12 +7,9 @@ class NotificationContainer extends Component {
 
     render() {
         const { open, message, severity, closeNotification } = this.props
-        console.log("notification re render");
-        console.log(this.props);
         return <Notification open={open} closeNotification={closeNotification} message={message} severity={severity} />
     }
 }
-
 
 const mapStateToProps = (state) => ({
     open: state.notification.open,

@@ -1,9 +1,9 @@
 package fr.formation.backend.controllers;
 
-import com.google.gson.Gson;
 import fr.formation.backend.dtos.MessageDto;
+import fr.formation.backend.entities.Message;
 import fr.formation.backend.errors.ValidationError;
-import org.springframework.http.HttpStatus;
+import fr.formation.backend.services.MessageService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -13,6 +13,8 @@ import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,9 +25,21 @@ import java.util.List;
 @RestController
 public class MessageController {
 
+    private final MessageService messageService;
+
+    public MessageController(MessageService messageService) {
+        this.messageService = messageService;
+    }
+
+    @GetMapping("/messages/room/{roomCode}")
+    protected List<Message> getMessages (@PathVariable("roomCode") String roomCode) {
+        return messageService.getMessages(roomCode);
+    }
+
     @MessageMapping("user-all")
     @SendTo("/topic/user")
     protected ResponseEntity sendToAll(@Valid @RequestBody MessageDto messageDto) throws MethodArgumentNotValidException {
+        messageService.postMessage(messageDto);
         return ResponseEntity.ok().body(messageDto);
     }
 

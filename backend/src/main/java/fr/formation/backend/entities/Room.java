@@ -1,13 +1,8 @@
 package fr.formation.backend.entities;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "rooms", indexes = {
@@ -31,6 +26,10 @@ public class Room {
 
     @Column(name = "creation_date", nullable = false)
     private LocalDateTime creationDate;
+
+    @OneToMany(mappedBy = "room")
+    @OrderBy("send_date desc")
+    private List<Message> messages;
 
     public Room() {
     }
@@ -73,5 +72,13 @@ public class Room {
 
     public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 }

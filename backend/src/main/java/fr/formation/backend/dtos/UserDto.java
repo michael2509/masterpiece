@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 public class UserDto {
 
     @NotBlank
-    @Size(max = 120)
+    @Size(max = 80)
     @UniqueUsername
     private String username;
 

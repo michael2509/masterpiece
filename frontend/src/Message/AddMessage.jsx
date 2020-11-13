@@ -10,6 +10,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
 import { withFormik } from "formik";
 import * as Yup from "yup";
+import { withRouter } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
     roomNameInput: {
@@ -128,12 +129,17 @@ const AddMessage = withFormik({
             .max(255, "Votre message ne peut pas excéder 255 caractères")
             .required("Entrez votre message")
     }),
-    handleSubmit: (message, { props, resetForm, setSubmitting }) => {
-        console.log(props);
-        props.sendMessage(message, props.clientRef);
+    handleSubmit: (values, { props, resetForm, setSubmitting }) => {
+        const { sendMessage, clientRef, match } = props;
+        const roomCode = match.params.code
+        console.log(roomCode);
+
+        const message = { ...values, roomCode };
+
+        sendMessage(message, clientRef);
         resetForm();
         setSubmitting(true)
     }
 })(AddMessageForm)
 
-export default AddMessage;
+export default withRouter(AddMessage);

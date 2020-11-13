@@ -2,6 +2,7 @@ package fr.formation.backend.controllers;
 
 import fr.formation.backend.dtos.RoomDto;
 import fr.formation.backend.dtos.UpdateRoomDto;
+import fr.formation.backend.entities.Room;
 import fr.formation.backend.repositories.RoomRepository;
 import fr.formation.backend.services.RoomService;
 import fr.formation.backend.viewdtos.RoomViewDto;

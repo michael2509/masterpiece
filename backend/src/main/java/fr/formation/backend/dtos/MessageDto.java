@@ -1,6 +1,7 @@
 package fr.formation.backend.dtos;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class MessageDto {
@@ -12,6 +13,10 @@ public class MessageDto {
     @NotBlank
     @Size(max = 255)
     private String message;
+
+    @NotNull
+    @Size(max = 10)
+    private String roomCode;
 
     public MessageDto() {
     }
@@ -30,5 +35,13 @@ public class MessageDto {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getRoomCode() {
+        return roomCode;
+    }
+
+    public void setRoomCode(String roomCode) {
+        this.roomCode = roomCode;
     }
 }
