@@ -27,7 +27,7 @@ public class Room {
     @Column(name = "creation_date", nullable = false)
     private LocalDateTime creationDate;
 
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     @OrderBy("send_date desc")
     private List<Message> messages;
 

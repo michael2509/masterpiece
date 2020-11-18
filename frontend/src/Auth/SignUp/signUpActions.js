@@ -14,7 +14,9 @@ export function createUser(user) {
             return true
         }
         catch (error) {
-            const errorMessages = listServerErrors(error.response);
+            const statusCode = error.response.status
+            const data = error.response.data
+            const errorMessages = listServerErrors(statusCode, data);
             dispatch(openNotification(errorMessages, "error"))
             return false
         }

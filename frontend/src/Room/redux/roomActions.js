@@ -22,8 +22,10 @@ export function createRoom(room) {
             dispatch(openNotification("Salon crée avec succès", "success"));
             dispatch(getRoomListPage(0));
             return true
-        } catch (error) {            
-            const errorMessages = listServerErrors(error.response);
+        } catch (error) {
+            const statusCode = error.response.status
+            const data = error.response.data        
+            const errorMessages = listServerErrors(statusCode, data);
             dispatch(openNotification(errorMessages, "error"))
             return false
         }
@@ -32,6 +34,7 @@ export function createRoom(room) {
 
 // Delete Room Action
 export function deleteRoom(roomId) {
+    console.log(roomId);
     return async (dispatch) => {
         try {
             const accessToken = getTokenFromLocalStorage("access_token");
@@ -124,8 +127,10 @@ export function updateRoom(room) {
             dispatch(closeUpdateRoom());
             dispatch(getRoomListPage(0));
             return true
-        } catch (error) {            
-            const errorMessages = listServerErrors(error.response);
+        } catch (error) {
+            const statusCode = error.response.status
+            const data = error.response.data            
+            const errorMessages = listServerErrors(statusCode, data);
             dispatch(openNotification(errorMessages, "error"))
             return false
         }
