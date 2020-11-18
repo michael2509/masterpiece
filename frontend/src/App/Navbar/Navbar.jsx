@@ -20,6 +20,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Link, withRouter } from 'react-router-dom';
 import "./Navbar.css";
 import { isLogged, logout } from '../../Auth/authService';
+import { Typography } from '@material-ui/core';
 
 const drawerWidth = 240;
 
@@ -97,7 +98,9 @@ function Navbar(props) {
     const drawer = (
         <div>
             <div className={`${classes.toolbar} drawerLogo ${classes.logoWrapper}`}>
-                <Link to="/" className="drawerLink">ISPEAK</Link>
+                <Link to="/" className="drawerLink">
+                    <Typography>YouTalk</Typography>
+                </Link>
             </div>
             <Divider />
             <List>
@@ -138,7 +141,9 @@ function Navbar(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Link to="/" className="navbarLink">ISPEAK</Link>
+                    <Link to="/" className="navbarLink">
+                        <Typography>YouTalk</Typography>
+                    </Link>
                     <Hidden smDown>
                         <div style={{ flexGrow: 1 }} />
                         <List style={{ display: "flex" }}>
