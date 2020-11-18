@@ -17,7 +17,13 @@ class MessageContainer extends Component {
 
     componentDidMount() {
         // Get room's messages
-        this.props.getMessageList(this.props.match.params.code);
+        this.props.getMessageList(this.props.roomCode);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.roomCode !== this.props.roomCode) {
+            this.props.getMessageList(this.props.roomCode);
+        }
     }
 
     handleMessage(response, topic) {
@@ -60,7 +66,10 @@ class MessageContainer extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({ messages: state.messages })
+const mapStateToProps = (state) => ({
+    messages: state.messages,
+    roomCode: state.singleRoom.code
+})
 
 const mapDispatchToProps = (dispatch) => ({
     getMessageList: (roomId) => dispatch(getMessageList(roomId)),

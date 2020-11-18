@@ -10,14 +10,16 @@ class SingleRoomContainer extends Component {
 
     componentDidMount() {
         // Get Room data
-        this.props.getSingleRoom(this.props.match.params.code)       
+        this.props.getSingleRoom(this.props.match.params.code);
     }
 
     render() {
+        const roomCode = this.props.match.params.code
+
         return (
             <Container component="main" maxWidth="md" style={{ minHeight: `calc(100vh - 150px)`, marginTop: 150}}>
                 <SingleRoom singleRoom={this.props.singleRoom} />
-                <MessageContainer />
+                <MessageContainer roomCode={roomCode} />
             </Container>
         )
     }

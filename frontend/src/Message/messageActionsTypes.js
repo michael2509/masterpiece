@@ -1,2 +1,2 @@
 export const ADD_MESSAGE = "ADD_MESSAGE";
-export const ADD_MESSAGE_LIST = "ADD_MESSAGE_LIST";
+export const GET_MESSAGE_LIST = "GET_MESSAGE_LIST";

@@ -1,4 +1,4 @@
-import { ADD_MESSAGE, ADD_MESSAGE_LIST } from "./messageActionsTypes";
+import { ADD_MESSAGE, GET_MESSAGE_LIST } from "./messageActionsTypes";
 
 const initialState = []
 
@@ -9,8 +9,8 @@ export default function messagesReducer(state = initialState, action) {
                 { author: action.author, message: action.message },
                 ...state
             ]
-        case ADD_MESSAGE_LIST:
-            return [...action.messageList, ...state]
+        case GET_MESSAGE_LIST:
+            return [...action.messageList]
         default:
             return state;
     }

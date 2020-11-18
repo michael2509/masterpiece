@@ -1,4 +1,4 @@
-import { ADD_MESSAGE, ADD_MESSAGE_LIST } from "./messageActionsTypes"
+import { ADD_MESSAGE, GET_MESSAGE_LIST } from "./messageActionsTypes"
 import axios from "axios";
 
 export const addMessage = (message) => ({
@@ -13,8 +13,8 @@ export const sendMessage = (message, clientRef) => {
     }
 }
 
-export const addMessageList = (messageList) => ({
-    type: ADD_MESSAGE_LIST,
+export const fetchMessageList = (messageList) => ({
+    type: GET_MESSAGE_LIST,
     messageList: messageList
 })
 
@@ -24,7 +24,7 @@ export const getMessageList = (roomCode) => {
             const response = await axios.get(`http://localhost:8081/api/messages/room/${roomCode}`);
             const messageList = response.data
             console.log(messageList);
-            dispatch(addMessageList(messageList));
+            dispatch(fetchMessageList(messageList));
         } catch(e) {           
             console.log(e);
             return false;
