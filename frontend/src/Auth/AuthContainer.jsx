@@ -11,8 +11,8 @@ const useStyles = makeStyles(theme => ({
         textAlign: 'center',
         width: "100%",
         justifyContent: 'center',
-        [`${theme.breakpoints.down('xs')}`]: {
-            height: "auto !important"
+        [`${theme.breakpoints.down('sm')}`]: {
+            minHeight: "100vh !important"
         },
         [`${theme.breakpoints.down('sm')} and (orientation: landscape)`]: {
             height: "auto !important"

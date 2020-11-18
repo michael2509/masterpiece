@@ -35,7 +35,7 @@ const RoomItem = ({ room, openUpdateRoom, deleteRoom }) => {
     const styles = {
         link: {
             display: "inherit",
-            alignItem: "inherit",
+            alignItems: "inherit",
             color: 'inherit',
             textDecoration: 'inherit',
             width: "inherit"

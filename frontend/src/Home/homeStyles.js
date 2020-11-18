@@ -15,7 +15,11 @@ const homeStyles = makeStyles((theme) => ({
 		backgroundColor:
 			theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
 		backgroundSize: 'cover',
-		backgroundPosition: 'center'
+		backgroundPosition: 'center',
+		[`${theme.breakpoints.down('sm')}`]: {
+			paddingTop: 64,
+			paddingBottom: 64
+		}
 	},
 	paper: {
 		margin: theme.spacing(8, 4),
