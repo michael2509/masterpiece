@@ -1,9 +1,12 @@
 package fr.formation.backend.dtos;
 
+import fr.formation.backend.constraints.UniqueMessage;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@UniqueMessage
 public class MessageDto {
 
     @NotBlank

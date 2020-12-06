@@ -41,4 +41,14 @@ public class MessageServiceImpl implements MessageService {
         // Save message to DB
         messageRepository.save(message);
     }
+
+    @Override
+    public Boolean isUnique(MessageDto messageDto) {
+        String author = messageDto.getAuthor();
+        String message = messageDto.getMessage();
+
+        boolean uniqueMessage = !messageRepository.existsByAuthorAndMessage(author, message);
+
+        return uniqueMessage;
+    }
 }

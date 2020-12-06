@@ -8,7 +8,12 @@ import java.time.LocalDateTime;
 @Entity
 @Table(
         name = "messages",
-        indexes = { @Index(name = "messages_room_id_IDX", columnList = "room_id") }
+        indexes = {
+                @Index(name = "messages_room_id_IDX", columnList = "room_id")
+        },
+        uniqueConstraints = {
+                @UniqueConstraint(name ="messages_author_message_send_date_uq", columnNames = {"author", "message", "send_date"})
+        }
 )
 public class Message {
 
