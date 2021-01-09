@@ -4,7 +4,7 @@ const initialState = {
     id: null,
     name: null,
     code: null,
-    userUsername: null
+    speakerUsername: null
 }
 
 export default function singleRoomReducer(state = initialState, action) {
@@ -15,7 +15,7 @@ export default function singleRoomReducer(state = initialState, action) {
                 id: action.room.id,
                 name: action.room.name,
                 code: action.room.code,
-                userUsername: action.room.userUsername
+                speakerUsername: action.room.speakerUsername
             }
         default:
             return state;

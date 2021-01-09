@@ -153,11 +153,11 @@ const SignUpForm = withFormik({
 
     handleSubmit: (values, { props, resetForm }) => {
 
-        const { createUser, history } = props
-        const user = Object.assign({}, values)
-        delete user.confirmPassword
+        const { createSpeaker, history } = props
+        const speaker = Object.assign({}, values)
+        delete speaker.confirmPassword
 
-        createUser(user).then(requestSuccess => {
+        createSpeaker(speaker).then(requestSuccess => {
             if (requestSuccess) {
                 resetForm()
                 history.push("/connexion")

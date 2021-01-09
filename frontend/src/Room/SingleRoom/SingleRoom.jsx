@@ -17,7 +17,7 @@ const SingleRoom = ({ singleRoom }) => {
 		<Paper elevation={12} className={classes.paper}>
 			<div className={classes.section1}>
 				<Typography component="h1" variant="h4">{singleRoom.name ? singleRoom.name : "Non trouvé"}</Typography>
-				<Typography variant="body1" color="textSecondary">Animé par : {singleRoom.userUsername ? singleRoom.userUsername : "Non trouvé"}</Typography>
+				<Typography variant="body1" color="textSecondary">Animé par : {singleRoom.speakerUsername ? singleRoom.speakerUsername : "Non trouvé"}</Typography>
 				<Typography variant="body1" color="textSecondary">Code : {singleRoom.code ? singleRoom.code : "Non trouvé"}</Typography>
 			</div>
 		</Paper>

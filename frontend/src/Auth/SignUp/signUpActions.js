@@ -2,14 +2,14 @@ import axios from 'axios';
 import listServerErrors from "../../global/functions/listServerErrors";
 import { openNotification } from "../../Notification/notificationActions";
 
-export function createUser(user) {
+export function createSpeaker(speaker) {
     
     return async (dispatch) => {
         
-        const userJson = JSON.stringify(user);
+        const speakerJson = JSON.stringify(speaker);
         
         try {
-            await axios.post('http://localhost:8081/api/users', userJson, { headers: { 'Content-Type': 'application/json' } })
+            await axios.post('http://localhost:8081/api/speakers', speakerJson, { headers: { 'Content-Type': 'application/json' } })
             dispatch(openNotification("Compte crée avec succès", "success"))
             return true
         }

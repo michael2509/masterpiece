@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SignUpForm from "./SignUpForm";
-import { createUser } from "./signUpActions";
+import { createSpeaker } from "./signUpActions";
 import AuthContainer from '../AuthContainer';
 
-const SignUpFormContainer = ({ createUser }) => (
+const SignUpFormContainer = ({ createSpeaker }) => (
     <AuthContainer maxWidth="md" >
-        <SignUpForm createUser={createUser} />
+        <SignUpForm createSpeaker={createSpeaker} />
     </AuthContainer>
 )
 
-const mapDispatchToProps = (dispatch) => ({ createUser: (user) => dispatch(createUser(user)) });
+const mapDispatchToProps = (dispatch) => ({ createSpeaker: (speaker) => dispatch(createSpeaker(speaker)) });
 
 export default connect(null, mapDispatchToProps)(SignUpFormContainer)
