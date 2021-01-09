@@ -5,10 +5,8 @@ import org.passay.*;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
-public class UserPasswordValidator implements ConstraintValidator<UserPassword, String> {
+public class StrongPasswordValidator implements ConstraintValidator<StrongPassword, String> {
 
     @Override
     public boolean isValid(String password, ConstraintValidatorContext context) {

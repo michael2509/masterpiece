@@ -1,6 +1,6 @@
 package fr.formation.backend.viewdtos;
 
-public interface UserViewDto {
+public interface SpeakerViewDto {
 
     Long getId();
     String getUsername();

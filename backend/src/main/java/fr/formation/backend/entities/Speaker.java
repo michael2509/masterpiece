@@ -3,10 +3,10 @@ package fr.formation.backend.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "users", uniqueConstraints = {
-        @UniqueConstraint(name = "users_username_UQ", columnNames = {"username"}),
+@Table(name = "speakers", uniqueConstraints = {
+        @UniqueConstraint(name = "speakers_username_UQ", columnNames = {"username"}),
 })
-public class User {
+public class Speaker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,7 +17,7 @@ public class User {
     @Column(nullable = false, length = 255)
     private String password;
 
-    public User() {
+    public Speaker() {
     }
 
     public Long getId() {

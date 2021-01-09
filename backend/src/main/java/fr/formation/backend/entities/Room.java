@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "rooms", indexes = {
-        @Index(name = "rooms_user_id_IDX", columnList = "user_id"),
+        @Index(name = "rooms_speaker_id_IDX", columnList = "speaker_id"),
 })
 public class Room {
 
@@ -18,8 +18,8 @@ public class Room {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "rooms_users_FK"))
-    private User user;
+    @JoinColumn(name = "speaker_id", nullable = false, foreignKey = @ForeignKey(name = "rooms_users_FK"))
+    private Speaker speaker;
 
     @Column(name = "code", nullable = false, length = 10)
     private String code;
@@ -50,12 +50,12 @@ public class Room {
         this.name = name;
     }
 
-    public User getUser() {
-        return user;
+    public Speaker getSpeaker() {
+        return speaker;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setSpeaker(Speaker speaker) {
+        this.speaker = speaker;
     }
 
     public String getCode() {

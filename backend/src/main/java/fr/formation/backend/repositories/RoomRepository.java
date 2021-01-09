@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface RoomRepository extends JpaRepository<Room, Long> {
-    Page<RoomViewDto> findByUserIdOrderByCreationDateDesc(Long userId, Pageable pageable);
+    Page<RoomViewDto> findBySpeakerIdOrderByCreationDateDesc(Long userId, Pageable pageable);
     RoomViewDto findByCode(String code);
     @Query("select r from Room r where r.code = ?1")
     Room findRoomEntityByCode(String code);

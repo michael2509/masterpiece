@@ -1,23 +1,23 @@
 package fr.formation.backend.dtos;
 
 import fr.formation.backend.constraints.UniqueUsername;
-import fr.formation.backend.constraints.UserPassword;
+import fr.formation.backend.constraints.StrongPassword;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-public class UserDto {
+public class SpeakerDto {
 
     @NotBlank
     @Size(max = 80)
     @UniqueUsername
     private String username;
 
-    @UserPassword
+    @StrongPassword
     @Size(max = 255)
     private String password;
 
-    public UserDto() {
+    public SpeakerDto() {
     }
 
     public String getUsername() {

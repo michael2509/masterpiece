@@ -3,9 +3,9 @@ package fr.formation.backend.services;
 import fr.formation.backend.config.SecurityHelper;
 import fr.formation.backend.dtos.RoomDto;
 import fr.formation.backend.dtos.UpdateRoomDto;
-import fr.formation.backend.entities.User;
+import fr.formation.backend.entities.Speaker;
 import fr.formation.backend.entities.Room;
-import fr.formation.backend.repositories.UserRepository;
+import fr.formation.backend.repositories.SpeakerRepository;
 import fr.formation.backend.repositories.RoomRepository;
 import fr.formation.backend.viewdtos.RoomViewDto;
 import org.hashids.Hashids;
@@ -23,7 +23,7 @@ public class RoomServiceImpl implements RoomService {
     @Autowired
     private RoomRepository roomRepository;
     @Autowired
-    private UserRepository userRepository;
+    private SpeakerRepository speakerRepository;
 
     @Override
     public void createRoom(RoomDto roomDto) {
@@ -32,8 +32,8 @@ public class RoomServiceImpl implements RoomService {
         room.setName(roomDto.getName());
         // Set room's host
         Long userId = SecurityHelper.getUserId();
-        User user = userRepository.findById(userId).get();
-        room.setUser(user);
+        Speaker speaker = speakerRepository.findById(userId).get();
+        room.setSpeaker(speaker);
         // Set room's code
         Long roomsTableSize = roomRepository.count();
         String salt = String.valueOf(roomsTableSize);
@@ -71,7 +71,7 @@ public class RoomServiceImpl implements RoomService {
     public Page<RoomViewDto> getRoomListPage(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Long userId = SecurityHelper.getUserId();
-        Page<RoomViewDto> roomListPage = roomRepository.findByUserIdOrderByCreationDateDesc(userId, pageable);
+        Page<RoomViewDto> roomListPage = roomRepository.findBySpeakerIdOrderByCreationDateDesc(userId, pageable);
         return roomListPage;
     }
 }

@@ -2,7 +2,7 @@ package fr.formation.backend.config;
 
 import java.util.Arrays;
 
-import fr.formation.backend.services.UserService;
+import fr.formation.backend.services.SpeakerService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,7 +52,7 @@ public class AuthorizationServerConfig
 
     // Custom user details service to authenticate users with username and
     // password from the database
-    private final UserService userService;
+    private final SpeakerService speakerService;
 
     // Custom token converter to store custom info within access token
     private final CustomAccessTokenConverter customAccessTokenConverter;
@@ -61,11 +61,11 @@ public class AuthorizationServerConfig
 
     protected AuthorizationServerConfig(
 	    AuthenticationManager authenticationManagerBean,
-	    UserService userService,
+	    SpeakerService speakerService,
 	    CustomAccessTokenConverter customAccessTokenConverter,
         PasswordEncoder passwordEncoder) {
 	authenticationManager = authenticationManagerBean;
-	this.userService = userService;
+	this.speakerService = speakerService;
 	this.customAccessTokenConverter = customAccessTokenConverter;
 	this.passwordEncoder = passwordEncoder;
     }
@@ -106,7 +106,7 @@ public class AuthorizationServerConfig
 		Arrays.asList(tokenEnhancer(), accessTokenConverter()));
 	configurer.tokenStore(tokenStore()).tokenEnhancer(tokenEnhancerChain)
 		.authenticationManager(authenticationManager)
-		.userDetailsService(userService);
+		.userDetailsService(speakerService);
     }
 
     /**
