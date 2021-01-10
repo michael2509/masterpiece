@@ -31,7 +31,7 @@ class MessageContainer extends Component {
 
         // Message received with success
         if (statusCode === "OK" && body !== null) {
-            this.props.addMessage(body);
+            this.props.addMessage(body.username, body.message);
         }
         // Show success notif if message sent with success
         if (topic === "/user/queue/success") {
@@ -48,7 +48,7 @@ class MessageContainer extends Component {
         return (
             <Fragment>
                 <MessageList messages={this.props.messages} />
-                <AddMessage roomId={this.props.roomId} sendMessage={this.props.sendMessage} clientRef={this.clientRef.current} />
+                <AddMessage username={this.props.username} roomId={this.props.roomId} sendMessage={this.props.sendMessage} clientRef={this.clientRef.current} />
                 <SockJsClient
                     url='http://localhost:8081/websocket-chat/'
                     topics={['/topic/user', "/user/queue/errors", "/user/queue/success"]}
@@ -74,7 +74,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     getMessageList: (roomId) => dispatch(getMessageList(roomId)),
     sendMessage: (message, clientRef) => dispatch(sendMessage(message, clientRef)),
-    addMessage: (message) => dispatch(addMessage(message)),
+    addMessage: (username, message) => dispatch(addMessage(username, message)),
     openNotification: (messages, severity) => dispatch(openNotification(messages, severity))
 })
 

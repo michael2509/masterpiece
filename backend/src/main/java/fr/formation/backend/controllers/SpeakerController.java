@@ -20,4 +20,6 @@ public class SpeakerController {
     protected void createSpeaker(@Valid @RequestBody SpeakerDto speakerDto) {
         speakerService.createSpeaker(speakerDto);
     }
+
+
 }

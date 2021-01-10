@@ -1,4 +1,4 @@
-import { SINGLE_ROOM_FOUND } from "./singleRoomActionsTypes";
+import { CLOSE_CREATE_GUEST, OPEN_CREATE_GUEST, SET_CURRENT_USERNAME, SINGLE_ROOM_FOUND } from "./singleRoomActionsTypes";
 import axios from "axios";
 import { openNotification } from "../../Notification/notificationActions";
 
@@ -28,3 +28,18 @@ export const getSingleRoom = (code) => {
         }
     }
 }
+
+export const setcurrentUsername = (currentUsername) => ({
+    type: SET_CURRENT_USERNAME,
+    currentUsername: currentUsername
+})
+
+export const openCreateGuest = () => ({
+    type: OPEN_CREATE_GUEST,
+    showCreateGuest: true
+})
+
+export const closeCreateGuest = () => ({
+    type: CLOSE_CREATE_GUEST,
+    showCreateGuest: false
+})

@@ -2,7 +2,7 @@ package fr.formation.backend.viewdtos;
 
 public interface SpeakerViewDto {
 
-    Long getId();
+    Long getUserId();
     String getUserUsername();
     String getPassword();
 

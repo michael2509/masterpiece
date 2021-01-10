@@ -6,7 +6,7 @@ export default function messagesReducer(state = initialState, action) {
     switch(action.type) {
         case ADD_MESSAGE:
             return [
-                { author: action.author, message: action.message },
+                { username: action.username, message: action.message },
                 ...state
             ]
         case GET_MESSAGE_LIST:

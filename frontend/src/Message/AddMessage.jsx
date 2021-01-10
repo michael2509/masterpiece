@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -41,7 +42,8 @@ const AddMessageForm = (props) => {
         handleBlur,
         handleSubmit,
         isSubmitting,
-        setSubmitting
+        setSubmitting,
+        username
     } = props;        
 
     const classes = useStyles();
@@ -66,21 +68,9 @@ const AddMessageForm = (props) => {
             <form onSubmit={handleSubmit}>
                 <DialogTitle id="form-dialog-title">Envoyer un nouveau message</DialogTitle>
                 <DialogContent>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="author"
-                        label="Votre pseudo"
-                        type="text"
-                        fullWidth
-                        className={classes.roomNameInput}
-                        value={values.author}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        helperText={touched.author ? errors.author : ""}
-                        error={touched.author && Boolean(errors.author)}
-                        variant="outlined"
-                    />
+                    <DialogContentText>
+                        Votre pseudo : {username}
+                    </DialogContentText>
                     <TextField
                         id="message"
                         label="Votre message"
@@ -114,27 +104,21 @@ const AddMessageForm = (props) => {
 
 const AddMessage = withFormik({
     mapPropsToValues: ({
-        author,
         message
     }) => ({
-        author: author || "",
         message: message || ""
     }),
 
     validationSchema: Yup.object().shape({
-        author: Yup.string()
-            .max(80, "Votre pseudo ne peut pas excéder 120 caractères")
-            .required("Entrez votre pseudo"),
         message: Yup.string()
             .max(255, "Votre message ne peut pas excéder 255 caractères")
             .required("Entrez votre message")
     }),
     handleSubmit: (values, { props, resetForm, setSubmitting }) => {
-        const { sendMessage, clientRef, match } = props;
+        const { sendMessage, clientRef, match, username } = props;
         const roomCode = match.params.code
-        console.log(roomCode);
 
-        const message = { ...values, roomCode };
+        const message = { ...values, roomCode, username };
 
         sendMessage(message, clientRef);
         resetForm();

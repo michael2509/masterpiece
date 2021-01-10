@@ -9,7 +9,6 @@ let labels = new LocalizedStrings({
         name: "name",
         startDateTime: "startDateTime",
         endDateTime: "endDateTime",
-        author: "author",
         message: "message"
     },
     fr: {
@@ -19,9 +18,7 @@ let labels = new LocalizedStrings({
         name: "nom",
         startDateTime: "date de début",
         endDateTime: "date de fin",
-        author: "auteur",
         message: "message"
-
     },
 });
 

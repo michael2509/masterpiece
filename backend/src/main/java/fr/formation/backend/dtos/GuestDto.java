@@ -1,7 +1,5 @@
 package fr.formation.backend.dtos;
 
-import fr.formation.backend.constraints.UniqueUsername;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 

@@ -5,14 +5,17 @@ import fr.formation.backend.dtos.RoomDto;
 import fr.formation.backend.dtos.UpdateRoomDto;
 import fr.formation.backend.entities.Speaker;
 import fr.formation.backend.entities.Room;
+import fr.formation.backend.entities.User;
 import fr.formation.backend.repositories.SpeakerRepository;
 import fr.formation.backend.repositories.RoomRepository;
+import fr.formation.backend.repositories.UserRepository;
 import fr.formation.backend.viewdtos.RoomViewDto;
 import org.hashids.Hashids;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -24,6 +27,8 @@ public class RoomServiceImpl implements RoomService {
     private RoomRepository roomRepository;
     @Autowired
     private SpeakerRepository speakerRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public void createRoom(RoomDto roomDto) {
@@ -32,7 +37,10 @@ public class RoomServiceImpl implements RoomService {
         room.setName(roomDto.getName());
         // Set room's host
         Long userId = SecurityHelper.getUserId();
-        Speaker speaker = speakerRepository.findById(userId).get();
+        // Set speaker
+        System.out.println(userId);
+        Speaker speaker = speakerRepository.findSpeakerEntityByUserId(userId);
+        System.out.println(speaker.getUser().getUsername());
         room.setSpeaker(speaker);
         // Set room's code
         Long roomsTableSize = roomRepository.count();
@@ -71,7 +79,7 @@ public class RoomServiceImpl implements RoomService {
     public Page<RoomViewDto> getRoomListPage(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Long userId = SecurityHelper.getUserId();
-        Page<RoomViewDto> roomListPage = roomRepository.findBySpeakerIdOrderByCreationDateDesc(userId, pageable);
+        Page<RoomViewDto> roomListPage = roomRepository.findBySpeakerUserIdOrderByCreationDateDesc(userId, pageable);
         return roomListPage;
     }
 }
