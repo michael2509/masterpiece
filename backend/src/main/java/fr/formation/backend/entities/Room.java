@@ -21,6 +21,9 @@ public class Room {
     @JoinColumn(name = "speaker_id", nullable = false, foreignKey = @ForeignKey(name = "rooms_speakers_FK"))
     private Speaker speaker;
 
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+    private List<Guest> guest;
+
     @Column(name = "code", nullable = false, length = 10)
     private String code;
 
@@ -80,5 +83,13 @@ public class Room {
 
     public void setMessages(List<Message> messages) {
         this.messages = messages;
+    }
+
+    public List<Guest> getGuest() {
+        return guest;
+    }
+
+    public void setGuest(List<Guest> guest) {
+        this.guest = guest;
     }
 }

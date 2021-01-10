@@ -35,13 +35,15 @@ public class GuestServiceImpl implements GuestService {
 
         // Find guest's room
         Room room = roomRepository.findRoomEntityByCode(guestDto.getRoomCode());
-        // Find user
-        User user = userRepository.findByUsername(guestDto.getUsername());
 
         // Convert guest dto to entity
         Guest guest = new Guest();
-        guest.setUser(user);
         guest.setRoom(room);
+
+        // Set guest user
+        User user = new User();
+        user.setUsername(guestDto.getUsername());
+        guest.setUser(user);
 
         // Save guest to dabatase
         guestRepository.save(guest);

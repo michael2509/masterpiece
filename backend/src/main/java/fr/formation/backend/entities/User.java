@@ -1,5 +1,7 @@
 package fr.formation.backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -17,11 +19,13 @@ public class User {
     @Column(name = "username", nullable = false, length = 80)
     private String username;
 
-    @OneToOne(mappedBy = "user")
+    @JsonIgnore
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @JoinColumn(name = "speaker_id", nullable = false, foreignKey = @ForeignKey(name = "speakers_users_FK"))
     private Speaker speaker;
 
-    @OneToOne(mappedBy = "user")
+    @JsonIgnore
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @JoinColumn(name = "guest_id", nullable = false, foreignKey = @ForeignKey(name = "guests_users_FK"))
     private Guest guest;
 

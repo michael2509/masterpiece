@@ -11,7 +11,7 @@ public class Speaker {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "speakers_users_FK"))
     private User user;
 

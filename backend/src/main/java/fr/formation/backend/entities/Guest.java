@@ -1,5 +1,7 @@
 package fr.formation.backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,11 +20,12 @@ public class Guest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "room_id", nullable = false, foreignKey = @ForeignKey(name = "guests_rooms_FK"))
     private Room room;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "guests_users_FK"))
     private User user;
 

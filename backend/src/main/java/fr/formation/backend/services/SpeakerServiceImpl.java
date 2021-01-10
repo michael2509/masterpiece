@@ -3,6 +3,7 @@ package fr.formation.backend.services;
 import fr.formation.backend.config.CustomUserDetails;
 import fr.formation.backend.dtos.SpeakerDto;
 import fr.formation.backend.entities.Speaker;
+import fr.formation.backend.entities.User;
 import fr.formation.backend.repositories.SpeakerRepository;
 import fr.formation.backend.viewdtos.SpeakerViewDto;
 import org.modelmapper.ModelMapper;
@@ -29,11 +30,16 @@ public class SpeakerServiceImpl implements SpeakerService {
         ModelMapper modelMapper = new ModelMapper();
         Speaker speaker = modelMapper.map(speakerDto, Speaker.class);
 
-        // Encode the user's password
+        // Encode the speaker's password
         String password = speakerDto.getPassword();
         speaker.setPassword(passwordEncoder.encode(password));
 
-        // Save user to database
+        // Set speaker's user
+        User user = new User();
+        user.setUsername(speakerDto.getUsername());
+        speaker.setUser(user);
+
+        // Save speaker to database
         speakerRepository.save(speaker);
     }
 
