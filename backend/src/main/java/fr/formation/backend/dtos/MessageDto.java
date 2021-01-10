@@ -11,7 +11,7 @@ public class MessageDto {
 
     @NotBlank
     @Size(max = 80)
-    private String author;
+    private String username;
 
     @NotBlank
     @Size(max = 255)
@@ -24,12 +24,12 @@ public class MessageDto {
     public MessageDto() {
     }
 
-    public String getAuthor() {
-        return author;
+    public String getUsername() {
+        return username;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getMessage() {

@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface MessageRepository extends JpaRepository<Message, Long> {
     List<Message> findByRoomCodeOrderBySendDateDesc(String roomCode);
-    boolean existsByAuthorAndMessage(String author, String message);
+    boolean existsByUserUsernameAndMessage(String username, String message);
 }

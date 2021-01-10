@@ -39,13 +39,13 @@ public class SpeakerServiceImpl implements SpeakerService {
 
     @Override
     public boolean uniqueUsername(String username) {
-        return username != null && !speakerRepository.existsByUsername(username);
+        return username != null && !speakerRepository.existsByUserUsername(username);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
-        SpeakerViewDto speaker = speakerRepository.findByUsername(username)
+        SpeakerViewDto speaker = speakerRepository.findByUserUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(
                         "no speaker found with username: " + username));
         return new CustomUserDetails(speaker);

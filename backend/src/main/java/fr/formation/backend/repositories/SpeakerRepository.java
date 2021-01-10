@@ -10,8 +10,7 @@ import java.util.Set;
 
 public interface SpeakerRepository extends JpaRepository<Speaker, Long> {
 
-    Optional<SpeakerViewDto> findByUsername(String username);
-    Set<Speaker> findAllByUsernameIn(List<String> usernameList);
+    Optional<SpeakerViewDto> findByUserUsername(String username);
 
-    boolean existsByUsername(String username);
+    boolean existsByUserUsername(String username);
 }

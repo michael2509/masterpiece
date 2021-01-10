@@ -9,10 +9,11 @@ import java.time.LocalDateTime;
 @Table(
         name = "messages",
         indexes = {
-                @Index(name = "messages_room_id_IDX", columnList = "room_id")
+                @Index(name = "messages_room_id_IDX", columnList = "room_id"),
+                @Index(name = "messages_user_id_IDX", columnList = "user_id")
         },
         uniqueConstraints = {
-                @UniqueConstraint(name ="messages_author_message_send_date_uq", columnNames = {"author", "message", "send_date"})
+                @UniqueConstraint(name = "messages_user_id_room_id_message_send_date_UQ", columnNames = {"user_id", "room_id", "message", "send_date"})
         }
 )
 public class Message {
@@ -21,8 +22,9 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "author", nullable = false, length = 80)
-    private String author;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "messages_users_FK"))
+    private User user;
 
     @Column(name = "message", nullable = false, length = 255)
     private String message;
@@ -38,12 +40,12 @@ public class Message {
     public Message() {
     }
 
-    public String getAuthor() {
-        return author;
+    public Long getId() {
+        return id;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getMessage() {
@@ -68,5 +70,13 @@ public class Message {
 
     public void setRoom(Room room) {
         this.room = room;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

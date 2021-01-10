@@ -3,8 +3,10 @@ package fr.formation.backend.services;
 import fr.formation.backend.dtos.GuestDto;
 import fr.formation.backend.entities.Guest;
 import fr.formation.backend.entities.Room;
+import fr.formation.backend.entities.User;
 import fr.formation.backend.repositories.GuestRepository;
 import fr.formation.backend.repositories.RoomRepository;
+import fr.formation.backend.repositories.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,16 +16,18 @@ public class GuestServiceImpl implements GuestService {
 
     private final GuestRepository guestRepository;
     private final RoomRepository roomRepository;
+    private final UserRepository userRepository;
 
-    public GuestServiceImpl(GuestRepository guestRepository, RoomRepository roomRepository) {
+    public GuestServiceImpl(GuestRepository guestRepository, RoomRepository roomRepository, UserRepository userRepository) {
         this.guestRepository = guestRepository;
         this.roomRepository = roomRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
     public ResponseEntity createGuest(GuestDto guestDto) {
         // Verify if a guest with same username already exist in the same room
-        boolean guestAlreadyExist = guestRepository.existsByUsernameAndRoomCode(guestDto.getUsername(), guestDto.getRoomCode());
+        boolean guestAlreadyExist = guestRepository.existsByUserUsernameAndRoomCode(guestDto.getUsername(), guestDto.getRoomCode());
 
         if (guestAlreadyExist) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("IG");
@@ -31,13 +35,15 @@ public class GuestServiceImpl implements GuestService {
 
         // Find guest's room
         Room room = roomRepository.findRoomEntityByCode(guestDto.getRoomCode());
+        // Find user
+        User user = userRepository.findByUsername(guestDto.getUsername());
 
         // Convert guest dto to entity
         Guest guest = new Guest();
-        guest.setUsername(guestDto.getUsername());
+        guest.setUser(user);
         guest.setRoom(room);
 
-        // save guest to dabatase
+        // Save guest to dabatase
         guestRepository.save(guest);
 
         return ResponseEntity.status(HttpStatus.OK).body(guest);

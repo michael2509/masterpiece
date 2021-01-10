@@ -18,7 +18,7 @@ public class Room {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "speaker_id", nullable = false, foreignKey = @ForeignKey(name = "rooms_users_FK"))
+    @JoinColumn(name = "speaker_id", nullable = false, foreignKey = @ForeignKey(name = "rooms_speakers_FK"))
     private Speaker speaker;
 
     @Column(name = "code", nullable = false, length = 10)
