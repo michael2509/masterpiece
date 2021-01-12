@@ -111,8 +111,8 @@ const AddMessage = withFormik({
 
     validationSchema: Yup.object().shape({
         message: Yup.string()
-            .max(255, "Votre message ne peut pas excéder 255 caractères")
-            .required("Entrez votre message")
+            .max(255, "Votre message ne peut pas dépasser 255 caractères")
+            .required("Votre message ne peut être vide")
     }),
     handleSubmit: (values, { props, resetForm, setSubmitting }) => {
         const { sendMessage, clientRef, match, username } = props;
