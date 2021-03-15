@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `masterpiece`.`rooms` (
   `name` VARCHAR(120) NOT NULL,
   `speaker_id` BIGINT NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE INDEX `rooms_code_UQ` (`code`),
   INDEX `rooms_speaker_id_IDX` (`speaker_id`),
   CONSTRAINT `rooms_speakers_FK`
     FOREIGN KEY (`speaker_id`)
