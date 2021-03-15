@@ -5,27 +5,33 @@ import { getTokenFromLocalStorage } from '../../Auth/authService';
 import { openNotification } from "../../Notification/notificationActions";
 
 // Create Room Actions
+// This function create a new room and show a notification in case of success or error
 export function createRoom(room) {
     
     return async (dispatch) => {
-
+        
         const roomJson = JSON.stringify(room);
 
         try {
+            // Get token from local storage
             const accessToken = getTokenFromLocalStorage("access_token");
+            // Request API to create the new room
             await axios.post(
                 "http://localhost:8081/api/rooms",
                 roomJson,
                 { headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${accessToken}` } }
             )
-
+            // Show success notification
             dispatch(openNotification("Salon crée avec succès", "success"));
+            // Reload room list
             dispatch(getRoomListPage(0));
             return true
         } catch (error) {
             const statusCode = error.response.status
-            const data = error.response.data        
+            const data = error.response.data
+            // Extract errors messages from response        
             const errorMessages = listServerErrors(statusCode, data);
+            // Show errors in notification
             dispatch(openNotification(errorMessages, "error"))
             return false
         }
