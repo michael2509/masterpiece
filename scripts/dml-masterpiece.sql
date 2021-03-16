@@ -50,4 +50,4 @@ SELECT id FROM rooms r WHERE r.name = "room 1";
 INSERT INTO
     messages (`username_code_message_send_date`, `message`, `send_date`, `user_id`, `room_id`)
 VALUES
-    ("User Speaker111_Hello World_2021-01-19 13:14:07", "Hello World", "2021-01-19 13:14:07", @user_speaker_id, @room_id)
+    ("User Speaker111_Hello World_2021-01-19 13:14:07", "Hello World", NOW(), @user_speaker_id, @room_id)
