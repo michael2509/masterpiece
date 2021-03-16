@@ -7,9 +7,9 @@ export const addMessage = (username, message) => ({
     message: message
 })
 
-export const sendMessage = (message, clientRef) => {
+export const sendMessage = (message, sockJsClient) => {
     return () => {
-        clientRef.sendMessage('/app/user-all', JSON.stringify(message));
+        sockJsClient.sendMessage('/app/user-all', JSON.stringify(message));
     }
 }
 

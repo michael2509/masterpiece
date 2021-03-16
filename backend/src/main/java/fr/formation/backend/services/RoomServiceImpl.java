@@ -38,15 +38,14 @@ public class RoomServiceImpl implements RoomService {
         // Set room's host
         Long userId = SecurityHelper.getUserId();
         // Set speaker
-        System.out.println(userId);
         Speaker speaker = speakerRepository.findSpeakerEntityByUserId(userId);
-        System.out.println(speaker.getUser().getUsername());
         room.setSpeaker(speaker);
-        // Set room's code
+        // Create room's code
         Long roomsTableSize = roomRepository.count();
         String salt = String.valueOf(roomsTableSize);
         Hashids hashids = new Hashids(salt, 4);
         String code = hashids.encode(roomsTableSize).toUpperCase();
+        // Set room's code
         room.setCode(code);
         // Set room's creation date
         LocalDateTime creationDate = LocalDateTime.now();

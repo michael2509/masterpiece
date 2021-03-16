@@ -41,7 +41,7 @@ SET @speaker_id = (
 INSERT INTO
     rooms (`name`, `code`, `speaker_id`, `creation_date`)
 VALUES
-    ("room 1", "111", @speaker_id, "2021-01-19 13:14:07");
+    ("room 1", "ABCDE", @speaker_id, NOW());
 
 -- Get Room
 SELECT id FROM rooms r WHERE r.name = "room 1";

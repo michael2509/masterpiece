@@ -115,14 +115,18 @@ const AddMessage = withFormik({
             .required("Votre message ne peut être vide")
     }),
     handleSubmit: (values, { props, resetForm, setSubmitting }) => {
-        const { sendMessage, clientRef, match, username } = props;
+        // Get sockjs client, match, username from props
+        const { sockJsClient, match, username } = props;
+        // Get room's code from url
         const roomCode = match.params.code
-
+        // Build message obj to be send to the API
         const message = { ...values, roomCode, username };
-
-        sendMessage(message, clientRef);
+        // Use sock js client to send message to API
+        sockJsClient.sendMessage('/app/user-all', JSON.stringify(message));
+        // Reset form
         resetForm();
-        setSubmitting(true)
+        // Close form
+        setSubmitting(true);
     }
 })(AddMessageForm)
 

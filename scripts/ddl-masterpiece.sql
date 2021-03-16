@@ -6,7 +6,7 @@ CREATE SCHEMA IF NOT EXISTS `masterpiece`;
 USE `masterpiece` ;
 
 -- -----------------------------------------------------
--- Table `masterpiece`.`users`
+-- Create Table users
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `masterpiece`.`users` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `masterpiece`.`users` (
 
 
 -- -----------------------------------------------------
--- Table `masterpiece`.`speakers`
+-- Create Table speakers
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `masterpiece`.`speakers` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `masterpiece`.`speakers` (
 
 
 -- -----------------------------------------------------
--- Table `masterpiece`.`rooms`
+-- Create Table rooms
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `masterpiece`.`rooms` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `masterpiece`.`rooms` (
 
 
 -- -----------------------------------------------------
--- Table `masterpiece`.`guests`
+-- Create Table guests
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `masterpiece`.`guests` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `masterpiece`.`guests` (
 
 
 -- -----------------------------------------------------
--- Table `masterpiece`.`messages`
+-- Create Table messages
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `masterpiece`.`messages` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,

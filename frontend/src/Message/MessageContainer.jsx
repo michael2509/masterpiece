@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import MessageList from "./MessageList";
 import AddMessage from "./AddMessage";
 import SockJsClient from 'react-stomp';
-import { addMessage, getMessageList, sendMessage } from "./messageActions";
+import { addMessage, getMessageList } from "./messageActions";
 import listServerErrors from "../global/functions/listServerErrors";
 import { openNotification } from "../Notification/notificationActions";
 import { withRouter } from "react-router-dom";
@@ -12,7 +12,7 @@ class MessageContainer extends Component {
 
     constructor() {
         super();
-        this.clientRef = createRef();
+        this.sockJsClient = createRef();
     }
 
     componentDidMount() {
@@ -48,7 +48,7 @@ class MessageContainer extends Component {
         return (
             <Fragment>
                 <MessageList messages={this.props.messages} />
-                <AddMessage username={this.props.username} roomId={this.props.roomId} sendMessage={this.props.sendMessage} clientRef={this.clientRef.current} />
+                <AddMessage username={this.props.username} roomId={this.props.roomId} sockJsClient={this.sockJsClient.current} />
                 <SockJsClient
                     url='http://localhost:8081/websocket-chat/'
                     topics={['/topic/user', "/user/queue/errors", "/user/queue/success"]}
@@ -59,7 +59,7 @@ class MessageContainer extends Component {
                         console.log("Disconnected");
                     }}
                     onMessage={(response, topic) => this.handleMessage(response, topic)}
-                    ref={this.clientRef}
+                    ref={this.sockJsClient}
                 />
             </Fragment>
         )
@@ -73,7 +73,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     getMessageList: (roomId) => dispatch(getMessageList(roomId)),
-    sendMessage: (message, clientRef) => dispatch(sendMessage(message, clientRef)),
     addMessage: (username, message) => dispatch(addMessage(username, message)),
     openNotification: (messages, severity) => dispatch(openNotification(messages, severity))
 })
