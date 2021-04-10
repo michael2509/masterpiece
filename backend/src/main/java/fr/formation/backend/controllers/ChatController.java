@@ -31,8 +31,13 @@ public class ChatController {
     }
 
     @GetMapping("/{id}")
-    protected Chat getRoom(@PathVariable("id") Long chatId) {
+    protected Chat getChat(@PathVariable("id") Long chatId) {
         return chatService.getChat(chatId);
+    }
+
+    @GetMapping("getByAccessCode/{accessCode}")
+    protected  Chat getChatByAccessCode(@PathVariable("accessCode") String accessCode) {
+        return chatService.getChatByAccessCode(accessCode);
     }
 
     @GetMapping

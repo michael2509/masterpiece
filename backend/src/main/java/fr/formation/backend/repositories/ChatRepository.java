@@ -12,4 +12,5 @@ public interface ChatRepository extends JpaRepository<Chat, Long> {
 //    @Query("select r from Room r where r.code = ?1")
 //    Chat findRoomEntityByCode(String code);
     Page<Chat> findBySpeakerIdOrderByCreationDateDesc(Long userId, Pageable pageable);
+    Chat findByAccessCode(String accessCode);
 }

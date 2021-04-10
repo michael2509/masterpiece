@@ -63,7 +63,7 @@ export async function getUsername() {
     try {
         const accessToken = getTokenFromLocalStorage("access_token")
         const response = await axios.get(
-            "http://localhost:8081/api/users/getusername",
+            "http://localhost:8081/api/speakers/getusername",
             { headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${accessToken}` } }
         )
         const username = response.data;

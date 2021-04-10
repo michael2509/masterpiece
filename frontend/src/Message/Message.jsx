@@ -4,15 +4,15 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 
-export default function Message({ username, message }) {
+export default function Message({ senderName, message }) {
 	return (
 		<ListItem disableGutters>
 			<ListItemAvatar>
 				<Avatar>
-					{username.toUpperCase()[0]}
+					{senderName.toUpperCase()[0]}
 				</Avatar>
 			</ListItemAvatar>
-			<ListItemText primary={username} secondary={message} />
+			<ListItemText primary={senderName} secondary={message} />
 		</ListItem>
 	);
 }

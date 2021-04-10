@@ -19,7 +19,7 @@ public class GuestServiceImpl implements GuestService {
     }
 
     @Override
-    public void createGuest(GuestDto guestDto) {
+    public Guest createGuest(GuestDto guestDto) {
 
         // Convert guest dto to entity
         Guest guest = new Guest();
@@ -32,6 +32,8 @@ public class GuestServiceImpl implements GuestService {
         guest.setChat(chat);
 
         // Save guest to dabatase
-        guestRepository.save(guest);
+        Guest savedGuest = guestRepository.save(guest);
+
+        return savedGuest;
     }
 }

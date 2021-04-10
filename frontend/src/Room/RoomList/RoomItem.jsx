@@ -45,13 +45,19 @@ const RoomItem = ({ room, openUpdateRoom, deleteRoom }) => {
     return (
         <Fragment>
             <ListItem button>
-                <Link to={`/salons/${room.code}`} style={styles.link}>
+                <Link to={{
+                    pathname: `/salons/${room.id}`,
+                    state: {
+                      roomId: room.id
+                    }}}
+                style={styles.link}
+                >
                     <ListItemAvatar>
                         <Avatar>
                             <MeetingRoomIcon />
                         </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary={room.name} secondary={`Code : ${room.code}`} />
+                    <ListItemText primary={room.name} secondary={`Code : ${room.accessCode}`} />
                 </Link>
                 <ListItemSecondaryAction>
                     <IconButton onClick={handleClick}>

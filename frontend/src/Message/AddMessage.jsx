@@ -42,8 +42,7 @@ const AddMessageForm = (props) => {
         handleBlur,
         handleSubmit,
         isSubmitting,
-        setSubmitting,
-        username
+        setSubmitting
     } = props;        
 
     const classes = useStyles();
@@ -68,12 +67,9 @@ const AddMessageForm = (props) => {
             <form onSubmit={handleSubmit}>
                 <DialogTitle id="form-dialog-title">Envoyer un nouveau message</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>
-                        Votre pseudo : {username}
-                    </DialogContentText>
                     <TextField
                         id="message"
-                        label="Votre message"
+                        label="message"
                         type="text"
                         fullWidth
                         className={classes.roomNameInput}
@@ -116,11 +112,17 @@ const AddMessage = withFormik({
     }),
     handleSubmit: (values, { props, resetForm, setSubmitting }) => {
         // Get sockjs client, match, username from props
-        const { sockJsClient, match, username } = props;
-        // Get room's code from url
-        const roomCode = match.params.code
+        const { sockJsClient, roomId, senderName, senderType } = props;
+        // Get room's id from url
+        // const roomId = match.params.id
         // Build message obj to be send to the API
-        const message = { ...values, roomCode, username };
+
+        console.log("message : " + values.message);
+        console.log("roomId : " + roomId);
+        console.log("senderName : " + senderName);
+        console.log("senderType : " + senderType);
+        const message = { text: values.message, chatId: roomId, senderName: senderName, senderType: senderType };
+
         // Use sock js client to send message to API
         sockJsClient.sendMessage('/app/user-all', JSON.stringify(message));
         // Reset form

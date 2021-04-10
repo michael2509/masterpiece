@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface GuestRepository extends JpaRepository<Guest, Long> {
 
 //    boolean existsByUserUsernameAndRoomCode(String username, String roomCode);
+    Guest findByPseudo(String pseudo);
 }

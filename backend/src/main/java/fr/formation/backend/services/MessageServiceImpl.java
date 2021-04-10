@@ -33,7 +33,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<Message> getMessages(Long chatId) {
-        return messageRepository.findByChatId(chatId);
+        return messageRepository.findByChatIdOrderBySendDateDesc(chatId);
     }
 
     @Override
@@ -47,16 +47,18 @@ public class MessageServiceImpl implements MessageService {
         message.setChat(chat);
         message.setSendDate(LocalDateTime.now());
 
+        String senderType = messageDto.getSenderType();
+
         // Set speaker or guest (depends what type of user send the message)
-        // Set guest if guestId was sent
-        if (messageDto.getGuestId() != null) {
-            Guest guest = guestRepository.findById(messageDto.getGuestId()).get();
+        if (senderType.equals("Guest")) {
+            Guest guest = guestRepository.findByPseudo(messageDto.getSenderName());
             message.setGuest(guest);
         }
         // Otherwise, set speaker
-        else {
-            Long speakerId = SecurityHelper.getUserId();
-            Speaker speaker = speakerRepository.findById(speakerId).get();
+        if (senderType.equals("Speaker")) {
+            System.out.println("speaker will be added to the message");
+            Speaker speaker = speakerRepository.findByUsername(messageDto.getSenderName());
+            System.out.println("speaker found : " + speaker.getUsername());
             message.setSpeaker(speaker);
         }
 

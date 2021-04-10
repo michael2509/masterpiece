@@ -15,5 +15,5 @@ public interface SpeakerRepository extends JpaRepository<Speaker, Long> {
 //
 //    boolean existsByUserUsername(String username);
 
-    Optional<SpeakerViewDto> findByUsername(String username);
+    Speaker findByUsername(String username);
 }

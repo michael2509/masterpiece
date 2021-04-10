@@ -14,7 +14,7 @@ import * as Yup from "yup";
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import homeStyles from './homeStyles';
-import { getSingleRoom } from '../Room/SingleRoom/singleRoomActions';
+import { getSingleRoom, getSingleRoomByAccessCode } from '../Room/SingleRoom/singleRoomActions';
 
 function HomeContent(props) {
 	const classes = homeStyles();
@@ -102,17 +102,21 @@ const Home = withFormik({
 
 	handleSubmit: (values, { props }) => {
 		const code = values.code;
-		const { getSingleRoom, history } = props;
+		const { getSingleRoomByAccessCode, history } = props;
 
-		getSingleRoom(code)
-			.then((roomFound) => roomFound ? history.push(`/salons/${code}`) : null)
+		getSingleRoomByAccessCode(code)
+			.then((room) => room ? history.push({
+				pathname: `/salons/${room.id}`,
+				state: {
+				  roomId: room.id
+			}}) : null)
 	}
 })(HomeContent);
 
 const mapStateToProps = (state) => ({ navbar: state.navbar })
 
 const mapDispatchToProps = (dispatch) => ({
-	getSingleRoom: (code) => dispatch(getSingleRoom(code))
+	getSingleRoomByAccessCode: (code) => dispatch(getSingleRoomByAccessCode(code))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

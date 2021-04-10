@@ -1,8 +1,10 @@
 package fr.formation.backend.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "guests")
@@ -18,6 +20,9 @@ public class Guest {
     @ManyToOne
     @JoinColumn(name = "chat_id")
     private Chat chat;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "guest")
+    private List<Message> messages;
 
     public Guest() {
     }

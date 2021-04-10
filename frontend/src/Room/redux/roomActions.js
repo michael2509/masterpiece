@@ -17,7 +17,7 @@ export function createRoom(room) {
             const accessToken = getTokenFromLocalStorage("access_token");
             // Request API to create the new room
             await axios.post(
-                "http://localhost:8081/api/rooms",
+                "http://localhost:8081/api/chats",
                 roomJson,
                 { headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${accessToken}` } }
             )
@@ -49,7 +49,7 @@ export function deleteRoom(roomId) {
                     "Authorization": `Bearer ${accessToken}`
                 }
             }
-            await axios.delete(`http://localhost:8081/api/rooms?roomId=${roomId}`, config);
+            await axios.delete(`http://localhost:8081/api/chats/${roomId}`, config);
             dispatch(openNotification("Salon supprimé avec succès", "success"))
             dispatch(getRoomListPage(0))
             return true
@@ -88,7 +88,7 @@ export function getRoomListPage(pageNumber) {
                 }
             }
             const pageSize = 5;
-            const response = await axios.get(`http://localhost:8081/api/rooms?page=${pageNumber}&size=${pageSize}`, config);
+            const response = await axios.get(`http://localhost:8081/api/chats?page=${pageNumber}&size=${pageSize}`, config);
             const roomListPage = response.data.content;
             const totalPages = response.data.totalPages;
             const last = response.data.last
@@ -124,7 +124,7 @@ export function updateRoom(room) {
         try {
             const accessToken = getTokenFromLocalStorage("access_token");
             await axios.put(
-                "http://localhost:8081/api/rooms",
+                `http://localhost:8081/api/chats/${room.id}`,
                 roomJson,
                 { headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${accessToken}` } }
             )

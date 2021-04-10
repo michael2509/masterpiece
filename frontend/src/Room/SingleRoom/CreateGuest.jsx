@@ -32,14 +32,14 @@ function CreateGuestForm(props) {
             Veuillez choisir le pseudo que vous utiliserez dans ce salon.
           </DialogContentText>
           <TextField
-                    id="username"
+                    id="pseudo"
                     label="Pseudo"
                     type="text"
-                    value={values.username}
+                    value={values.pseudo}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    helperText={touched.username ? errors.username : ""}
-                    error={touched.username && Boolean(errors.username)}
+                    helperText={touched.pseudo ? errors.pseudo : ""}
+                    error={touched.pseudo && Boolean(errors.pseudo)}
                     variant="outlined"
                     margin="normal"
                     fullWidth
@@ -59,23 +59,25 @@ function CreateGuestForm(props) {
 
 const CreateGuest = withFormik({
   mapPropsToValues: ({
-      username
+      pseudo
   }) => {
       return {
-          username: username || ""
+          pseudo: pseudo || ""
       };
   },
 
   validationSchema: Yup.object().shape({
-      username: Yup.string()
+      pseudo: Yup.string()
           .required("Entrez un pseudo")
   }),
 
   handleSubmit: async (values, { props, resetForm }) => {
 
-      const { roomCode, openNotif, closeForm, setcurrentUsername } = props;
-      const guest = {...values, roomCode: roomCode}
+      const { roomId, openNotif, closeForm, setSenderName, setSenderType } = props;
+      const guest = {...values, chatId: roomId}
       const guestjson = JSON.stringify(guest);
+
+      console.log(guest);
 
       try {
         // create guest user
@@ -88,11 +90,12 @@ const CreateGuest = withFormik({
         // Clean form
         resetForm();
         // Show welcome notif
-        openNotif(`Bienvenue ${guest.username}, vous pouvez maintenant envoyer vos messages dans ce salon`, "success")
-        // close choose username form
+        openNotif(`Bienvenue ${guest.pseudo}, vous pouvez maintenant envoyer vos messages dans ce salon`, "success")
+        // close choose pseudo form
         closeForm();
-        // Set current user id
-        setcurrentUsername(guest.username);
+        // Set guest peudo in redux state
+        setSenderName(guest.pseudo);
+        setSenderType("Guest")
       } catch(e) {           
         // Show errors in notif
         const errorList = listServerErrors(e.response.status, e.response.data)

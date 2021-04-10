@@ -13,7 +13,12 @@ public class MessageDto {
     @NotNull
     private Long chatId;
 
-    private Long guestId;
+    @Size(max = 80)
+    @NotNull
+    private String senderName;
+
+    @NotNull
+    private String senderType;
 
     public MessageDto() {
     }
@@ -34,11 +39,19 @@ public class MessageDto {
         this.chatId = chatId;
     }
 
-    public Long getGuestId() {
-        return guestId;
+    public String getSenderName() {
+        return senderName;
     }
 
-    public void setGuestId(Long guestId) {
-        this.guestId = guestId;
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
+    }
+
+    public String getSenderType() {
+        return senderType;
+    }
+
+    public void setSenderType(String senderType) {
+        this.senderType = senderType;
     }
 }

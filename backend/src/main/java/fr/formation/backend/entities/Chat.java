@@ -25,6 +25,12 @@ public class Chat {
     @JoinColumn(name = "speaker_id")
     private Speaker speaker;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "chat")
+    private List<Guest> guest;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "chat")
+    private List<Message> messages;
+
     public Chat() {
     }
 

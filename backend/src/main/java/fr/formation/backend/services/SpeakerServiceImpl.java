@@ -1,6 +1,7 @@
 package fr.formation.backend.services;
 
 import fr.formation.backend.config.CustomUserDetails;
+import fr.formation.backend.config.SecurityHelper;
 import fr.formation.backend.dtos.SpeakerDto;
 import fr.formation.backend.entities.Speaker;
 import fr.formation.backend.repositories.SpeakerRepository;
@@ -45,9 +46,19 @@ public class SpeakerServiceImpl implements SpeakerService {
     @Override
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
-        SpeakerViewDto speaker = speakerRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException(
-                        "no speaker found with username: " + username));
+
+        Speaker speaker = speakerRepository.findByUsername(username);
+
+        if (speaker == null) {
+            throw new UsernameNotFoundException("no speaker found with username: " + username);
+        }
+
         return new CustomUserDetails(speaker);
+    }
+
+    @Override
+    public String getUsername() {
+        String username = SecurityHelper.getUsername();
+        return username;
     }
 }

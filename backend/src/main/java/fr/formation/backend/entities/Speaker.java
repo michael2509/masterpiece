@@ -1,6 +1,7 @@
 package fr.formation.backend.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "speakers")

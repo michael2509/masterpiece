@@ -12,5 +12,6 @@ public interface ChatService {
     void updateChat(Long chatId, UpdateChatDto updatedRoomDto);
     void deleteChat(Long chatId);
     Chat getChat(Long chatId);
+    Chat getChatByAccessCode(String accessCode);
     Page<Chat> getChatPage(int page, int size);
 }

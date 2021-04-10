@@ -21,5 +21,8 @@ public class SpeakerController {
         speakerService.createSpeaker(speakerDto);
     }
 
-
+    @GetMapping("/getusername")
+    protected String getUsername() {
+        return speakerService.getUsername();
+    }
 }

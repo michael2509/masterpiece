@@ -1,9 +1,9 @@
 import { ADD_MESSAGE, GET_MESSAGE_LIST } from "./messageActionsTypes"
 import axios from "axios";
 
-export const addMessage = (username, message) => ({
+export const addMessage = (senderName, message) => ({
     type: ADD_MESSAGE,
-    username: username,
+    senderName: senderName,
     message: message
 })
 
@@ -22,18 +22,27 @@ const formatMessages = (messageList) => {
     const formattedMessageList = [];
 
     for (const message of messageList) {
-        formattedMessageList.push({ username: message.user.username, message: message.message})
+        const formattedMessage = { message: message.text, speakerUsername: null, senderName: null }
+        if (message.speaker != null) {
+            formattedMessage.speakerUsername = message.speaker.username
+        }
+        if (message.guest != null) {
+            formattedMessage.senderName = message.guest.pseudo
+        }
+        formattedMessageList.push(formattedMessage)
     }
 
     return formattedMessageList;
 }
 
-export const getMessageList = (roomCode) => {
+export const getMessageList = (chatId) => {
     return async (dispatch) => {
         try {
-            const response = await axios.get(`http://localhost:8081/api/messages/room/${roomCode}`);
+            const response = await axios.get(`http://localhost:8081/api/messages/chat/${chatId}`);
             const messageList = response.data
+            console.log(messageList);
             const formattedMsgList = formatMessages(messageList);
+            console.log("get message list");
             console.log(formattedMsgList);
             dispatch(fetchMessageList(formattedMsgList));
         } catch(e) {           

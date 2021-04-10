@@ -70,6 +70,11 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
+    public Chat getChatByAccessCode(String accessCode) {
+        return chatRepository.findByAccessCode(accessCode);
+    }
+
+    @Override
     public Page<Chat> getChatPage(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Long speakerId = SecurityHelper.getUserId();

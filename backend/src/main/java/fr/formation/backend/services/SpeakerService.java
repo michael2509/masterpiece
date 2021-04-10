@@ -11,4 +11,6 @@ public interface SpeakerService extends UserDetailsService {
     UserDetails loadUserByUsername(String username);
 
     boolean uniqueUsername(String username);
+
+    String getUsername();
 }

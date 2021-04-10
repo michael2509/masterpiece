@@ -2,6 +2,7 @@ package fr.formation.backend.config;
 
 import java.util.ArrayList;
 
+import fr.formation.backend.entities.Speaker;
 import fr.formation.backend.viewdtos.SpeakerViewDto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -15,7 +16,7 @@ public class CustomUserDetails extends User {
 
     private Long id;
 
-    public CustomUserDetails(SpeakerViewDto speaker) {
+    public CustomUserDetails(Speaker speaker) {
 		super(speaker.getUsername(), speaker.getPassword(), new ArrayList<GrantedAuthority>());
 		id = speaker.getId();
     }

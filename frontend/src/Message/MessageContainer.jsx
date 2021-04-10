@@ -17,12 +17,14 @@ class MessageContainer extends Component {
 
     componentDidMount() {
         // Get room's messages
-        this.props.getMessageList(this.props.roomCode);
+        console.log("component did mount");
+        this.props.getMessageList(this.props.room.id)
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.roomCode !== this.props.roomCode) {
-            this.props.getMessageList(this.props.roomCode);
+        if (prevProps.room.id !== this.props.room.id) {
+            console.log("component did update");
+            this.props.getMessageList(this.props.room.id);
         }
     }
 
@@ -31,7 +33,7 @@ class MessageContainer extends Component {
 
         // Message received with success
         if (statusCode === "OK" && body !== null) {
-            this.props.addMessage(body.username, body.message);
+            this.props.addMessage(body.senderName, body.text);
         }
         // Show success notif if message sent with success
         if (topic === "/user/queue/success") {
@@ -48,7 +50,7 @@ class MessageContainer extends Component {
         return (
             <Fragment>
                 <MessageList messages={this.props.messages} />
-                <AddMessage username={this.props.username} roomId={this.props.roomId} sockJsClient={this.sockJsClient.current} />
+                <AddMessage roomId={this.props.room.id} senderName={this.props.room.senderName} senderType={this.props.room.senderType} sockJsClient={this.sockJsClient.current} />
                 <SockJsClient
                     url='http://localhost:8081/websocket-chat/'
                     topics={['/topic/user', "/user/queue/errors", "/user/queue/success"]}
@@ -68,7 +70,7 @@ class MessageContainer extends Component {
 
 const mapStateToProps = (state) => ({
     messages: state.messages,
-    roomCode: state.singleRoom.code
+    room: state.singleRoom
 })
 
 const mapDispatchToProps = (dispatch) => ({
