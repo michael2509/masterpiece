@@ -4,13 +4,13 @@ import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class RoomDto {
+public class ChatDto {
 
     @NotBlank
     @Size(max = 120)
     private String name;
 
-    public RoomDto() {
+    public ChatDto() {
     }
 
     public String getName() {

@@ -22,7 +22,7 @@ public class GuestController {
     }
 
     @PostMapping
-    protected ResponseEntity createGuest(@Valid @RequestBody GuestDto guestDto) {
-        return guestService.createGuest(guestDto);
+    protected void createGuest(@Valid @RequestBody GuestDto guestDto) {
+        guestService.createGuest(guestDto);
     }
 }

@@ -16,8 +16,8 @@ public class CustomUserDetails extends User {
     private Long id;
 
     public CustomUserDetails(SpeakerViewDto speaker) {
-		super(speaker.getUserUsername(), speaker.getPassword(), new ArrayList<GrantedAuthority>());
-		id = speaker.getUserId();
+		super(speaker.getUsername(), speaker.getPassword(), new ArrayList<GrantedAuthority>());
+		id = speaker.getId();
     }
 
     public Long getId() {

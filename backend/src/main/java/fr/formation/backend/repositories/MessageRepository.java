@@ -7,6 +7,5 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface MessageRepository extends JpaRepository<Message, Long> {
-    List<Message> findByRoomCodeOrderBySendDateDesc(String roomCode);
-    boolean existsByUserUsernameAndMessage(String username, String message);
+    List<Message> findByChatId(Long chatId);
 }

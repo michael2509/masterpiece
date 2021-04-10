@@ -7,6 +7,5 @@ import java.util.List;
 
 public interface MessageService {
     void postMessage(MessageDto messageDto);
-    List<Message> getMessages(String roomCode);
-    Boolean isUnique(MessageDto messageDto);
+    List<Message> getMessages(Long chatId);
 }

@@ -5,29 +5,19 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
-@Table(
-        name = "guests",
-        indexes = {
-                @Index(name = "guests_room_id_IDX", columnList = "room_id"),
-                @Index(name = "guests_user_id_IDX", columnList = "user_id"),
-        },
-        uniqueConstraints = {
-                @UniqueConstraint(name = "guests_user_id_room_id_UQ", columnNames = {"user_id", "room_id"}),
-        }
-)
+@Table(name = "guests")
 public class Guest {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "room_id", nullable = false, foreignKey = @ForeignKey(name = "guests_rooms_FK"))
-    private Room room;
+    @Column(name = "pseudo")
+    private String pseudo;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "guests_users_FK"))
-    private User user;
+    @ManyToOne
+    @JoinColumn(name = "chat_id")
+    private Chat chat;
 
     public Guest() {
     }
@@ -36,23 +26,19 @@ public class Guest {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getPseudo() {
+        return pseudo;
     }
 
-    public Room getRoom() {
-        return room;
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
     }
 
-    public void setRoom(Room room) {
-        this.room = room;
+    public Chat getChat() {
+        return chat;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public void setChat(Chat chat) {
+        this.chat = chat;
     }
 }

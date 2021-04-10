@@ -4,24 +4,13 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class UpdateRoomDto {
-
-    @NotNull
-    private Long id;
+public class UpdateChatDto {
 
     @NotBlank
     @Size(max = 80)
     private String name;
 
-    public UpdateRoomDto() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public UpdateChatDto() {
     }
 
     public String getName() {

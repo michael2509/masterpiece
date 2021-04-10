@@ -6,5 +6,5 @@ import org.springframework.http.ResponseEntity;
 
 public interface GuestService {
 
-    ResponseEntity createGuest(GuestDto guestDto);
+    void createGuest(GuestDto guestDto);
 }

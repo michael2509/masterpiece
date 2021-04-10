@@ -1,50 +1,44 @@
 package fr.formation.backend.dtos;
 
-import fr.formation.backend.constraints.UniqueMessage;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@UniqueMessage
 public class MessageDto {
 
     @NotBlank
-    @Size(max = 80)
-    private String username;
-
-    @NotBlank
     @Size(max = 255)
-    private String message;
+    private String text;
 
     @NotNull
-    @Size(max = 10)
-    private String roomCode;
+    private Long chatId;
+
+    private Long guestId;
 
     public MessageDto() {
     }
 
-    public String getUsername() {
-        return username;
+    public String getText() {
+        return text;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public String getMessage() {
-        return message;
+    public Long getChatId() {
+        return chatId;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setChatId(Long chatId) {
+        this.chatId = chatId;
     }
 
-    public String getRoomCode() {
-        return roomCode;
+    public Long getGuestId() {
+        return guestId;
     }
 
-    public void setRoomCode(String roomCode) {
-        this.roomCode = roomCode;
+    public void setGuestId(Long guestId) {
+        this.guestId = guestId;
     }
 }

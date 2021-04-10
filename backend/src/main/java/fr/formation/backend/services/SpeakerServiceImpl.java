@@ -3,7 +3,6 @@ package fr.formation.backend.services;
 import fr.formation.backend.config.CustomUserDetails;
 import fr.formation.backend.dtos.SpeakerDto;
 import fr.formation.backend.entities.Speaker;
-import fr.formation.backend.entities.User;
 import fr.formation.backend.repositories.SpeakerRepository;
 import fr.formation.backend.viewdtos.SpeakerViewDto;
 import org.modelmapper.ModelMapper;
@@ -26,18 +25,12 @@ public class SpeakerServiceImpl implements SpeakerService {
     @Override
     public void createSpeaker(SpeakerDto speakerDto) {
 
-        // Convert DTO to entity
-        ModelMapper modelMapper = new ModelMapper();
-        Speaker speaker = modelMapper.map(speakerDto, Speaker.class);
+        Speaker speaker = new Speaker();
+        speaker.setUsername(speakerDto.getUsername());
 
         // Encode the speaker's password
         String password = speakerDto.getPassword();
         speaker.setPassword(passwordEncoder.encode(password));
-
-        // Set speaker's user
-        User user = new User();
-        user.setUsername(speakerDto.getUsername());
-        speaker.setUser(user);
 
         // Save speaker to database
         speakerRepository.save(speaker);
@@ -45,13 +38,14 @@ public class SpeakerServiceImpl implements SpeakerService {
 
     @Override
     public boolean uniqueUsername(String username) {
-        return username != null && !speakerRepository.existsByUserUsername(username);
+//        return username != null && !speakerRepository.existsByUserUsername(username);
+        return true;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
-        SpeakerViewDto speaker = speakerRepository.findByUserUsername(username)
+        SpeakerViewDto speaker = speakerRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(
                         "no speaker found with username: " + username));
         return new CustomUserDetails(speaker);

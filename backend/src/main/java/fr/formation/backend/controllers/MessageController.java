@@ -36,9 +36,9 @@ public class MessageController {
         this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
-    @GetMapping("/messages/room/{roomCode}")
-    protected List<Message> getMessages (@PathVariable("roomCode") String roomCode) {
-        return messageService.getMessages(roomCode);
+    @GetMapping("/messages/chat/{chatId}")
+    protected List<Message> getMessages (@PathVariable("chatId") Long chatId) {
+        return messageService.getMessages(chatId);
     }
 
     @MessageMapping("user-all")

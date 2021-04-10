@@ -3,19 +3,16 @@ package fr.formation.backend.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "speakers", uniqueConstraints = {
-        @UniqueConstraint(name = "speakers_user_id_UQ", columnNames = {"user_id"}),
-})
+@Table(name = "speakers")
 public class Speaker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "speakers_users_FK"))
-    private User user;
+    @Column(name = "username")
+    private String username;
 
-    @Column(nullable = false, length = 255)
+    @Column(name = "password")
     private String password;
 
     public Speaker() {
@@ -25,8 +22,12 @@ public class Speaker {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -37,12 +38,5 @@ public class Speaker {
         this.password = password;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }
 
