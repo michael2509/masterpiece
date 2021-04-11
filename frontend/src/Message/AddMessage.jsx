@@ -88,7 +88,7 @@ const AddMessageForm = (props) => {
                     Annuler
                 </Button>
                 <Button type="submit" color="primary" variant="contained">
-                    Créer
+                    Envoyer
                 </Button>
                 </DialogActions>
             </form>
