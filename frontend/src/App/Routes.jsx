@@ -6,8 +6,8 @@ import SignupFormContainer from '../Auth/SignUp/SignupFormContainer';
 import PrivateRoute from './privateRoute';
 import PageNotFound from './PageNotFound/PageNotFound';
 import LoginFormContainer from '../Auth/Login/LoginFormContainer';
-import RoomsContainer from '../Room/RoomsContainer';
-import SingleRoomContainer from '../Room/SingleRoom/SingleRoomContainer';
+import ChatsContainer from '../Chat/ChatsContainer';
+import SingleChatContainer from '../Chat/SingleChat/SingleChatContainer';
 
 const Routes = () => (
     <Router>
@@ -16,8 +16,8 @@ const Routes = () => (
             <Route exact path="/" component={Home} />
             <Route exact path="/inscription" component={SignupFormContainer} />
             <Route exact path="/connexion" component={LoginFormContainer} />
-            <PrivateRoute exact path="/salons" component={RoomsContainer} />
-            <Route exact path="/salons/:code" component={SingleRoomContainer} />
+            <PrivateRoute exact path="/chats" component={ChatsContainer} />
+            <Route exact path="/chats/:code" component={SingleChatContainer} />
             <Route path="*" component={PageNotFound} />
         </Switch>
     </Router>

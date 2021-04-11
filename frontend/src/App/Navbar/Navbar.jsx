@@ -85,7 +85,7 @@ function Navbar(props) {
 
     if (logged) {
         navLinks = [
-            { title: 'Salons', path: '/salons', icon: <MeetingRoomIcon /> },
+            { title: 'chats', path: '/chats', icon: <MeetingRoomIcon /> },
             { title: 'Déconnexion', icon: <ExitToAppIcon /> },
         ]
     } else {
@@ -99,7 +99,7 @@ function Navbar(props) {
         <div>
             <div className={`${classes.toolbar} drawerLogo ${classes.logoWrapper}`}>
                 <Link to="/" className="drawerLink">
-                    <Typography>YouTalk</Typography>
+                    <Typography>WeChat</Typography>
                 </Link>
             </div>
             <Divider />
@@ -142,7 +142,7 @@ function Navbar(props) {
                         <MenuIcon />
                     </IconButton>
                     <Link to="/" className="navbarLink">
-                        <Typography>YouTalk</Typography>
+                        <Typography>WeChat</Typography>
                     </Link>
                     <Hidden smDown>
                         <div style={{ flexGrow: 1 }} />

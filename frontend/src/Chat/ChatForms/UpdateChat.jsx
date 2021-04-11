@@ -10,7 +10,7 @@ import { withFormik } from "formik";
 import * as Yup from "yup";
 
 const useStyles = makeStyles(theme => ({
-    roomNameInput: {
+    chatNameInput: {
         marginBottom: theme.spacing(4)
     },
     datePicker: {
@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const UpdateRoomForm = (props) => {
+const UpdateChatForm = (props) => {
     
     const classes = useStyles();
 
@@ -46,16 +46,16 @@ const UpdateRoomForm = (props) => {
     return (
         <Dialog open={state.open} onClose={handleClose} aria-labelledby="form-dialog-title" disableBackdropClick>
             <form onSubmit={handleSubmit}>
-                <DialogTitle id="form-dialog-title">Éditer un salon</DialogTitle>
+                <DialogTitle id="form-dialog-title">Éditer un chat</DialogTitle>
                 <DialogContent>
                     <TextField
                         autoFocus
                         margin="dense"
                         id="name"
-                        label="Nom du salon"
+                        label="Nom du chat"
                         type="text"
                         fullWidth
-                        className={classes.roomNameInput}
+                        className={classes.chatNameInput}
                         value={values.name}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -77,29 +77,29 @@ const UpdateRoomForm = (props) => {
     );
 }
 
-const UpdateRoom = withFormik({
+const UpdateChat = withFormik({
 
     enableReinitialize: true,
 
     mapPropsToValues: (props) => ({
-        name: props.state.room.name || ""
+        name: props.state.chat.name || ""
     }),
 
     validationSchema: Yup.object().shape({
         name: Yup.string()
-                .max(255, "Le nom du salon ne peut pas excéder 255 caractères")
-                .required("Veuillez entrer un nom pour le salon"),
+                .max(255, "Le nom du chat ne peut pas excéder 255 caractères")
+                .required("Veuillez entrer un nom pour le chat"),
     }),
     handleSubmit: (values, { props }) => {
-        const { updateRoom, state } = props;
+        const { updateChat, state } = props;
 
-        const room = {
+        const chat = {
             ...values,
-            id: state.room.id
+            id: state.chat.id
         }
 
-        updateRoom(room);
+        updateChat(chat);
     }
-})(UpdateRoomForm)
+})(UpdateChatForm)
 
-export default UpdateRoom;
+export default UpdateChat;

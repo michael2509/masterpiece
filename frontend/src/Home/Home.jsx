@@ -14,7 +14,7 @@ import * as Yup from "yup";
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import homeStyles from './homeStyles';
-import { getSingleRoom, getSingleRoomByAccessCode } from '../Room/SingleRoom/singleRoomActions';
+import { getSingleChatByAccessCode } from '../Chat/SingleChat/singleChatActions';
 
 function HomeContent(props) {
 	const classes = homeStyles();
@@ -33,8 +33,8 @@ function HomeContent(props) {
 		<Grid container className={classes.grid} component="main" style={{ minHeight: `calc(100vh - ${navbar.height}px)`, marginTop: navbar.height}} >
 			<Grid item xs={12} sm={12} md={7} className={`${classes.image} ${classes.gridItem}`} >
 				<div className={classes.leftContainer}>
-					<Typography component="h2" variant="h4" >Application d'aide pour vos conférences</Typography>
-					<Typography component="h3" variant="h5" className={classes.leftSecondTitle} >Commencez à créer vos salons pour vos conférences en créant un compte ou en vous connectant</Typography>
+					<Typography component="h2" variant="h4" >Application de chat pour vos conférences</Typography>
+					<Typography component="h3" variant="h5" className={classes.leftSecondTitle} >Commencez à créer vos chats pour vos conférences en créant un compte ou en vous connectant</Typography>
 					<Link to="/inscription">
 						<Button size='large' className={classes.leftButton} variant="contained" color="primary" startIcon={<PersonAddIcon />}>Créer un compte</Button>
 					</Link>
@@ -49,7 +49,7 @@ function HomeContent(props) {
 					<Avatar className={classes.avatar}>
 						<MeetingRoom className={classes.meetingRoom} />
 					</Avatar>
-					<Typography component="h2" variant="h4" gutterBottom>Rejoignez un salon</Typography>
+					<Typography component="h2" variant="h4" gutterBottom>Rejoignez un chat</Typography>
 					<Typography component="h3" variant="h6">Accessible sans compte</Typography>
 					<form className={classes.form} onSubmit={handleSubmit} noValidate>
 						<TextField
@@ -58,7 +58,7 @@ function HomeContent(props) {
 							required
 							fullWidth
 							id="code"
-							label="code du salon"
+							label="code du chat"
 							name="code"
 							autoComplete="code"
 							autoFocus
@@ -97,18 +97,18 @@ const Home = withFormik({
 	validationSchema: Yup.object().shape({
 		code: Yup.string()
 			.max(10, "Le code ne peut pas excéder 10 caractères")
-			.required("Entrez le code du salon")
+			.required("Entrez le code du chat")
 	}),
 
 	handleSubmit: (values, { props }) => {
 		const code = values.code;
-		const { getSingleRoomByAccessCode, history } = props;
+		const { getSingleChatByAccessCode, history } = props;
 
-		getSingleRoomByAccessCode(code)
-			.then((room) => room ? history.push({
-				pathname: `/salons/${room.id}`,
+		getSingleChatByAccessCode(code)
+			.then((chat) => chat ? history.push({
+				pathname: `/chats/${chat.id}`,
 				state: {
-				  roomId: room.id
+				  chatId: chat.id
 			}}) : null)
 	}
 })(HomeContent);
@@ -116,7 +116,7 @@ const Home = withFormik({
 const mapStateToProps = (state) => ({ navbar: state.navbar })
 
 const mapDispatchToProps = (dispatch) => ({
-	getSingleRoomByAccessCode: (code) => dispatch(getSingleRoomByAccessCode(code))
+	getSingleChatByAccessCode: (code) => dispatch(getSingleChatByAccessCode(code))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

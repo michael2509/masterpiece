@@ -1,11 +1,11 @@
-import { GET_ROOM_LIST_PAGE_SUCCESS, GET_ROOM_LIST_PAGE_ERROR, OPEN_UPDATE_ROOM, CLOSE_UPDATE_ROOM, FETCH_MORE_ROOMS_SUCCESS, FETCH_MORE_ROOMS_ERROR } from "./roomActionsTypes";
+import { GET_CHAT_PAGE_SUCCESS, GET_CHAT_PAGE_ERROR, OPEN_UPDATE_CHAT, CLOSE_UPDATE_CHAT, FETCH_MORE_CHATS_SUCCESS, FETCH_MORE_CHATS_ERROR } from "./chatActionsTypes";
 
 const initialState = {
     pageNumber: 0,
     totalPages: 0,
     last: null,
-    updateRoomState: {
-        room: {
+    updateChatState: {
+        chat: {
             id: null,
             name: ""
         },
@@ -13,40 +13,40 @@ const initialState = {
     }
 }
 
-export default function roomsReducer(state = initialState, action) {
+export default function chatsReducer(state = initialState, action) {
     switch (action.type) {
-        case GET_ROOM_LIST_PAGE_SUCCESS:
+        case GET_CHAT_PAGE_SUCCESS:
             return {
                 ...state,
                 pageNumber: action.pageNumber,
-                roomListPage: action.roomListPage,
+                chatPage: action.chatPage,
                 totalPages: action.totalPages,
                 last: action.last
             }
-        case GET_ROOM_LIST_PAGE_ERROR:
+        case GET_CHAT_PAGE_ERROR:
             return {
                 ...state,
                 errorMsg: action.errorMsg
             }
-        case OPEN_UPDATE_ROOM:
+        case OPEN_UPDATE_CHAT:
             return {
                 ...state,
-                updateRoomState: { open: action.open, room: action.room }
+                updateChatState: { open: action.open, chat: action.chat }
             }
-        case CLOSE_UPDATE_ROOM:
+        case CLOSE_UPDATE_CHAT:
             return {
                 ...state,
-                updateRoomState: { ...state.updateRoomState, open: action.open }
+                updateChatState: { ...state.updateChatState, open: action.open }
             }
-        case FETCH_MORE_ROOMS_SUCCESS:
+        case FETCH_MORE_CHATS_SUCCESS:
             return {
                 ...state,
                 pageNumber: action.pageNumber,
-                roomListPage: [...state.roomListPage, ...action.roomListPage],
+                chatPage: [...state.chatPage, ...action.chatPage],
                 totalPages: action.totalPages,
                 last: action.last
             }
-        case FETCH_MORE_ROOMS_ERROR:
+        case FETCH_MORE_CHATS_ERROR:
             return {
                 ...state,
                 errorMsg: action.errorMsg

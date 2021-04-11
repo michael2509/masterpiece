@@ -1,30 +1,30 @@
-import { GET_ROOM_LIST_PAGE_SUCCESS, GET_ROOM_LIST_PAGE_ERROR, OPEN_UPDATE_ROOM, CLOSE_UPDATE_ROOM, FETCH_MORE_ROOMS_SUCCESS, FETCH_MORE_ROOMS_ERROR } from "./roomActionsTypes"
+import { GET_CHAT_PAGE_SUCCESS, GET_CHAT_PAGE_ERROR, OPEN_UPDATE_CHAT, CLOSE_UPDATE_CHAT, FETCH_MORE_CHATS_SUCCESS, FETCH_MORE_CHATS_ERROR } from "./chatActionsTypes"
 import axios from "axios";
 import listServerErrors from "../../global/functions/listServerErrors";
 import { getTokenFromLocalStorage } from '../../Auth/authService';
 import { openNotification } from "../../Notification/notificationActions";
 
-// Create Room Actions
-// This function create a new room and show a notification in case of success or error
-export function createRoom(room) {
+// Create chat Actions
+// This function create a new chat and show a notification in case of success or error
+export function createChat(chat) {
     
     return async (dispatch) => {
         
-        const roomJson = JSON.stringify(room);
+        const chatJson = JSON.stringify(chat);
 
         try {
             // Get token from local storage
             const accessToken = getTokenFromLocalStorage("access_token");
-            // Request API to create the new room
+            // Request API to create the new chat
             await axios.post(
                 "http://localhost:8081/api/chats",
-                roomJson,
+                chatJson,
                 { headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${accessToken}` } }
             )
             // Show success notification
-            dispatch(openNotification("Salon crée avec succès", "success"));
-            // Reload room list
-            dispatch(getRoomListPage(0));
+            dispatch(openNotification("chat crée avec succès", "success"));
+            // Reload chat list
+            dispatch(getChatPage(0));
             return true
         } catch (error) {
             const statusCode = error.response.status
@@ -38,9 +38,9 @@ export function createRoom(room) {
     }
 }
 
-// Delete Room Action
-export function deleteRoom(roomId) {
-    console.log(roomId);
+// Delete chat Action
+export function deleteChat(chatId) {
+    console.log(chatId);
     return async (dispatch) => {
         try {
             const accessToken = getTokenFromLocalStorage("access_token");
@@ -49,36 +49,36 @@ export function deleteRoom(roomId) {
                     "Authorization": `Bearer ${accessToken}`
                 }
             }
-            await axios.delete(`http://localhost:8081/api/chats/${roomId}`, config);
-            dispatch(openNotification("Salon supprimé avec succès", "success"))
-            dispatch(getRoomListPage(0))
+            await axios.delete(`http://localhost:8081/api/chats/${chatId}`, config);
+            dispatch(openNotification("chat supprimé avec succès", "success"))
+            dispatch(getChatPage(0))
             return true
         } catch (error) {
-            dispatch(openNotification("La suppression du salon a échoué", "error"))
+            dispatch(openNotification("La suppression du chat a échoué", "error"))
             return false           
         }
     }
 }
 
-// Get Room List Page Action
-export function getRoomListPageSuccess(pageNumber, roomListPage, totalPages) {
+// Get chat List Page Action
+export function getChatPageSuccess(pageNumber, chatPage, totalPages) {
     return {
-        type: GET_ROOM_LIST_PAGE_SUCCESS,
-        roomListPage: roomListPage,
+        type: GET_CHAT_PAGE_SUCCESS,
+        chatPage: chatPage,
         pageNumber: pageNumber,
         totalPages: totalPages
     }
 }
 
-export function getRoomListPageError() {
+export function getChatPageError() {
     return {
-        type: GET_ROOM_LIST_PAGE_ERROR,
+        type: GET_CHAT_PAGE_ERROR,
         errorMsg: "Une erreur est survenue"
     }
 }
 
-export function getRoomListPage(pageNumber) {
-    console.log("getRoomListPage called with page number : " + pageNumber);
+export function getChatPage(pageNumber) {
+    console.log("getChatPage called with page number : " + pageNumber);
     return async (dispatch) => {
         try {
             const accessToken = getTokenFromLocalStorage("access_token");
@@ -89,49 +89,49 @@ export function getRoomListPage(pageNumber) {
             }
             const pageSize = 5;
             const response = await axios.get(`http://localhost:8081/api/chats?page=${pageNumber}&size=${pageSize}`, config);
-            const roomListPage = response.data.content;
+            const chatPage = response.data.content;
             const totalPages = response.data.totalPages;
             const last = response.data.last
-            dispatch(getRoomListPageSuccess(pageNumber, roomListPage, totalPages, last))
+            dispatch(getChatPageSuccess(pageNumber, chatPage, totalPages, last))
         } catch {           
-            dispatch(getRoomListPageError());
+            dispatch(getChatPageError());
         }
     }
 }
 
-// Actions for update room
-export function openUpdateRoom(room) {
+// Actions for update chat
+export function openUpdateChat(chat) {
     return {
-        type: OPEN_UPDATE_ROOM,
+        type: OPEN_UPDATE_CHAT,
         open: true,
-        room: room
+        chat: chat
     }
 }
 
-export function closeUpdateRoom() {
+export function closeUpdateChat() {
     return {
-        type: CLOSE_UPDATE_ROOM,
+        type: CLOSE_UPDATE_CHAT,
         open: false,
-        room: null
+        chat: null
     }
 }
 
-export function updateRoom(room) {
+export function updateChat(chat) {
     return async (dispatch) => {
 
-        const roomJson = JSON.stringify(room);
+        const chatJson = JSON.stringify(chat);
 
         try {
             const accessToken = getTokenFromLocalStorage("access_token");
             await axios.put(
-                `http://localhost:8081/api/chats/${room.id}`,
-                roomJson,
+                `http://localhost:8081/api/chats/${chat.id}`,
+                chatJson,
                 { headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${accessToken}` } }
             )
 
-            dispatch(openNotification("Salon modifié avec succès", "success"))
-            dispatch(closeUpdateRoom());
-            dispatch(getRoomListPage(0));
+            dispatch(openNotification("chat modifié avec succès", "success"))
+            dispatch(closeUpdateChat());
+            dispatch(getChatPage(0));
             return true
         } catch (error) {
             const statusCode = error.response.status
@@ -143,25 +143,25 @@ export function updateRoom(room) {
     }
 }
 
-// Fetch more rooms action
-export function fetchMoreRoomsSuccess(pageNumber, roomListPage, totalPages, last) {
+// Fetch more chats action
+export function fetchMoreChatsSuccess(pageNumber, chatPage, totalPages, last) {
     return {
-        type: FETCH_MORE_ROOMS_SUCCESS,
-        roomListPage: roomListPage,
+        type: FETCH_MORE_CHATS_SUCCESS,
+        chatPage: chatPage,
         pageNumber: pageNumber,
         totalPages: totalPages,
         last: last
     }
 }
 
-export function fetchMoreRoomsError() {
+export function fetchMoreChatsError() {
     return {
-        type: FETCH_MORE_ROOMS_ERROR,
+        type: FETCH_MORE_CHATS_ERROR,
         errorMsg: "Une erreur est survenue"
     }
 }
 
-export function fetchMoreRooms(pageNumber) {
+export function fetchMoreChats(pageNumber) {
     return async (dispatch) => {
         try {
             const accessToken = getTokenFromLocalStorage("access_token");
@@ -171,13 +171,13 @@ export function fetchMoreRooms(pageNumber) {
                 }
             }
             const pageSize = 5;
-            const response = await axios.get(`http://localhost:8081/api/rooms?page=${pageNumber}&size=${pageSize}`, config);
-            const roomListPage = response.data.content;
+            const response = await axios.get(`http://localhost:8081/api/chats?page=${pageNumber}&size=${pageSize}`, config);
+            const chatPage = response.data.content;
             const totalPages = response.data.totalPages;
             const last = response.data.last
-            dispatch(fetchMoreRoomsSuccess(pageNumber, roomListPage, totalPages, last))
+            dispatch(fetchMoreChatsSuccess(pageNumber, chatPage, totalPages, last))
         } catch {           
-            dispatch(fetchMoreRoomsError());
+            dispatch(fetchMoreChatsError());
         }
     }
 }

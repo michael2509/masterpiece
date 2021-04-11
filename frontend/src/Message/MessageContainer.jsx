@@ -16,15 +16,15 @@ class MessageContainer extends Component {
     }
 
     componentDidMount() {
-        // Get room's messages
+        // Get chat's messages
         console.log("component did mount");
-        this.props.getMessageList(this.props.room.id)
+        this.props.getMessageList(this.props.chat.id)
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.room.id !== this.props.room.id) {
+        if (prevProps.chat.id !== this.props.chat.id) {
             console.log("component did update");
-            this.props.getMessageList(this.props.room.id);
+            this.props.getMessageList(this.props.chat.id);
         }
     }
 
@@ -50,7 +50,7 @@ class MessageContainer extends Component {
         return (
             <Fragment>
                 <MessageList messages={this.props.messages} />
-                <AddMessage roomId={this.props.room.id} senderName={this.props.room.senderName} senderType={this.props.room.senderType} sockJsClient={this.sockJsClient.current} />
+                <AddMessage chatId={this.props.chat.id} senderName={this.props.chat.senderName} senderType={this.props.chat.senderType} sockJsClient={this.sockJsClient.current} />
                 <SockJsClient
                     url='http://localhost:8081/websocket-chat/'
                     topics={['/topic/user', "/user/queue/errors", "/user/queue/success"]}
@@ -70,11 +70,11 @@ class MessageContainer extends Component {
 
 const mapStateToProps = (state) => ({
     messages: state.messages,
-    room: state.singleRoom
+    chat: state.SingleChat
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    getMessageList: (roomId) => dispatch(getMessageList(roomId)),
+    getMessageList: (chatId) => dispatch(getMessageList(chatId)),
     addMessage: (username, message) => dispatch(addMessage(username, message)),
     openNotification: (messages, severity) => dispatch(openNotification(messages, severity))
 })

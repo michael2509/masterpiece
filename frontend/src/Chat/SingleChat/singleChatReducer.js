@@ -1,4 +1,4 @@
-import { CLOSE_CREATE_GUEST, OPEN_CREATE_GUEST, SET_SENDER_NAME, SINGLE_ROOM_FOUND, SET_SENDER_TYPE } from "./singleRoomActionsTypes";
+import { CLOSE_CREATE_GUEST, OPEN_CREATE_GUEST, SET_SENDER_NAME, SINGLE_CHAT_FOUND, SET_SENDER_TYPE } from "./singleChatActionsTypes";
 
 const initialState = {
     id: null,
@@ -10,15 +10,15 @@ const initialState = {
     showCreateGuest: false
 }
 
-export default function singleRoomReducer(state = initialState, action) {
+export default function singleChatReducer(state = initialState, action) {
     switch(action.type) {
-        case SINGLE_ROOM_FOUND:
+        case SINGLE_CHAT_FOUND:
             return {
                 ...state,
-                id: action.room.id,
-                name: action.room.name,
-                accessCode: action.room.accessCode,
-                speakerUsername: action.room.speaker.username
+                id: action.chat.id,
+                name: action.chat.name,
+                accessCode: action.chat.accessCode,
+                speakerUsername: action.chat.speaker.username
             }
         case SET_SENDER_NAME:
             return {...state, senderName: action.senderName}

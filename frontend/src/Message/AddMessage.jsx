@@ -4,7 +4,6 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -14,7 +13,7 @@ import * as Yup from "yup";
 import { withRouter } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
-    roomNameInput: {
+    chatNameInput: {
         marginBottom: theme.spacing(4)
     },
     datePicker: {
@@ -72,7 +71,7 @@ const AddMessageForm = (props) => {
                         label="message"
                         type="text"
                         fullWidth
-                        className={classes.roomNameInput}
+                        className={classes.chatNameInput}
                         value={values.message}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -112,16 +111,9 @@ const AddMessage = withFormik({
     }),
     handleSubmit: (values, { props, resetForm, setSubmitting }) => {
         // Get sockjs client, match, username from props
-        const { sockJsClient, roomId, senderName, senderType } = props;
-        // Get room's id from url
-        // const roomId = match.params.id
+        const { sockJsClient, chatId, senderName, senderType } = props;
         // Build message obj to be send to the API
-
-        console.log("message : " + values.message);
-        console.log("roomId : " + roomId);
-        console.log("senderName : " + senderName);
-        console.log("senderType : " + senderType);
-        const message = { text: values.message, chatId: roomId, senderName: senderName, senderType: senderType };
+        const message = { text: values.message, chatId: chatId, senderName: senderName, senderType: senderType };
 
         // Use sock js client to send message to API
         sockJsClient.sendMessage('/app/user-all', JSON.stringify(message));

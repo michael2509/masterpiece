@@ -29,7 +29,7 @@ function CreateGuestForm(props) {
         <DialogTitle id="form-dialog-title">Choix du pseudo</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Veuillez choisir le pseudo que vous utiliserez dans ce salon.
+            Veuillez choisir le pseudo que vous utiliserez dans ce chat.
           </DialogContentText>
           <TextField
                     id="pseudo"
@@ -73,8 +73,8 @@ const CreateGuest = withFormik({
 
   handleSubmit: async (values, { props, resetForm }) => {
 
-      const { roomId, openNotif, closeForm, setSenderName, setSenderType } = props;
-      const guest = {...values, chatId: roomId}
+      const { chatId, openNotif, closeForm, setSenderName, setSenderType } = props;
+      const guest = {...values, chatId: chatId}
       const guestjson = JSON.stringify(guest);
 
       console.log(guest);
@@ -90,7 +90,7 @@ const CreateGuest = withFormik({
         // Clean form
         resetForm();
         // Show welcome notif
-        openNotif(`Bienvenue ${guest.pseudo}, vous pouvez maintenant envoyer vos messages dans ce salon`, "success")
+        openNotif(`Bienvenue ${guest.pseudo}, vous pouvez maintenant envoyer vos messages dans ce chat`, "success")
         // close choose pseudo form
         closeForm();
         // Set guest peudo in redux state

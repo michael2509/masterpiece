@@ -13,7 +13,7 @@ import { withFormik } from "formik";
 import * as Yup from "yup";
 
 const useStyles = makeStyles(theme => ({
-    roomNameInput: {
+    chatNameInput: {
         marginBottom: theme.spacing(4)
     },
     datePicker: {
@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const AddRoomForm = (props) => {
+const AddChatForm = (props) => {
 
     const {
         values,
@@ -60,23 +60,23 @@ const AddRoomForm = (props) => {
         <div>
         <Fab onClick={handleClickOpen} className={classes.fab} color="primary" aria-label="add" variant="extended">
             <AddIcon className={classes.extendedIcon} />
-            Créer un salon
+            Créer un chat
         </Fab>
         <Dialog open={isSubmitting ? false : open} onClose={handleClose} aria-labelledby="form-dialog-title" disableBackdropClick>
             <form onSubmit={handleSubmit}>
-                <DialogTitle id="form-dialog-title">Créer un nouveau salon</DialogTitle>
+                <DialogTitle id="form-dialog-title">Créer un nouveau chat</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Créer un salon privé, vous permettant de communiquer avec vos invités via un chat, et de leur proposer des sondages et quiz.
+                        Créer un chat, vous permettant de communiquer avec vos invités.
                     </DialogContentText>
                     <TextField
                         autoFocus
                         margin="dense"
                         id="name"
-                        label="Nom du salon"
+                        label="Nom du chat"
                         type="text"
                         fullWidth
-                        className={classes.roomNameInput}
+                        className={classes.chatNameInput}
                         value={values.name}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -99,7 +99,7 @@ const AddRoomForm = (props) => {
     );
 }
 
-const AddRoom = withFormik({
+const AddChat = withFormik({
     mapPropsToValues: ({
         name
     }) => ({
@@ -108,23 +108,23 @@ const AddRoom = withFormik({
 
     validationSchema: Yup.object().shape({
         name: Yup.string()
-                .max(255, "Le nom du salon ne peut pas excéder 255 caractères")
-                .required("Veuillez entrer un nom pour le salon"),
+                .max(255, "Le nom du chat ne peut pas excéder 255 caractères")
+                .required("Veuillez entrer un nom pour le chat"),
     }),
     handleSubmit: (values, { props, resetForm, setSubmitting }) => {
-        const room = {...values};
-        const { createRoom, getRoomListPage } = props;
+        const chat = {...values};
+        const { createChat, getChatPage } = props;
         
-        createRoom(room).then(reqSuccess => {
+        createChat(chat).then(reqSuccess => {
             if (reqSuccess) {
                 resetForm();
                 setSubmitting(true);
-                getRoomListPage(0);
+                getChatPage(0);
             } else {
                 setSubmitting(false);
             }
         })
     }
-})(AddRoomForm)
+})(AddChatForm)
 
-export default AddRoom;
+export default AddChat;

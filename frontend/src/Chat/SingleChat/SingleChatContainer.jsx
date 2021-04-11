@@ -1,22 +1,22 @@
 import { Container } from "@material-ui/core";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import SingleRoom from "../SingleRoom/SingleRoom";
-import { getSingleRoom, openCreateGuest, closeCreateGuest, setSenderName, setSenderType } from "../SingleRoom/singleRoomActions";
+import SingleChat from "./SingleChat";
+import { getSingleChat, openCreateGuest, closeCreateGuest, setSenderName, setSenderType } from "./singleChatActions";
 import { openNotification } from "../../Notification/notificationActions";
 import MessageContainer from "../../Message/MessageContainer";
 import { isLogged, getUsername } from "../../Auth/authService";
 import CreateGuest from "./CreateGuest";
 
-class SingleRoomContainer extends Component {
+class SingleChatContainer extends Component {
 
     componentDidMount() {
 
-        const chatId = this.props.location.state.roomId;
-        // Get Room data
-        this.props.getSingleRoom(chatId);
+        const chatId = this.props.location.state.chatId;
+        // Get chat data
+        this.props.getSingleChat(chatId);
 
-        // If user is logged (the speaker of the room), Set id of the logged user in the component state
+        // If user is logged (the speaker of the chat), Set id of the logged user in the component state
         if (isLogged()) {
             console.log("is logged");
             getUsername().then((username) => {
@@ -25,30 +25,30 @@ class SingleRoomContainer extends Component {
                 this.props.setSenderType("Speaker");
             })
         } else {
-            // else create a guest for this room
+            // else create a guest for this chat
             this.props.openCreateGuest();
         }
     }
 
     render() {
-        const roomId = this.props.match.params.roomId
+        const chatId = this.props.match.params.chatId
 
-        console.log(this.props.singleRoom);
+        console.log(this.props.SingleChat);
 
         return (
             <Container component="main" maxWidth="md" style={{ minHeight: `calc(100vh - 150px)`, marginTop: 150}}>
-                <SingleRoom singleRoom={this.props.singleRoom} />
-                <MessageContainer roomId={roomId} />
-                <CreateGuest open={this.props.singleRoom.showCreateGuest} openNotif={this.props.openNotification} roomId={this.props.singleRoom.id} closeForm={this.props.closeCreateGuest} setSenderName={this.props.setSenderName} setSenderType={this.props.setSenderType} />
+                <SingleChat SingleChat={this.props.SingleChat} />
+                <MessageContainer chatId={chatId} />
+                <CreateGuest open={this.props.SingleChat.showCreateGuest} openNotif={this.props.openNotification} chatId={this.props.SingleChat.id} closeForm={this.props.closeCreateGuest} setSenderName={this.props.setSenderName} setSenderType={this.props.setSenderType} />
             </Container>
         )
     }
 }
 
-const mapStateToProps = (state) => ({ singleRoom: state.singleRoom })
+const mapStateToProps = (state) => ({ SingleChat: state.SingleChat })
 
 const mapDispatchToProps = (dispatch) => ({
-    getSingleRoom: (code) => dispatch(getSingleRoom(code)),
+    getSingleChat: (code) => dispatch(getSingleChat(code)),
     openNotification: (messages, severity) => dispatch(openNotification(messages, severity)),
     openCreateGuest: () => dispatch(openCreateGuest()),
     closeCreateGuest: () => dispatch(closeCreateGuest()),
@@ -56,4 +56,4 @@ const mapDispatchToProps = (dispatch) => ({
     setSenderType: (senderType) => dispatch(setSenderType(senderType)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(SingleRoomContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SingleChatContainer);

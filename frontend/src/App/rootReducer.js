@@ -1,14 +1,14 @@
 import notificationReducer from "../Notification/notificationReducer";
-import roomsReducer from "../Room/redux/roomsReducer";
+import chatsReducer from "../Chat/redux/chatsReducer";
 import messagesReducer from "../Message/messagesReducer";
-import singleRoomReducer from "../Room/SingleRoom/singleRoomReducer";
+import singleChatReducer from "../Chat/SingleChat/singleChatReducer";
 
 export function rootReducer(state = {}, action) {
     return {
         navbar: { height: 64 },
         notification: notificationReducer(state.notification, action),
-        rooms: roomsReducer(state.rooms, action),
-        singleRoom: singleRoomReducer(state.singleRoom, action),
+        chats: chatsReducer(state.chats, action),
+        SingleChat: singleChatReducer(state.SingleChat, action),
         messages: messagesReducer(state.messages, action)
     }
 }

@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { ListItemIcon, ListItemSecondaryAction, Menu, MenuItem, Typography } from "@material-ui/core";
 import { MoreVert } from "@material-ui/icons";
 
-const RoomItem = ({ room, openUpdateRoom, deleteRoom }) => {
+const ChatItem = ({ chat, openUpdateChat, deleteChat }) => {
     const [menuEl, setMenuEl] = React.useState(null);
 
     const handleClick = (event) => {
@@ -22,13 +22,13 @@ const RoomItem = ({ room, openUpdateRoom, deleteRoom }) => {
         setMenuEl(null);
     };
 
-    const updateRoomClick = (room) => {
-        openUpdateRoom(room);
+    const updateChatClick = (chat) => {
+        openUpdateChat(chat);
         handleClose();
     }
 
-    const deleteRoomClick = (roomId) => {
-        deleteRoom(roomId);
+    const deleteChatClick = (chatId) => {
+        deleteChat(chatId);
         handleClose();
     }
 
@@ -46,9 +46,9 @@ const RoomItem = ({ room, openUpdateRoom, deleteRoom }) => {
         <Fragment>
             <ListItem button>
                 <Link to={{
-                    pathname: `/salons/${room.id}`,
+                    pathname: `/chats/${chat.id}`,
                     state: {
-                      roomId: room.id
+                      chatId: chat.id
                     }}}
                 style={styles.link}
                 >
@@ -57,7 +57,7 @@ const RoomItem = ({ room, openUpdateRoom, deleteRoom }) => {
                             <MeetingRoomIcon />
                         </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary={room.name} secondary={`Code : ${room.accessCode}`} />
+                    <ListItemText primary={chat.name} secondary={`Code : ${chat.accessCode}`} />
                 </Link>
                 <ListItemSecondaryAction>
                     <IconButton onClick={handleClick}>
@@ -66,13 +66,13 @@ const RoomItem = ({ room, openUpdateRoom, deleteRoom }) => {
                 </ListItemSecondaryAction>
             </ListItem>
             <Menu open={Boolean(menuEl)} onClose={handleClose} anchorEl={menuEl} keepMounted>
-                <MenuItem onClick={() => updateRoomClick(room)}>
+                <MenuItem onClick={() => updateChatClick(chat)}>
                     <ListItemIcon aria-label="edit">
                         <EditIcon />
                     </ListItemIcon>
                     <Typography variant="inherit" noWrap>Éditer</Typography>
                 </MenuItem>
-                <MenuItem onClick={() => deleteRoomClick(room.id)}>
+                <MenuItem onClick={() => deleteChatClick(chat.id)}>
                     <ListItemIcon aria-label="delete">
                         <DeleteIcon />
                     </ListItemIcon>
@@ -83,4 +83,4 @@ const RoomItem = ({ room, openUpdateRoom, deleteRoom }) => {
     )
 }
 
-export default RoomItem;
+export default ChatItem;

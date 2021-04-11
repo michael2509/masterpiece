@@ -145,7 +145,7 @@ const LoginForm = withFormik({
             if (logged) {
                 resetForm();
                 openNotification(`Bienvenue ${username}, vous êtes connecté`, "success")
-                history.push("/salons");
+                history.push("/chats");
             } else {
                 openNotification("Informations de connexion invalides", "error")
             }

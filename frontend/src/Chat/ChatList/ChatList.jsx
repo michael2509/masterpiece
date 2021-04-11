@@ -4,10 +4,10 @@ import List from '@material-ui/core/List';
 import { Hidden, Paper, Typography } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import RoomItem from './RoomItem';
+import ChatItem from './ChatItem';
 
 const useStyles = makeStyles((theme) => ({
-	roomList: {
+	ChatList: {
 		width: '100%',
 		backgroundColor: theme.palette.background.paper,
 		margin: "30px 0",
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: 50,
 		marginBottom: 50
 	},
-	noRoom: {
+	noChat: {
 		textAlign: "center"
 	},
 	paginationContainer: {
@@ -37,39 +37,39 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const RoomList = (props) => {
+const ChatList = (props) => {
 	const classes = useStyles();
-	const { roomListPage, deleteRoom, getRoomListPage, openUpdateRoom, fetchMoreRooms, pageNumber, totalPages, last } = props;
+	const { chatPage, deleteChat, getChatPage, openUpdateChat, fetchMoreChats, pageNumber, totalPages, last } = props;
 
 	return (
 		<Fragment>
-			<Typography className={classes.title} variant="h4" component="h2" align="center">Vos Salons</Typography>
-			{!roomListPage || roomListPage.length === 0 ? <div className={classes.noRoom}><p>Vous n'avez pas encore de salons</p><p>Vous pouvez en créer avec le bouton en bas à droite</p></div> : (
+			<Typography className={classes.title} variant="h4" component="h2" align="center">Vos chats</Typography>
+			{!chatPage || chatPage.length === 0 ? <div className={classes.noChat}><p>Vous n'avez pas encore de chats</p><p>Vous pouvez en créer avec le bouton en bas à droite</p></div> : (
 				<Fragment>
 					<Hidden xsDown>
 						<Paper elevation={3}>
-							<List className={classes.roomList}>
-								{roomListPage.map((room, i) => (
-									<RoomItem key={i} openUpdateRoom={openUpdateRoom} deleteRoom={deleteRoom} room={room} getRoomListPage={getRoomListPage} />
+							<List className={classes.ChatList}>
+								{chatPage.map((chat, i) => (
+									<ChatItem key={i} openUpdateChat={openUpdateChat} deleteChat={deleteChat} chat={chat} getChatPage={getChatPage} />
 								))}
 							</List>
 						</Paper>
 							{totalPages > 1 ? (
 								<div className={classes.paginationContainer}>
-									<Pagination page={pageNumber+1} count={totalPages} className={classes.pagination} onChange={(room, value) => getRoomListPage(value-1)} />
+									<Pagination page={pageNumber+1} count={totalPages} className={classes.pagination} onChange={(chat, value) => getChatPage(value-1)} />
 								</div>
 							) : null}
 					</Hidden>
 					<Hidden smUp>
 						<InfiniteScroll
-							dataLength={roomListPage.length}
-							next={!last ? () => fetchMoreRooms(pageNumber + 1) : console.log("already in last page")}
+							dataLength={chatPage.length}
+							next={!last ? () => fetchMoreChats(pageNumber + 1) : console.log("already in last page")}
 							hasMore={true}
 							>
 							<Paper elevation={3}>
-							<List className={classes.roomList}>
-								{roomListPage.map((room, i) => (
-									<RoomItem key={i} openUpdateRoom={openUpdateRoom} deleteRoom={deleteRoom} room={room} getRoomListPage={getRoomListPage} />
+							<List className={classes.ChatList}>
+								{chatPage.map((chat, i) => (
+									<ChatItem key={i} openUpdateChat={openUpdateChat} deleteChat={deleteChat} chat={chat} getChatPage={getChatPage} />
 								))}
 							</List>
 							</Paper>
@@ -81,4 +81,4 @@ const RoomList = (props) => {
 	);
 }
 
-export default RoomList;
+export default ChatList;
