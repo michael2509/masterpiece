@@ -7,10 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ChatRepository extends JpaRepository<Chat, Long> {
-//    Page<RoomViewDto> findBySpeakerUserIdOrderByCreationDateDesc(Long userId, Pageable pageable);
-//    RoomViewDto findByCode(String code);
-//    @Query("select r from Room r where r.code = ?1")
-//    Chat findRoomEntityByCode(String code);
     Page<Chat> findBySpeakerIdOrderByCreationDateDesc(Long userId, Pageable pageable);
     Chat findByAccessCode(String accessCode);
 }

@@ -25,15 +25,18 @@ public class ChatServiceImpl implements ChatService {
     @Autowired
     private SpeakerRepository speakerRepository;
 
+    // This method convert the chatDTO into Entity, then call the chatRepository to save the chat in DB
     @Override
     public void createChat(ChatDto chatDto) {
+        // Start to build chat entity from chatDTO
         Chat chat = new Chat();
         // Set chat name
         chat.setName(chatDto.getName());
-        // Set chat speaker
+        // Get speaker Id from access token
         Long speakerId = SecurityHelper.getUserId();
-        // Set speaker
+        // Find speaker in DB
         Speaker speaker = speakerRepository.findById(speakerId).get();
+        // Set chat speaker
         chat.setSpeaker(speaker);
         // Create chat access code
         Long chatsTableSize = chatRepository.count();
@@ -42,10 +45,10 @@ public class ChatServiceImpl implements ChatService {
         String accessCode = hashids.encode(chatsTableSize).toUpperCase();
         // Set chat access code
         chat.setAccessCode(accessCode);
-        // Set room's creation date
+        // Set chat creation date
         LocalDateTime creationDate = LocalDateTime.now();
         chat.setCreationDate(creationDate);
-        // Save room to database
+        // Save chat to DB
         chatRepository.save(chat);
     }
 

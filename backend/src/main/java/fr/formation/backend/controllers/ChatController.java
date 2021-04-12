@@ -3,23 +3,24 @@ package fr.formation.backend.controllers;
 import fr.formation.backend.dtos.ChatDto;
 import fr.formation.backend.dtos.UpdateChatDto;
 import fr.formation.backend.entities.Chat;
-import fr.formation.backend.repositories.ChatRepository;
 import fr.formation.backend.services.ChatService;
-import fr.formation.backend.viewdtos.ChatViewDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
+// This controller received request from endpoint /chats, and then call the corresponding service
 @RestController
 @RequestMapping("/chats")
 public class ChatController {
 
-    @Autowired
-    private ChatService chatService;
-    @Autowired
-    private ChatRepository chatRepository;
+    private final ChatService chatService;
 
+    // Inject chat Service
+    public ChatController(ChatService chatService) {
+        this.chatService = chatService;
+    }
+
+    // Method that handle post request from /chats endpoint
     @PostMapping
     protected void createChat(@Valid @RequestBody ChatDto chatDto) {
         chatService.createChat(chatDto);

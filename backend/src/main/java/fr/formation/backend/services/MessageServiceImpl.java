@@ -36,29 +36,29 @@ public class MessageServiceImpl implements MessageService {
         return messageRepository.findByChatIdOrderBySendDateDesc(chatId);
     }
 
+    // This method convert the messageDto into entity and save it in DB
     @Override
     public void postMessage(MessageDto messageDto) {
-
-        // Convert message dto to entity
+        // Start to build message entity
         Message message = new Message();
+        // Set message text
         message.setText(messageDto.getText());
-        // Find room where to post the message
+        // Find chat where to post the message
         Chat chat = chatRepository.findById(messageDto.getChatId()).get();
+        // Set message chat
         message.setChat(chat);
+        // Set message send date
         message.setSendDate(LocalDateTime.now());
-
+        // Check message sender type
         String senderType = messageDto.getSenderType();
 
-        // Set speaker or guest (depends what type of user send the message)
+        // Set message speaker or guest (depends what type of user send the message)
         if (senderType.equals("guest")) {
             Guest guest = guestRepository.findByPseudo(messageDto.getSenderName());
             message.setGuest(guest);
         }
-        // Otherwise, set speaker
         if (senderType.equals("speaker")) {
-            System.out.println("speaker will be added to the message");
             Speaker speaker = speakerRepository.findByUsername(messageDto.getSenderName());
-            System.out.println("speaker found : " + speaker.getUsername());
             message.setSpeaker(speaker);
         }
 

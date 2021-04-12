@@ -25,12 +25,14 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
+// This controller handle all request related to chat's messages
 @RestController
 public class MessageController {
 
     private final MessageService messageService;
     private final SimpMessagingTemplate simpMessagingTemplate;
 
+    // Inject services
     public MessageController(MessageService messageService, SimpMessagingTemplate simpMessagingTemplate) {
         this.messageService = messageService;
         this.simpMessagingTemplate = simpMessagingTemplate;
@@ -41,10 +43,13 @@ public class MessageController {
         return messageService.getMessages(chatId);
     }
 
+    // This method handle message post using websocket
+    // If message is valid, insert message in DB, then send success message to the message sender
+    // If message is invalid, throw exception MethodArgumentNotValid and send validations errors to the message sender (see method handleMethodArgumentNotValidException below)
     @MessageMapping("user-all")
     @SendTo("/topic/user")
     protected ResponseEntity sendToAll(@Valid @RequestBody MessageDto messageDto, SimpMessageHeaderAccessor headerAccessor) throws MethodArgumentNotValidException {
-        // Insert message to DB
+        // Call message service to insert the message in DB
         messageService.postMessage(messageDto);
 
         // Send reply only to the message sender
@@ -54,13 +59,14 @@ public class MessageController {
         ha.setLeaveMutable(true);
         simpMessagingTemplate.convertAndSendToUser(headerAccessor.getSessionId(), "/queue/success", "message envoyé avec succès", ha.getMessageHeaders());
 
-        // Send message to all subscribers
+        // Send message to all client subscribers
         return ResponseEntity.ok().body(messageDto);
     }
 
+    // This method handle when exception MethodArgumentNotValid is thrown
     @MessageExceptionHandler
     @SendToUser("/queue/errors")
-    public ResponseEntity handleException(MethodArgumentNotValidException ex) {
+    public ResponseEntity handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         BindingResult result = ex.getBindingResult();
         // Spring field errors:
         List<FieldError> fieldErrors = result.getFieldErrors();
