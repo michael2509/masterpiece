@@ -108,7 +108,7 @@ const AddChat = withFormik({
 
     validationSchema: Yup.object().shape({
         name: Yup.string()
-                .max(255, "Le nom du chat ne peut pas excéder 255 caractères")
+                .max(120, "Le nom du chat ne peut pas excéder 120 caractères")
                 .required("Veuillez entrer un nom pour le chat"),
     }),
     handleSubmit: (values, { props, resetForm, setSubmitting }) => {

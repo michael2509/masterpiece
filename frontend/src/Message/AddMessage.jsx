@@ -67,16 +67,16 @@ const AddMessageForm = (props) => {
                 <DialogTitle id="form-dialog-title">Envoyer un nouveau message</DialogTitle>
                 <DialogContent>
                     <TextField
-                        id="message"
-                        label="message"
+                        id="text"
+                        label="text"
                         type="text"
                         fullWidth
                         className={classes.chatNameInput}
-                        value={values.message}
+                        value={values.text}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        helperText={touched.message ? errors.message : ""}
-                        error={touched.message && Boolean(errors.message)}
+                        helperText={touched.text ? errors.text : ""}
+                        error={touched.text && Boolean(errors.text)}
                         variant="outlined"
                         multiline
                         rows={4}
@@ -99,22 +99,21 @@ const AddMessageForm = (props) => {
 
 const AddMessage = withFormik({
     mapPropsToValues: ({
-        message
+        text
     }) => ({
-        message: message || ""
+        text: text || ""
     }),
 
     validationSchema: Yup.object().shape({
-        message: Yup.string()
-            .max(255, "Votre message ne peut pas dépasser 255 caractères")
-            .required("Votre message ne peut être vide")
+        text: Yup.string()
+            .max(255, "Le texte de votre message ne peut pas dépasser 255 caractères")
+            .required("Le texte de votre message ne peut être vide")
     }),
-    handleSubmit: (values, { props, resetForm, setSubmitting }) => {
-        // Get sockjs client, match, username from props
+    handleSubmit: (messageForm, { props, resetForm, setSubmitting }) => {
+        // Get sockjs client, chatId, senderName, senderType from props
         const { sockJsClient, chatId, senderName, senderType } = props;
         // Build message obj to be send to the API
-        const message = { text: values.message, chatId: chatId, senderName: senderName, senderType: senderType };
-
+        const message = { text: messageForm.text, chatId: chatId, senderName: senderName, senderType: senderType };
         // Use sock js client to send message to API
         sockJsClient.sendMessage('/app/user-all', JSON.stringify(message));
         // Reset form
