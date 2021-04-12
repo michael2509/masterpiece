@@ -10,6 +10,7 @@ export function createChat(chat) {
     
     return async (dispatch) => {
         
+        // convert user input to json
         const chatJson = JSON.stringify(chat);
 
         try {
@@ -22,7 +23,7 @@ export function createChat(chat) {
                 { headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${accessToken}` } }
             )
             // Show success notification
-            dispatch(openNotification("chat crée avec succès", "success"));
+            dispatch(openNotification("Chat crée avec succès", "success"));
             // Reload chat list
             dispatch(getChatPage(0));
             return true

@@ -95,7 +95,7 @@ const CreateGuest = withFormik({
         closeForm();
         // Set guest peudo in redux state
         setSenderName(guest.pseudo);
-        setSenderType("Guest")
+        setSenderType("guest")
       } catch(e) {           
         // Show errors in notif
         const errorList = listServerErrors(e.response.status, e.response.data)

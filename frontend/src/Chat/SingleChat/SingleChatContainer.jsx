@@ -22,7 +22,7 @@ class SingleChatContainer extends Component {
             getUsername().then((username) => {
                 console.log("username : " + username);
                 username ? this.props.setSenderName(username) : console.log("speaker username not found");
-                this.props.setSenderType("Speaker");
+                this.props.setSenderType("speaker");
             })
         } else {
             // else create a guest for this chat

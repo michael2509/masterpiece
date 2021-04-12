@@ -50,12 +50,12 @@ public class MessageServiceImpl implements MessageService {
         String senderType = messageDto.getSenderType();
 
         // Set speaker or guest (depends what type of user send the message)
-        if (senderType.equals("Guest")) {
+        if (senderType.equals("guest")) {
             Guest guest = guestRepository.findByPseudo(messageDto.getSenderName());
             message.setGuest(guest);
         }
         // Otherwise, set speaker
-        if (senderType.equals("Speaker")) {
+        if (senderType.equals("speaker")) {
             System.out.println("speaker will be added to the message");
             Speaker speaker = speakerRepository.findByUsername(messageDto.getSenderName());
             System.out.println("speaker found : " + speaker.getUsername());

@@ -31,6 +31,8 @@ class MessageContainer extends Component {
     handleMessage(response, topic) {
         const { body, statusCode, statusCodeValue } = response;
 
+        console.log(body);
+
         // Message received with success
         if (statusCode === "OK" && body !== null) {
             this.props.addMessage(body.senderName, body.text);
@@ -41,6 +43,7 @@ class MessageContainer extends Component {
         }
         // Show error notif if message sending failed
         if(topic === "/user/queue/errors") {
+            console.log(response);
             const errorsMsg = listServerErrors(statusCodeValue, body)
             this.props.openNotification(errorsMsg, "error")
         }

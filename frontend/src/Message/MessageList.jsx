@@ -25,7 +25,7 @@ const MessageList = ({ messages }) => {
                 <Fragment>
                     <List>
                         {messages.map((message, i) => (
-                            <Message key={i} senderName={message.speakerUsername != null ? message.speakerUsername : message.senderName} message={message.message} />
+                            <Message key={i} senderName={message.senderName} text={message.text} />
                             ))}
                     </List>
                 </Fragment>

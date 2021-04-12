@@ -1,5 +1,7 @@
 package fr.formation.backend.dtos;
 
+import fr.formation.backend.constraints.ValidateSenderType;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -14,10 +16,11 @@ public class MessageDto {
     private Long chatId;
 
     @Size(max = 80)
-    @NotNull
+    @NotBlank
     private String senderName;
 
     @NotNull
+    @ValidateSenderType(acceptedValues = {"guest", "speaker"})
     private String senderType;
 
     public MessageDto() {

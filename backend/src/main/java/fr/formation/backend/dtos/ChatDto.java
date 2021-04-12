@@ -1,8 +1,6 @@
 package fr.formation.backend.dtos;
 
 import javax.validation.constraints.*;
-import java.time.LocalDateTime;
-import java.util.List;
 
 public class ChatDto {
 
@@ -21,3 +19,4 @@ public class ChatDto {
         this.name = name;
     }
 }
+
