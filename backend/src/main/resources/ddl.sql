@@ -1,12 +1,12 @@
 -- -----------------------------------------------------
--- Schema masterpiece
+-- Create schema masterpiece
 -- -----------------------------------------------------
 DROP SCHEMA IF EXISTS `masterpiece`;
 CREATE SCHEMA IF NOT EXISTS `masterpiece`;
 USE `masterpiece`;
 
 -- -----------------------------------------------------
--- Table `masterpiece`.`speakers`
+-- Create table `masterpiece`.`speakers`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `masterpiece`.`speakers` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `masterpiece`.`speakers` (
 
 
 -- -----------------------------------------------------
--- Table `masterpiece`.`chats`
+-- Create table `masterpiece`.`chats`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `masterpiece`.`chats` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `masterpiece`.`chats` (
 
 
 -- -----------------------------------------------------
--- Table `masterpiece`.`guests`
+-- Create table `masterpiece`.`guests`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `masterpiece`.`guests` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `masterpiece`.`guests` (
 
 
 -- -----------------------------------------------------
--- Table `masterpiece`.`messages`
+-- Create table `masterpiece`.`messages`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `masterpiece`.`messages` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
