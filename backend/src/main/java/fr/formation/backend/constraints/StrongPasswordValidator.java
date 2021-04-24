@@ -6,6 +6,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.Arrays;
 
+// Strong password validator
 public class StrongPasswordValidator implements ConstraintValidator<StrongPassword, String> {
 
     @Override

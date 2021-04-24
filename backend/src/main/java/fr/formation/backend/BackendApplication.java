@@ -3,6 +3,7 @@ package fr.formation.backend;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+// Root class
 @SpringBootApplication
 public class BackendApplication {
 

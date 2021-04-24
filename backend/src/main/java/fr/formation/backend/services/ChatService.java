@@ -6,6 +6,7 @@ import fr.formation.backend.entities.Chat;
 import fr.formation.backend.viewdtos.ChatViewDto;
 import org.springframework.data.domain.Page;
 
+// Interface for chat service
 public interface ChatService {
 
     void createChat(ChatDto chatDto);

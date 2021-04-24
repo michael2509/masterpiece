@@ -7,6 +7,7 @@ import fr.formation.backend.repositories.GuestRepository;
 import fr.formation.backend.repositories.ChatRepository;
 import org.springframework.stereotype.Service;
 
+// Guest service
 @Service
 public class GuestServiceImpl implements GuestService {
 

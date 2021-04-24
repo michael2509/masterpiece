@@ -1,8 +1,8 @@
 package fr.formation.backend.entities;
 
 import javax.persistence.*;
-import java.util.List;
 
+// Speaker entity
 @Entity
 @Table(name = "speakers")
 public class Speaker {

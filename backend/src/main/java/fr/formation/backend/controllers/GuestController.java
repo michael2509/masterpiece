@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+// Guest controller, handle requests from /guests endpoint
 @RestController
 @RequestMapping("/guests")
 public class GuestController {

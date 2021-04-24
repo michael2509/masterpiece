@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+// Speaker controller, handle requests from /speakers endpoint
 @RestController
 @RequestMapping("/speakers")
 public class SpeakerController {

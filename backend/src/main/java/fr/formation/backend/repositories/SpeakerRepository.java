@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
+// Speaker repository
 public interface SpeakerRepository extends JpaRepository<Speaker, Long> {
     Speaker findByUsername(String username);
+    Boolean existsByUsername(String username);
 }

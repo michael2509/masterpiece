@@ -10,6 +10,7 @@ import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+// Interface for strong password validation
 @Documented
 @Constraint(validatedBy = StrongPasswordValidator.class)
 @Target({ FIELD, ANNOTATION_TYPE })

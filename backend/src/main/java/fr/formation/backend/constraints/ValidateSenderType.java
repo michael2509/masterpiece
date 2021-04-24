@@ -10,6 +10,7 @@ import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+// Interface for sender type validation
 @Documented
 @Constraint(validatedBy = ValidateSenderTypeValidator.class)
 @Target({ FIELD, ANNOTATION_TYPE })

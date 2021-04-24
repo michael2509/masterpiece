@@ -6,6 +6,7 @@ import org.hibernate.annotations.Cascade;
 import javax.persistence.*;
 import java.util.List;
 
+// Guest entity
 @Entity
 @Table(name = "guests")
 public class Guest {

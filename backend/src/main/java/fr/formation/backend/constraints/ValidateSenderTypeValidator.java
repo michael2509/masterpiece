@@ -6,6 +6,7 @@ import java.util.List;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+// Sender type validation
 public class ValidateSenderTypeValidator implements ConstraintValidator<ValidateSenderType, String> {
 
     List<String> acceptedValueList = null;

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+// Chat service
 @Service
 public class ChatServiceImpl implements ChatService {
 

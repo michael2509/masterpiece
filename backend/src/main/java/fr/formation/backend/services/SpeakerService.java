@@ -4,6 +4,7 @@ import fr.formation.backend.dtos.SpeakerDto;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+// Interface for speaker service
 public interface SpeakerService extends UserDetailsService {
 
     void createSpeaker(SpeakerDto speakerDto);

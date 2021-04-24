@@ -6,6 +6,7 @@ import fr.formation.backend.constraints.StrongPassword;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+// DTO to create speaker
 public class SpeakerDto {
 
     @NotBlank

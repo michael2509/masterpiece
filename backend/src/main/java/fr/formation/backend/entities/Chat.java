@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+// Chat entity
 @Entity
 @Table(name = "chats")
 public class Chat {

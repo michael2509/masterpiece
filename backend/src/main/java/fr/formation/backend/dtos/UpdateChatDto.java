@@ -4,6 +4,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+// DTO to update chat
 public class UpdateChatDto {
 
     @NotBlank

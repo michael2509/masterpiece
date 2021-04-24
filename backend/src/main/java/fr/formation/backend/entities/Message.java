@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+// Message entity
 @Entity
 @Table(name = "messages")
 public class Message {

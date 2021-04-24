@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+// Speaker service
 @Service
 public class SpeakerServiceImpl implements SpeakerService {
 
@@ -39,8 +40,7 @@ public class SpeakerServiceImpl implements SpeakerService {
 
     @Override
     public boolean uniqueUsername(String username) {
-//        return username != null && !speakerRepository.existsByUserUsername(username);
-        return true;
+        return username != null && !speakerRepository.existsByUsername(username);
     }
 
     @Override

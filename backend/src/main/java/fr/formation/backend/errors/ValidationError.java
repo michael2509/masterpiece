@@ -1,5 +1,6 @@
 package fr.formation.backend.errors;
 
+// Validation error class
 public class ValidationError {
 
     private final String attribute;
