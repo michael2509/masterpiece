@@ -5,32 +5,14 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { makeStyles } from '@material-ui/core/styles';
 import { withFormik } from "formik";
 import * as Yup from "yup";
+import updateChatStyles from './updateChatStyles';
 
-const useStyles = makeStyles(theme => ({
-    chatNameInput: {
-        marginBottom: theme.spacing(4)
-    },
-    datePicker: {
-        width: 250,
-        marginBottom: theme.spacing(2)
-    },
-    fab: {
-        position: 'fixed',
-        bottom: theme.spacing(5),
-        right: theme.spacing(5),
-        textTransform: 'none'
-    },
-    extendedIcon: {
-        marginRight: theme.spacing(1),
-    }
-}));
-
+// Update Chat form component
 const UpdateChatForm = (props) => {
     
-    const classes = useStyles();
+    const classes = updateChatStyles();
 
     const {
         values,
@@ -77,6 +59,7 @@ const UpdateChatForm = (props) => {
     );
 }
 
+// Update chat form component with formik validation
 const UpdateChat = withFormik({
 
     enableReinitialize: true,

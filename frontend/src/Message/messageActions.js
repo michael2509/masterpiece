@@ -1,23 +1,20 @@
 import { ADD_MESSAGE, GET_MESSAGE_LIST } from "./messageActionsTypes"
 import axios from "axios";
 
+// Add message action
 export const addMessage = (senderName, text) => ({
     type: ADD_MESSAGE,
     senderName: senderName,
     text: text
 })
 
-export const sendMessage = (message, sockJsClient) => {
-    return () => {
-        sockJsClient.sendMessage('/app/user-all', JSON.stringify(message));
-    }
-}
-
+// Fetch messages actions
 export const fetchMessageList = (messageList) => ({
     type: GET_MESSAGE_LIST,
     messageList: messageList
 })
 
+// Format message list to keep only sender name and text
 const formatMessages = (messageList) => {
     const formattedMessageList = [];
 
@@ -35,6 +32,7 @@ const formatMessages = (messageList) => {
     return formattedMessageList;
 }
 
+// Get message list
 export const getMessageList = (chatId) => {
     return async (dispatch) => {
         try {

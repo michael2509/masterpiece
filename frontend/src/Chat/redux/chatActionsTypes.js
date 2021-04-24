@@ -1,3 +1,5 @@
+// Name of all chat actions
+
 export const GET_CHAT_PAGE_SUCCESS = "GET_CHAT_PAGE_SUCCESS"
 export const GET_CHAT_PAGE_ERROR = "GET_CHAT_PAGE_ERROR"
 

@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// Check access token in local storage to verify if the user is logged
 export function isLogged() {
     let logged = null;
     const access_token = getTokenFromLocalStorage("access_token");
@@ -9,6 +10,7 @@ export function isLogged() {
     return logged;
 }
 
+// Login function
 export async function login(username, password) {
         const clientId = process.env.REACT_APP_CLIENT_ID
         const grantType = process.env.REACT_APP_GRANT_TYPE
@@ -24,6 +26,7 @@ export async function login(username, password) {
         }
 }
 
+// Logout function
 export function logout() {
     localStorage.removeItem("access_token");
 }
@@ -40,6 +43,7 @@ function setTokenInLocalStorage(tokenKey, tokenValue, expiresIn) {
     localStorage.setItem(tokenKey, JSON.stringify(token))
 }
 
+// Retrieve token in local storage
 export function getTokenFromLocalStorage(tokenKey) {
 	const tokenStr = localStorage.getItem(tokenKey)
 	// if the item doesn't exist, return null
@@ -59,6 +63,7 @@ export function getTokenFromLocalStorage(tokenKey) {
 	return token.value
 }
 
+// Get speaker username
 export async function getUsername() {        
     try {
         const accessToken = getTokenFromLocalStorage("access_token")

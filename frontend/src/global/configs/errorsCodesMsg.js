@@ -1,3 +1,5 @@
+// Messages associated to validation error code
+
 const errorsCodesMsg = {
     NotBlank:"Ne doit pas être vide",
     NotNull:"Ne peut être nul",

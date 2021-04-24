@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import BackgroundImg from '../global/assets/img/audience.png';
 
+// Style for Home component
 const homeStyles = makeStyles((theme) => ({
 	grid: {
 		display: "flex",

@@ -1,5 +1,6 @@
 import buildErrorMsg from "./buildErrorMsg";
 
+// List server error from error response
 const listServerErrors = (status, data) => {
     const messages = [];
 

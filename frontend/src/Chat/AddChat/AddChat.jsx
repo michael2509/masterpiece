@@ -8,29 +8,11 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import { makeStyles } from '@material-ui/core/styles';
 import { withFormik } from "formik";
 import * as Yup from "yup";
+import addChatStyles from './addChatStyles';
 
-const useStyles = makeStyles(theme => ({
-    chatNameInput: {
-        marginBottom: theme.spacing(4)
-    },
-    datePicker: {
-        width: 250,
-        marginBottom: theme.spacing(2)
-    },
-    fab: {
-        position: 'fixed',
-        bottom: theme.spacing(5),
-        right: theme.spacing(5),
-        textTransform: 'none'
-    },
-    extendedIcon: {
-        marginRight: theme.spacing(1),
-    }
-}));
-
+// Add chat form component
 const AddChatForm = (props) => {
 
     const {
@@ -44,7 +26,7 @@ const AddChatForm = (props) => {
         setSubmitting
     } = props;        
 
-    const classes = useStyles();
+    const classes = addChatStyles();
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -99,6 +81,7 @@ const AddChatForm = (props) => {
     );
 }
 
+// add chat form component with formik validation
 const AddChat = withFormik({
     mapPropsToValues: ({
         name

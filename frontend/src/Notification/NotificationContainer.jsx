@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Notification from "./Notification";
 import { closeNotification } from './notificationActions';
 
+// Notification container to connect to app state using react
 class NotificationContainer extends Component {
 
     render() {
@@ -11,12 +12,14 @@ class NotificationContainer extends Component {
     }
 }
 
+// Part of the app state to retrieve
 const mapStateToProps = (state) => ({
     open: state.notification.open,
     message: state.notification.message,
     severity: state.notification.severity
 });
 
+// Actions to retrieve
 const mapDispatchToProps = (dispatch) => ({
     closeNotification: () => dispatch(closeNotification())
 })

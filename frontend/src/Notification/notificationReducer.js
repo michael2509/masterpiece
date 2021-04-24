@@ -1,11 +1,13 @@
 import { OPEN_NOTIFICATION, CLOSE_NOTIFICATION } from "./notificationActionsTypes";
 
+// Initial state for notification reducer
 const notificationInitialState = {
     open: false,
     message: null,
     severity: null
 }
 
+// Notification reducer
 export default function notificationReducer(state = notificationInitialState, action) {
     
     switch (action.type) {

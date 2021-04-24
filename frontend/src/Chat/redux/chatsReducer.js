@@ -1,5 +1,6 @@
 import { GET_CHAT_PAGE_SUCCESS, GET_CHAT_PAGE_ERROR, OPEN_UPDATE_CHAT, CLOSE_UPDATE_CHAT, FETCH_MORE_CHATS_SUCCESS, FETCH_MORE_CHATS_ERROR } from "./chatActionsTypes";
 
+// Initial state for chat reducer
 const initialState = {
     pageNumber: 0,
     totalPages: 0,
@@ -13,6 +14,7 @@ const initialState = {
     }
 }
 
+// Chat reducer
 export default function chatsReducer(state = initialState, action) {
     switch (action.type) {
         case GET_CHAT_PAGE_SUCCESS:

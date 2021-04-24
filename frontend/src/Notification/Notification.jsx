@@ -1,24 +1,12 @@
 import React, { Fragment } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import { makeStyles } from '@material-ui/core/styles';
+import notificationStyles from './notificationStyles';
 
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
-    '& > * + *': {
-      marginTop: theme.spacing(2),
-    },
-  },
-}));
-
+// Notification component
 const Notification = ({ open, closeNotification, message, severity }) => {
   
-  const classes = useStyles();
+  const classes = notificationStyles();
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -45,9 +33,9 @@ const Notification = ({ open, closeNotification, message, severity }) => {
     <div className={classes.root}>
       {message === null && severity === null ? null : (
         <Snackbar open={open} autoHideDuration={20000} onClose={handleClose}>
-          <Alert severity={severity} onClose={handleClose}>
+          <MuiAlert elevation={6} variant="filled" severity={severity} onClose={handleClose}>
               {msghtml}
-          </Alert>
+          </MuiAlert>
         </Snackbar>
       ) }
     </div>

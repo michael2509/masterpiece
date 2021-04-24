@@ -2,6 +2,7 @@ import React from "react";
 import "./PageNotFound.css";
 import { Link } from "react-router-dom";
 
+// page not found component
 const PageNotFound = () => (
     <div id="notfound">
 		<div className="notfound">

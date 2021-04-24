@@ -6,8 +6,10 @@ import NotificationContainer from '../Notification/NotificationContainer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Routes from './Routes';
 
+// configure redux store
 const store = configureStore();
 
+// App component
 const App = () => (
     <ReduxStoreProvider store={store}>
         <CssBaseline />

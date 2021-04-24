@@ -1,22 +1,10 @@
 import React, { Fragment } from "react";
-import Message from "./Message";
-import { List, makeStyles, Typography } from "@material-ui/core";
-
-
-const messageListStyle = makeStyles((theme) => ({
-	messageSection: {
-		margin: theme.spacing(2),
-	},
-	messagesTitle: {
-		marginTop: theme.spacing(4)
-	},
-	noMessageText: {
-		marginTop: theme.spacing(2)
-	}
-}));
+import Message from "../Message";
+import { List, Typography } from "@material-ui/core";
+import messageListStyles from './messageListStyles';
 
 const MessageList = ({ messages }) => {
-    const classes = messageListStyle();
+    const classes = messageListStyles();
 
     return (
         <div className={classes.messageSection}>

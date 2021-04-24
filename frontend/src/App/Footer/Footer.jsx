@@ -1,9 +1,10 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
+import footerStyles from './footerStyles';
 
+// Copyright section
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary">
@@ -17,17 +18,10 @@ function Copyright() {
     );
 }
 
-const useStyles = makeStyles(theme => ({
-    footer: {
-        textAlign: "center",
-        padding: theme.spacing(3, 2),
-        backgroundColor:
-            theme.palette.type === 'dark' ? theme.palette.grey[800] : theme.palette.grey[200],
-    },
-}));
 
+// Footer component
 export default function StickyFooter() {
-    const classes = useStyles();
+    const classes = footerStyles();
 
     return (
         <footer className={classes.footer}>

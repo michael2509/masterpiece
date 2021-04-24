@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
@@ -16,57 +15,16 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
 import { Link, withRouter } from 'react-router-dom';
-import "./Navbar.css";
 import { isLogged, logout } from '../../Auth/authService';
 import { Typography } from '@material-ui/core';
+import navbarStyles from './navbarStyles';
 
-const drawerWidth = 240;
-
-const useStyles = makeStyles(theme => ({
-    root: {
-        display: 'flex'
-    },
-    drawer: {
-        [theme.breakpoints.up('md')]: {
-            width: drawerWidth,
-            flexShrink: 0,
-        },
-    },
-    appBar: {
-        [theme.breakpoints.up('md')]: {
-            width: `100%`,
-            marginLeft: drawerWidth,
-        },
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-        [theme.breakpoints.up('md')]: {
-            display: 'none',
-        },
-    },
-    toolbar: theme.mixins.toolbar,
-    drawerPaper: {
-        width: drawerWidth,
-    },
-    content: {
-        flexGrow: 1,
-        padding: theme.spacing(3),
-    },
-    logoWrapper: {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center"
-    },
-    logo: {
-        height: 40
-    }
-}));
-
+// Navbar component
 function Navbar(props) {
     const { container, history, openNotification } = props;
-    const classes = useStyles();
+    const classes = navbarStyles();
     const theme = useTheme();
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -80,9 +38,11 @@ function Navbar(props) {
         history.push("/connexion");
     }
 
+    // Check if user is logged
     const logged = isLogged();
     let navLinks;
 
+    // Display different buttons in navbar if user is logged or not
     if (logged) {
         navLinks = [
             { title: 'chats', path: '/chats', icon: <MeetingRoomIcon /> },
@@ -95,10 +55,11 @@ function Navbar(props) {
         ]
     }
 
+    // Drawer for mobile menu
     const drawer = (
         <div>
-            <div className={`${classes.toolbar} drawerLogo ${classes.logoWrapper}`}>
-                <Link to="/" className="drawerLink">
+            <div className={`${classes.toolbar} ${classes.drawerLogo} ${classes.logoWrapper}`}>
+                <Link to="/" className={classes.drawerLink}>
                     <Typography>WeChat</Typography>
                 </Link>
             </div>
@@ -114,7 +75,7 @@ function Navbar(props) {
                         )
                     } else {
                         return(
-                            <Link to={path} className="drawerLink" key={index}>
+                            <Link to={path} className={classes.drawerLink} key={index}>
                                 <ListItem button>
                                         <ListItemIcon>{icon}</ListItemIcon>
                                         <ListItemText primary={title} />
@@ -141,7 +102,7 @@ function Navbar(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Link to="/" className="navbarLink">
+                    <Link to="/" className={classes.navbarLink}>
                         <Typography>WeChat</Typography>
                     </Link>
                     <Hidden smDown>
@@ -156,7 +117,7 @@ function Navbar(props) {
                                     )
                                 } else {
                                     return (
-                                        <Link to={path} className="navbarLink" key={index}>
+                                        <Link to={path} className={classes.navbarLink} key={index}>
                                             <ListItem button>
                                                 <ListItemText primary={title} />
                                             </ListItem>
@@ -191,13 +152,5 @@ function Navbar(props) {
         </div>
     );
 }
-
-Navbar.propTypes = {
-    /**
-     * Injected by the documentation to work in an iframe.
-     * You won't need it on your project.
-     */
-    container: PropTypes.instanceOf(typeof Element === 'undefined' ? Object : Element),
-};
 
 export default withRouter(Navbar);

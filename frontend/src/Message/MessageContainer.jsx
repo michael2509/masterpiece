@@ -1,13 +1,14 @@
 import React, { Component, Fragment, createRef } from "react";
 import { connect } from "react-redux";
-import MessageList from "./MessageList";
-import AddMessage from "./AddMessage";
+import MessageList from "./MessageList/MessageList";
+import AddMessage from "./AddMessage/AddMessage";
 import SockJsClient from 'react-stomp';
 import { addMessage, getMessageList } from "./messageActions";
 import listServerErrors from "../global/functions/listServerErrors";
 import { openNotification } from "../Notification/notificationActions";
 import { withRouter } from "react-router-dom";
 
+// Message container to connect to app state using redux
 class MessageContainer extends Component {
 
     constructor() {
@@ -71,11 +72,14 @@ class MessageContainer extends Component {
     }
 }
 
+// Part of the app state to retrieve
 const mapStateToProps = (state) => ({
     messages: state.messages,
     chat: state.SingleChat
 })
 
+
+// Actions to retrieve
 const mapDispatchToProps = (dispatch) => ({
     getMessageList: (chatId) => dispatch(getMessageList(chatId)),
     addMessage: (username, message) => dispatch(addMessage(username, message)),

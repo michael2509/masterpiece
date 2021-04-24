@@ -1,6 +1,7 @@
 // ES6 module syntax
 import LocalizedStrings from 'react-localization';
 
+// Inputs Labels names in multi languages
 let labels = new LocalizedStrings({
     en: {
         username: "username",

@@ -2,6 +2,7 @@ import axios from 'axios';
 import listServerErrors from "../../global/functions/listServerErrors";
 import { openNotification } from "../../Notification/notificationActions";
 
+// Action to create a new speaker
 export function createSpeaker(speaker) {
     
     return async (dispatch) => {

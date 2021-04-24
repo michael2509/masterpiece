@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { ListItemIcon, ListItemSecondaryAction, Menu, MenuItem, Typography } from "@material-ui/core";
 import { MoreVert } from "@material-ui/icons";
 
+// Chat item component
 const ChatItem = ({ chat, openUpdateChat, deleteChat }) => {
     const [menuEl, setMenuEl] = React.useState(null);
 

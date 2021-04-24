@@ -16,6 +16,7 @@ import { Link } from 'react-router-dom';
 import homeStyles from './homeStyles';
 import { getSingleChatByAccessCode } from '../Chat/SingleChat/singleChatActions';
 
+// Home content component
 function HomeContent(props) {
 	const classes = homeStyles();
 
@@ -85,6 +86,7 @@ function HomeContent(props) {
 	);
 }
 
+// Home Content component with formik validation
 const Home = withFormik({
 	mapPropsToValues: ({
 		code

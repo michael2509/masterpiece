@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import ChatList from './ChatList/ChatList';
-import AddChat from './ChatForms/AddChat';
+import AddChat from './AddChat/AddChat';
 import { createChat, deleteChat, getChatPage, openUpdateChat, closeUpdateChat, updateChat, fetchMoreChats } from "./redux/chatActions";
 import { connect } from "react-redux";
 import { isLogged } from '../Auth/authService';
-import UpdateChat from './ChatForms/UpdateChat';
+import UpdateChat from './UpdateChat/UpdateChat';
 import Container from '@material-ui/core/Container';
 
+// Chat container to connect to app state using redux
 class ChatsContainer extends Component {
 
     componentDidMount() {
@@ -33,8 +34,10 @@ class ChatsContainer extends Component {
     }
 }
 
+// Part of the app state to retrieve
 const mapStateToProps = (state) => ({ chatState: state.chats, navbarState: state.navbar });
 
+// Actions to retrieve
 const mapDispatchToProps = (dispatch) => ({
     createChat: (chat) => dispatch(createChat(chat)),
     updateChat: (chat) => dispatch(updateChat(chat)),

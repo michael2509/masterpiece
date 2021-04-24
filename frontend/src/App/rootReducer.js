@@ -3,6 +3,7 @@ import chatsReducer from "../Chat/redux/chatsReducer";
 import messagesReducer from "../Message/messagesReducer";
 import singleChatReducer from "../Chat/SingleChat/singleChatReducer";
 
+// Root reducer
 export function rootReducer(state = {}, action) {
     return {
         navbar: { height: 64 },

@@ -1,27 +1,11 @@
 import React, { Fragment } from "react";
 import Container from '@material-ui/core/Container';
 import { connect } from "react-redux";
-import { makeStyles } from "@material-ui/core";
+import authContainerStyles from './authContainerStyles';
 
-const useStyles = makeStyles(theme => ({
-    authContainer: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        textAlign: 'center',
-        width: "100%",
-        justifyContent: 'center',
-        [`${theme.breakpoints.down('sm')}`]: {
-            minHeight: "100vh !important"
-        },
-        [`${theme.breakpoints.down('sm')} and (orientation: landscape)`]: {
-            height: "auto !important"
-		}
-    }
-}));
-
+// Auth container to connect to app state using redux
 const AuthContainer = ({ children, maxWidth, navbarHeight }) => {
-    const classes = useStyles();
+    const classes = authContainerStyles();
 
     return (
         <Fragment>
@@ -32,7 +16,7 @@ const AuthContainer = ({ children, maxWidth, navbarHeight }) => {
         </Fragment>
     )
 }
-
+// part of the app state to retrieve
 const mapStateToProps = (state) => ({ navbarHeight: state.navbar.height })
 
 export default connect(mapStateToProps)(AuthContainer);
