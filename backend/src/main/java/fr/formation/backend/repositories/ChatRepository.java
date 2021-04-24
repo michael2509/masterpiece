@@ -9,4 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ChatRepository extends JpaRepository<Chat, Long> {
     Page<Chat> findBySpeakerIdOrderByCreationDateDesc(Long userId, Pageable pageable);
     Chat findByAccessCode(String accessCode);
+    Chat findFirstByOrderByIdDesc();
 }

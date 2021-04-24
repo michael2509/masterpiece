@@ -38,11 +38,12 @@ public class ChatServiceImpl implements ChatService {
         Speaker speaker = speakerRepository.findById(speakerId).get();
         // Set chat speaker
         chat.setSpeaker(speaker);
-        // Create chat access code
-        Long chatsTableSize = chatRepository.count();
-        String salt = String.valueOf(chatsTableSize);
+        // Create chat access code using id of the latest chat + 1 as salt
+        Chat latestChat = chatRepository.findFirstByOrderByIdDesc();
+        Long newChatId = latestChat.getId() + 1;
+        String salt = Long.toString(newChatId);
         Hashids hashids = new Hashids(salt, 4);
-        String accessCode = hashids.encode(chatsTableSize).toUpperCase();
+        String accessCode = hashids.encode(newChatId).toUpperCase();
         // Set chat access code
         chat.setAccessCode(accessCode);
         // Set chat creation date
