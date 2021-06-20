@@ -31,9 +31,8 @@ class SingleChatContainer extends Component {
     }
 
     render() {
-        const chatId = this.props.match.params.chatId
-
-        console.log(this.props.SingleChat);
+        const chatId = this.props.match.params.code
+        console.log(chatId);
 
         return (
             <Container component="main" maxWidth="md" style={{ minHeight: `calc(100vh - 150px)`, marginTop: 150}}>

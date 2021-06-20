@@ -16,7 +16,7 @@ export async function login(username, password) {
         const grantType = process.env.REACT_APP_GRANT_TYPE
       
         try {
-            const response = await axios.post(`http://localhost:8081/oauth/token?grant_type=${grantType}&username=${username}&password=${password}&client_id=${clientId}`)
+            const response = await axios.post(`/oauth/token?grant_type=${grantType}&username=${username}&password=${password}&client_id=${clientId}`)
             const accessToken = response.data.access_token
             const expiresIn = response.data.expires_in
             setTokenInLocalStorage("access_token", accessToken, expiresIn)
@@ -68,7 +68,7 @@ export async function getUsername() {
     try {
         const accessToken = getTokenFromLocalStorage("access_token")
         const response = await axios.get(
-            "http://localhost:8081/api/speakers/getusername",
+            "/api/speakers/getusername",
             { headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${accessToken}` } }
         )
         const username = response.data;

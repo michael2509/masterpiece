@@ -18,7 +18,7 @@ export function createChat(chat) {
             const accessToken = getTokenFromLocalStorage("access_token");
             // Request API to create the new chat
             await axios.post(
-                "http://localhost:8081/api/chats",
+                "/api/chats",
                 chatJson,
                 { headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${accessToken}` } }
             )
@@ -50,7 +50,7 @@ export function deleteChat(chatId) {
                     "Authorization": `Bearer ${accessToken}`
                 }
             }
-            await axios.delete(`http://localhost:8081/api/chats/${chatId}`, config);
+            await axios.delete(`/api/chats/${chatId}`, config);
             dispatch(openNotification("chat supprimé avec succès", "success"))
             dispatch(getChatPage(0))
             return true
@@ -89,7 +89,7 @@ export function getChatPage(pageNumber) {
                 }
             }
             const pageSize = 5;
-            const response = await axios.get(`http://localhost:8081/api/chats?page=${pageNumber}&size=${pageSize}`, config);
+            const response = await axios.get(`/api/chats?page=${pageNumber}&size=${pageSize}`, config);
             const chatPage = response.data.content;
             const totalPages = response.data.totalPages;
             const last = response.data.last
@@ -125,7 +125,7 @@ export function updateChat(chat) {
         try {
             const accessToken = getTokenFromLocalStorage("access_token");
             await axios.put(
-                `http://localhost:8081/api/chats/${chat.id}`,
+                `/api/chats/${chat.id}`,
                 chatJson,
                 { headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${accessToken}` } }
             )
@@ -172,7 +172,7 @@ export function fetchMoreChats(pageNumber) {
                 }
             }
             const pageSize = 5;
-            const response = await axios.get(`http://localhost:8081/api/chats?page=${pageNumber}&size=${pageSize}`, config);
+            const response = await axios.get(`/api/chats?page=${pageNumber}&size=${pageSize}`, config);
             const chatPage = response.data.content;
             const totalPages = response.data.totalPages;
             const last = response.data.last

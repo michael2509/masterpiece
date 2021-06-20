@@ -82,7 +82,7 @@ const CreateGuest = withFormik({
       try {
         // create guest user
         await axios.post(
-          "http://localhost:8081/api/guests",
+          "/api/guests",
           guestjson,
           { headers: { 'Content-Type': 'application/json' } }
         )

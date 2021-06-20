@@ -1,52 +1,56 @@
-USE masterpiece;
-
 -- empty all tables
-SET FOREIGN_KEY_CHECKS = 0;
 
-TRUNCATE TABLE chats;
-TRUNCATE TABLE messages;
-TRUNCATE TABLE speakers;
-TRUNCATE TABLE guests;
-
-SET FOREIGN_KEY_CHECKS = 1;
+TRUNCATE TABLE chats CASCADE;
+TRUNCATE TABLE messages CASCADE;
+TRUNCATE TABLE speakers CASCADE;
+TRUNCATE TABLE guests CASCADE;
 
 -- Insert Speaker
 -- clear password = Azerty1.
 -- encoded password = $2a$10$oxBw3r2s8rBunfgmCadFmeJCCVUNQdfhR/LT2pCUEShztbc9hZO7y
 INSERT INTO
-    speakers (`username`, `password`)
+    speakers (username, password)
 VALUES
-("Michael De Madet", "$2a$10$oxBw3r2s8rBunfgmCadFmeJCCVUNQdfhR/LT2pCUEShztbc9hZO7y");
-
--- Get Speaker id
-SET @speaker_id = (SELECT id FROM speakers s WHERE s.username = "Michael De Madet");
+('Michael De Madet', '$2a$10$oxBw3r2s8rBunfgmCadFmeJCCVUNQdfhR/LT2pCUEShztbc9hZO7y');
 
 -- Insert Chat
 INSERT INTO
-    chats (`name`, `access_code`, `speaker_id`, `creation_date`)
+    chats (name, access_code, speaker_id, creation_date)
 VALUES
-    ("First Chat", "ABCDE", @speaker_id, NOW());
-
--- Get Chat Id
-SET @chat_id = (SELECT id FROM chats c WHERE c.name = "First Chat");
+    (
+        'First Chat',
+        'ABCDE',
+        (SELECT id FROM speakers s where s.username = 'Michael De Madet'),
+        NOW()
+    );
 
 -- Insert Guest
 INSERT INTO
-    guests (`pseudo`, `chat_id`)
+    guests (pseudo, chat_id)
 VALUES
-    ("Bill Gates", @chat_id);
-
--- Get Guest
-SET @guest_id = (SELECT id FROM guests g WHERE g.pseudo = "Bill Gates");
+    (
+        'Bill Gates',
+        (SELECT id FROM chats c WHERE c.name = 'First Chat')
+    );
 
 -- Insert Message from speaker
 INSERT INTO
-    messages (`text`, `send_date`, `chat_id`, `speaker_id`)
+    messages (text, send_date, chat_id, speaker_id)
 VALUES
-    ("Hello from Michael", NOW(), @chat_id, @speaker_id);
+    (
+        'Hello from Michael',
+        NOW(),
+        (SELECT id FROM chats c WHERE c.name = 'First Chat'),
+        (SELECT id FROM speakers s where s.username = 'Michael De Madet')
+    );
 
 -- Insert Message from guest
 INSERT INTO
-    messages (`text`, `send_date`, `chat_id`, `guest_id`)
+    messages (text, send_date, chat_id, guest_id)
 VALUES
-    ("Hello from Bill", NOW(), @chat_id, @guest_id);
+    (
+        'Hello from Bill',
+        NOW(),
+        (SELECT id FROM chats c WHERE c.name = 'First Chat'),
+        (SELECT id FROM guests g WHERE g.pseudo = 'Bill Gates')
+    );

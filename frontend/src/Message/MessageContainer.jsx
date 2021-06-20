@@ -19,13 +19,14 @@ class MessageContainer extends Component {
     componentDidMount() {
         // Get chat's messages
         console.log("component did mount");
-        this.props.getMessageList(this.props.chat.id)
+        console.log(this.props);
+        this.props.getMessageList(this.props.chatId)
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.chat.id !== this.props.chat.id) {
+        if (prevProps.chatId !== this.props.chatId) {
             console.log("component did update");
-            this.props.getMessageList(this.props.chat.id);
+            this.props.getMessageList(this.props.chatId);
         }
     }
 
@@ -54,9 +55,9 @@ class MessageContainer extends Component {
         return (
             <Fragment>
                 <MessageList messages={this.props.messages} />
-                <AddMessage chatId={this.props.chat.id} senderName={this.props.chat.senderName} senderType={this.props.chat.senderType} sockJsClient={this.sockJsClient.current} />
+                <AddMessage chatId={this.props.chatId} senderName={this.props.chat.senderName} senderType={this.props.chat.senderType} sockJsClient={this.sockJsClient.current} />
                 <SockJsClient
-                    url='http://localhost:8081/websocket-chat/'
+                    url='/websocket-chat/'
                     topics={['/topic/user', "/user/queue/errors", "/user/queue/success"]}
                     onConnect={() => {
                         console.log("connected");

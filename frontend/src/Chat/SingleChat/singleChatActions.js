@@ -11,7 +11,7 @@ export const getSingleChat = (chatId) => {
 
     return async (dispatch) => {
         try {
-            const response = await axios.get(`http://localhost:8081/api/chats/${chatId}`);
+            const response = await axios.get(`/api/chats/${chatId}`);
             const chat = response.data
 
             console.log(chat);
@@ -35,7 +35,7 @@ export const getSingleChatByAccessCode = (chatCode) => {
 
     return async (dispatch) => {
         try {
-            const response = await axios.get(`http://localhost:8081/api/chats/getByAccessCode/${chatCode}`);
+            const response = await axios.get(`/api/chats/getByAccessCode/${chatCode}`);
             const chat = response.data
 
             console.log(chat);

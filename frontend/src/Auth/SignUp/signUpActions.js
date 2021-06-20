@@ -10,7 +10,7 @@ export function createSpeaker(speaker) {
         const speakerJson = JSON.stringify(speaker);
         
         try {
-            await axios.post('http://localhost:8081/api/speakers', speakerJson, { headers: { 'Content-Type': 'application/json' } })
+            await axios.post('/api/speakers', speakerJson, { headers: { 'Content-Type': 'application/json' } })
             dispatch(openNotification("Compte crée avec succès", "success"))
             return true
         }

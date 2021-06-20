@@ -36,7 +36,7 @@ const formatMessages = (messageList) => {
 export const getMessageList = (chatId) => {
     return async (dispatch) => {
         try {
-            const response = await axios.get(`http://localhost:8081/api/messages/chat/${chatId}`);
+            const response = await axios.get(`/api/messages/chat/${chatId}`);
             const messageList = response.data
             console.log(messageList);
             const formattedMsgList = formatMessages(messageList);
