@@ -41,7 +41,12 @@ public class ChatServiceImpl implements ChatService {
         chat.setSpeaker(speaker);
         // Create chat access code using id of the latest chat + 1 as salt
         Chat latestChat = chatRepository.findFirstByOrderByIdDesc();
-        Long newChatId = latestChat.getId() + 1;
+        Long newChatId = null;
+        if (latestChat == null) {
+            newChatId = Long.valueOf(1);
+        } else {
+            newChatId = latestChat.getId() + 1;
+        }
         String salt = Long.toString(newChatId);
         Hashids hashids = new Hashids(salt, 4);
         String accessCode = hashids.encode(newChatId).toUpperCase();
