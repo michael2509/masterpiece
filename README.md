@@ -1,12 +1,16 @@
-# masterpiece
+# WeChat Masterpiece
 
-Application d'aide conférencier, destinée à faciliter la communication entre le conférencier et les spectateurs.
-Permet aux personnes qui n'osent pas poser de questions en public de les poser via l'application.
-Les questions sont classées par appréciation pour permettre au conférenciers de sélectionner les questions les plus pertinentes.
-Fonctionnalité de sondage en temps réel.
+## Description de l'application
+Application de chat en temps réel, à utiliser pour les conférences et réunions.
 
+## Démo
+Application déployé sur la plateforme Heroku.
+Lien : https://wechat-masterpiece.herokuapp.com/
 
-Speaker assistant application, intended to facilitate communication between the speaker and spectators.
-Allows people who dare not to ask questions in public, to ask them through the application.
-The questions are sorted by rating to allow the speaker to select the most relevant questions.
-Other feature are real-time survey functionality.
+## Contexte
+Application réalisé par Michael De Madet, dans le cadre de la soutenance du titre professionnel Concepteur Développeur d'Application.
+
+Stack Technique utilisé :
+- React.js
+- Spring Framework
+- PostgreSQL
